@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout 
+  title="How It Works - Naor Yanko"
+  description="The process for getting your Base44 app unstuck: tell me the problem, I investigate, then we fix it."
+>
+  <Nav />
+  
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 sm:py-24">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+        How we get your app unstuck
+      </h1>
+      <p class="text-xl text-gray-600 mb-12 leading-relaxed max-w-3xl">
+        I don't do consultations or discovery calls. You tell me what's broken, I look at it, and if I can fix it we do that.
+      </p>
+
+      <div class="space-y-16">
+        <div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white font-bold text-lg">
+                1
+              </div>
+            </div>
+            <div class="ml-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-3">
+                Tell me what's happening
+              </h2>
+              <p class="text-gray-600 leading-relaxed mb-4">
+                Use the contact form and describe the problem. The more specific you are, the faster I can help:
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li>• What you were trying to do</li>
+                <li>• What actually happened</li>
+                <li>• Error messages if you have them</li>
+                <li>• Your app URL or Base44 project ID if relevant</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white font-bold text-lg">
+                2
+              </div>
+            </div>
+            <div class="ml-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-3">
+                I investigate
+              </h2>
+              <p class="text-gray-600 leading-relaxed mb-4">
+                I'll look at your build logs, entity schemas, connector configurations, DNS records, or whatever else is relevant. Most issues fall into a few categories:
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li>• Missing or misconfigured environment variables</li>
+                <li>• Schema mismatches between entities and queries</li>
+                <li>• DNS propagation delays or incorrect records</li>
+                <li>• API endpoint timeouts or CORS issues</li>
+                <li>• Asset path problems after deployment</li>
+              </ul>
+              <p class="text-gray-600 leading-relaxed mt-4">
+                I'll tell you what I find and whether I can fix it.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white font-bold text-lg">
+                3
+              </div>
+            </div>
+            <div class="ml-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-3">
+                We fix it
+              </h2>
+              <p class="text-gray-600 leading-relaxed">
+                If it's something you can do yourself, I'll give you clear instructions. If it needs access to your Base44 project, DNS provider, or hosting dashboard, we'll coordinate that. Most fixes take less than an hour once we know what the problem is.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6">
+        What I don't do
+      </h2>
+      <div class="space-y-4 text-gray-600 leading-relaxed max-w-3xl">
+        <p>
+          I don't build new features or redesign apps. I solve technical blockers that prevent you from shipping what you've already built.
+        </p>
+        <p>
+          I don't teach you how to use Base44 from scratch. If you're just getting started, <a href="https://fixthebase.com" class="underline hover:text-gray-900">FixTheBase</a> is a better place to start—it's a tool I built that helps you generate working Base44 entity schemas and queries.
+        </p>
+        <p>
+          I don't take equity, retainers, or ongoing support contracts. You have a problem, I help fix it, you pay me, we're done.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <div class="bg-gray-50 rounded-lg p-8 sm:p-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Ready to get unstuck?
+        </h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Tell me what's not working.
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800"
+        >
+          Contact me
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

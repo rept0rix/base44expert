@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout 
+  title="Base44 Custom Domain Setup - Get Your Domain Working"
+  description="Need help setting up a custom domain for your Base44 app? I'll help you configure DNS, fix SSL issues, and get your domain live."
+>
+  <Nav />
+  
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 sm:py-24">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+        Custom Domain Setup for Base44
+      </h1>
+      <p class="text-xl text-gray-600 leading-relaxed max-w-3xl">
+        Your app works on the Base44 URL but you need it on your own domain. Here's how to make that happen.
+      </p>
+    </section>
+
+    <section class="py-12 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        What you need to know
+      </h2>
+      <div class="space-y-8 max-w-3xl">
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            DNS records
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            You'll need to add DNS records at your domain registrar or DNS provider (Cloudflare, Namecheap, GoDaddy, etc.). Base44 will give you specific values to use, usually CNAME or A records. The tricky part is knowing which subdomain to use and whether to include the root domain.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            SSL certificates
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            Base44 handles SSL automatically once your DNS is pointing correctly. If you're seeing certificate errors, it usually means DNS isn't fully propagated yet, or there's a conflicting record somewhere. These errors can be confusing because they often show up before DNS has finished updating.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Propagation time
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            DNS changes can take anywhere from a few minutes to 48 hours to fully propagate. Most of the time it's under an hour, but if you're seeing inconsistent behavior—works sometimes but not others—it's probably still propagating. You can't speed this up, but you can check if your records are correct while you wait.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        Common domain issues
+      </h2>
+      <div class="space-y-12 max-w-3xl">
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            Domain not connecting
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            You added the DNS records but your domain still shows an error or doesn't load your app.
+          </p>
+          <p class="text-gray-600 font-medium mb-2">Check:</p>
+          <ul class="space-y-2 text-gray-600 ml-5">
+            <li>• Make sure you're adding the record to the right domain or subdomain.</li>
+            <li>• Verify the record type (A, CNAME, TXT) matches what Base44 told you to use.</li>
+            <li>• Check if there are conflicting records already there (old A records, redirect rules, etc.).</li>
+            <li>• Confirm you're not behind a proxy or firewall that's blocking the connection.</li>
+          </ul>
+          <p class="text-gray-600 leading-relaxed mt-3">
+            If everything looks right but it's still not working after a few hours, there's probably a configuration issue on the Base44 side or with your DNS provider's settings.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            SSL/HTTPS errors
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            Your domain loads but shows a certificate warning or refuses to connect over HTTPS.
+          </p>
+          <p class="text-gray-600 font-medium mb-2">Check:</p>
+          <ul class="space-y-2 text-gray-600 ml-5">
+            <li>• Give it time—SSL certificates are issued after DNS propagates, which can take an hour or more.</li>
+            <li>• Make sure your domain is actually pointing to Base44, not somewhere else.</li>
+            <li>• Check if you have any forced SSL redirects or HSTS policies that might be interfering.</li>
+            <li>• Look for mixed content warnings (HTTP resources loaded on an HTTPS page).</li>
+          </ul>
+          <p class="text-gray-600 leading-relaxed mt-3">
+            SSL issues are usually a waiting game, but if it's been more than 24 hours something is wrong.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            Subdomain vs. root domain
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            You're not sure whether to use <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">yourdomain.com</code> or <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">www.yourdomain.com</code> or <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">app.yourdomain.com</code>.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            It depends on what Base44 supports and what your DNS provider allows. Some DNS providers don't let you use CNAME records on the root domain. In that case you need an A record or a CNAME flattening service. I can help you figure out which approach works for your setup.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            Redirects not working
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            You want <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">yourdomain.com</code> to redirect to <code class="text-sm bg-gray-100 px-1 py-0.5 rounded">www.yourdomain.com</code> (or vice versa) but it's not happening.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            This usually needs to be set up in your DNS provider or hosting settings. Base44 might handle it automatically if both records are configured correctly, but not always. I can check your redirect rules and DNS setup to see what's missing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        When to get help
+      </h2>
+      <div class="max-w-3xl space-y-4 text-gray-600 leading-relaxed">
+        <p>
+          If you've set up the DNS records and waited a few hours but it's still not working, something is misconfigured. DNS and SSL issues can be frustrating to debug because the errors don't always tell you what's actually wrong.
+        </p>
+        <p>
+          I've set up custom domains for dozens of Base44 apps. I know what Base44 expects, what different DNS providers require, and how to spot the subtle misconfigurations that cause problems. If you're stuck, <a href="/contact" class="underline hover:text-gray-900">tell me what's happening</a> and I'll take a look at your setup.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <div class="bg-gray-50 rounded-lg p-8 sm:p-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Need help with your domain?
+        </h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Tell me what's not working and I'll help you get it configured.
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800"
+        >
+          Get help
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

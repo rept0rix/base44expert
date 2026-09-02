@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout 
+  title="Base44 Not Working - Troubleshooting Help"
+  description="Is Base44 not working? I help diagnose and fix publish failures, broken connectors, missing data, and other Base44 issues."
+>
+  <Nav />
+  
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 sm:py-24">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+        Base44 Not Working?
+      </h1>
+      <p class="text-xl text-gray-600 leading-relaxed max-w-3xl">
+        Here's what to check first, and when to get help.
+      </p>
+    </section>
+
+    <section class="py-12 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        Common issues and what to check
+      </h2>
+      <div class="space-y-12 max-w-3xl">
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            Publish fails or nothing happens
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            You click publish and either get an error or the publish seems to succeed but your changes don't appear.
+          </p>
+          <p class="text-gray-600 font-medium mb-2">Check first:</p>
+          <ul class="space-y-2 text-gray-600 ml-5">
+            <li>• Look at the build logs. Base44 usually shows them after a publish attempt.</li>
+            <li>• Make sure all required environment variables are set in your production environment.</li>
+            <li>• Clear your browser cache or open an incognito window to rule out caching.</li>
+            <li>• Check if your app is using the correct environment (prod vs. preview).</li>
+          </ul>
+          <p class="text-gray-600 leading-relaxed mt-3">
+            If none of that helps, there's likely an issue with your build process or schema validation.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            Data not showing up
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            Your entities exist in Base44 but the data doesn't appear in your app.
+          </p>
+          <p class="text-gray-600 font-medium mb-2">Check first:</p>
+          <ul class="space-y-2 text-gray-600 ml-5">
+            <li>• Verify your query is targeting the right entity and fields.</li>
+            <li>• Look for field name mismatches between your schema and your query.</li>
+            <li>• Check if there are any filters or conditions that might be excluding the data.</li>
+            <li>• Make sure the data actually exists in the environment you're viewing (prod vs. dev).</li>
+          </ul>
+          <p class="text-gray-600 leading-relaxed mt-3">
+            Entity schema mismatches are one of the most common Base44 issues. The generated schema might not match your actual data structure.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            Connectors failing
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            Your OAuth connector, API integration, or webhook isn't working.
+          </p>
+          <p class="text-gray-600 font-medium mb-2">Check first:</p>
+          <ul class="space-y-2 text-gray-600 ml-5">
+            <li>• Make sure your API credentials are correct and haven't expired.</li>
+            <li>• Check that your OAuth redirect URLs match what's registered with the provider.</li>
+            <li>• Look for rate limiting or quota errors in the connector logs.</li>
+            <li>• Verify the connector has the necessary permissions or scopes.</li>
+          </ul>
+          <p class="text-gray-600 leading-relaxed mt-3">
+            Connector errors are often cryptic. If the logs don't point to an obvious fix, it's worth having someone look at the full configuration.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            App works in preview but not production
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            Everything looks fine in preview mode, but production is broken or behaves differently.
+          </p>
+          <p class="text-gray-600 font-medium mb-2">Check first:</p>
+          <ul class="space-y-2 text-gray-600 ml-5">
+            <li>• Environment variables: preview and production often have different values.</li>
+            <li>• Asset paths: some paths work in preview but fail after deployment.</li>
+            <li>• Caching: production might be serving cached versions of your app or API responses.</li>
+            <li>• Database or data environment: make sure production is pointing to the right data source.</li>
+          </ul>
+          <p class="text-gray-600 leading-relaxed mt-3">
+            This kind of issue usually comes down to configuration differences between environments.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        When to get help
+      </h2>
+      <div class="max-w-3xl space-y-4 text-gray-600 leading-relaxed">
+        <p>
+          If you've checked the obvious things and it's still not working, don't spend days guessing. Most Base44 issues follow predictable patterns once you know what to look for.
+        </p>
+        <p>
+          I've debugged enough Base44 apps to recognize these patterns quickly. If you're stuck, <a href="/contact" class="underline hover:text-gray-900">tell me what's happening</a> and I'll take a look.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <div class="bg-gray-50 rounded-lg p-8 sm:p-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Still stuck?
+        </h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Tell me what's not working and I'll help you figure it out.
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800"
+        >
+          Get help now
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

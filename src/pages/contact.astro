@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout 
+  title="Contact - Get Help with Base44"
+  description="Tell me what's not working with your Base44 app and I'll help you fix it."
+>
+  <Nav />
+  
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 sm:py-24">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+          Get help with Base44
+        </h1>
+        <p class="text-xl text-gray-600 mb-12 leading-relaxed">
+          Tell me what's not working and I'll take a look. The more details you provide, the faster I can help.
+        </p>
+
+        <form 
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          class="space-y-6"
+        >
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-900 mb-2">
+              Your name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-900 mb-2">
+              Email address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-gray-900 mb-2">
+              What's not working?
+            </label>
+            <p class="text-sm text-gray-600 mb-2">
+              Include any error messages, your app URL, and what you were trying to do when the problem happened.
+            </p>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="8"
+              class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full sm:w-auto px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+          >
+            Send message
+          </button>
+        </form>
+
+        <div class="mt-12 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+          <p class="text-sm text-yellow-800">
+            <strong>Setup required:</strong> Replace <code class="bg-yellow-100 px-1 py-0.5 rounded">YOUR_FORM_ID</code> in the form action with your actual Formspree form ID, or use another form service like Getform. Alternatively, you can use a mailto link as a fallback.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <div class="max-w-2xl">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+          What to include
+        </h2>
+        <div class="space-y-4 text-gray-600 leading-relaxed">
+          <p>
+            The more specific you are, the faster I can diagnose the problem. Here's what helps:
+          </p>
+          <ul class="space-y-2 ml-5">
+            <li>• The exact error message if there is one</li>
+            <li>• Your Base44 app URL or project ID</li>
+            <li>• What you were doing when the problem happened</li>
+            <li>• Whether it's affecting publish, data display, connectors, or something else</li>
+            <li>• If it's a domain issue, include your domain name and DNS provider</li>
+          </ul>
+          <p class="mt-4">
+            I'll respond within 24 hours, usually faster.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

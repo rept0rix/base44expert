@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout 
+  title="Base44 Expert - Naor Yanko"
+  description="Need a Base44 expert? I help teams fix publish errors, set up custom domains, and solve production issues with Base44 apps."
+>
+  <Nav />
+  
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 sm:py-24">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+        Base44 Expert
+      </h1>
+      <div class="prose prose-lg max-w-3xl">
+        <p class="text-xl text-gray-600 leading-relaxed">
+          Base44 is powerful but it's not always obvious why something isn't working. I've spent enough time with it to recognize the patterns.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-12 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        What makes Base44 tricky
+      </h2>
+      <div class="space-y-8 max-w-3xl">
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Entity schemas
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            Base44 generates schemas from your descriptions, which is fast when it works. But when your data doesn't match what the schema expects, you get vague errors or silently missing records. I know how to read those schemas, find the mismatches, and fix them without rebuilding everything.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Connector configuration
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            OAuth flows, API credentials, webhook endpoints—Base44 connectors handle a lot behind the scenes. When they break, the errors don't always point to the actual problem. I've worked through enough failed connector setups to know where to look.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Deployment and publish
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            Your app works in preview mode but fails when you publish. Or it publishes but your changes don't appear. Usually it's caching, environment variables, or build step ordering. I'll check your build logs and configurations to isolate what's failing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        Why I focus on Base44
+      </h2>
+      <div class="max-w-3xl space-y-4 text-gray-600 leading-relaxed">
+        <p>
+          I built <a href="https://fixthebase.com" class="underline hover:text-gray-900">FixTheBase</a>, a tool that helps people generate working Base44 schemas and queries. While building it, I ran into every edge case and error message Base44 can throw. That's the expertise I bring when I help you debug your app.
+        </p>
+        <p>
+          Most developers use Base44 for one project and then move on. I've worked on dozens of Base44 apps, which means I've seen the same problems repeat. I know what's likely to be wrong before I even look at your logs.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8">
+        Common questions
+      </h2>
+      <div class="space-y-8 max-w-3xl">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Do you teach Base44?
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            No. If you're learning Base44, start with the documentation or use <a href="https://fixthebase.com" class="underline hover:text-gray-900">FixTheBase</a> to generate schemas. I help when you're stuck on a specific technical problem, not when you need training.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Can you build my Base44 app for me?
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            No. I solve blockers in apps you've already built. If you need someone to build the app, hire a developer. If your app is built but won't publish or go live, that's when I can help.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            How long does it take to fix an issue?
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            Most fixes take less than an hour once I know what the problem is. Diagnosis usually takes another hour or two depending on how complex your setup is. Some issues are faster—like DNS record mistakes—and some are slower if your schema needs restructuring.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <div class="bg-gray-50 rounded-lg p-8 sm:p-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Need Base44 expertise?
+        </h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Tell me what's blocking you and I'll take a look.
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800"
+        >
+          Get help
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

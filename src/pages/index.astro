@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout 
+  title="Naor Yanko - Base44 Specialist"
+  description="Get your Base44 app unstuck and shipped. I help teams solve publish errors, custom domain issues, and production blockers."
+>
+  <Nav />
+  
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 sm:py-24">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+          Your Base44 app is stuck. I get it unstuck.
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+          You built something in Base44. Now you need to publish it, connect a domain, or fix an error that doesn't make sense. That's what I do.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a 
+            href="/contact" 
+            class="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800"
+          >
+            Tell me what's broken
+          </a>
+          <a 
+            href="/work" 
+            class="inline-flex justify-center items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+          >
+            How it works
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <h2 class="text-3xl font-bold text-gray-900 mb-12">Problems I solve</h2>
+      <div class="space-y-12">
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Publish errors</h3>
+          <p class="text-gray-600 leading-relaxed">
+            You hit the publish button and got an error. Or it says it published but your changes aren't live. I'll look at your build logs, your entity schemas, and your connectors to find what's stopping it.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Custom domain setup</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Your app works on the Base44 URL but you need it on your domain. DNS records, SSL certificates, redirect chains—I'll map it out and get your domain pointing to the right place.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Entity schema issues</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Your data isn't showing up, or you're getting validation errors you can't trace. I work through your schema definitions and queries to figure out where the mismatch is.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Production blockers</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Something worked in preview but breaks in production. API calls timing out, assets not loading, forms not submitting—I'll dig into your logs and configurations to isolate the cause.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 border-t border-gray-200">
+      <div class="bg-gray-50 rounded-lg p-8 sm:p-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Need help with Base44?
+        </h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Tell me what's not working and I'll take a look.
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800"
+        >
+          Get in touch
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
