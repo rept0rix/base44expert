@@ -5,86 +5,127 @@ import Footer from '../components/Footer.astro'
 ---
 
 <Layout 
-  title="How It Works - Naor Yanko"
-  description="The process for getting your Base44 app unstuck: tell me the problem, I investigate, then we fix it."
+  title="Our Process - Base44 Expert"
+  description="How we unstick Base44 apps: you describe the problem, we investigate, then we fix it. No consultations or discovery calls."
 >
   <Nav />
   
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <section class="py-16 sm:py-24">
-      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-        How we get your app unstuck
-      </h1>
-      <p class="text-xl text-gray-600 mb-12 leading-relaxed max-w-3xl">
-        I don't do consultations or discovery calls. You tell me what's broken, I look at it, and if I can fix it we do that.
-      </p>
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-slate-50 to-white py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-6 text-balance">
+          How we get your app unstuck
+        </h1>
+        <p class="text-xl sm:text-2xl text-slate-600 mb-8 leading-relaxed max-w-3xl">
+          No consultations. No discovery calls. You describe what's broken, we investigate, and if we can fix it we do that.
+        </p>
+      </div>
+    </section>
 
-      <div class="space-y-16">
-        <div>
-          <div class="flex items-start">
+    <!-- Process Steps -->
+    <section class="section-padding bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="space-y-20">
+          <div class="flex flex-col md:flex-row gap-8">
             <div class="flex-shrink-0">
-              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white font-bold text-lg">
+              <div class="flex items-center justify-center h-16 w-16 rounded-xl bg-teal-700 text-white font-bold text-2xl shadow-lg shadow-teal-700/20">
                 1
               </div>
             </div>
-            <div class="ml-6">
-              <h2 class="text-2xl font-bold text-gray-900 mb-3">
-                Tell me what's happening
+            <div class="flex-1">
+              <h2 class="text-3xl font-bold text-slate-900 mb-4">
+                Tell us what's happening
               </h2>
-              <p class="text-gray-600 leading-relaxed mb-4">
-                Use the contact form and describe the problem. The more specific you are, the faster I can help:
+              <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                Use the contact form and describe the problem. The more specific you are, the faster we can help:
               </p>
-              <ul class="space-y-2 text-gray-600">
-                <li>• What you were trying to do</li>
-                <li>• What actually happened</li>
-                <li>• Error messages if you have them</li>
-                <li>• Your app URL or Base44 project ID if relevant</li>
-              </ul>
+              <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                <ul class="space-y-3 text-slate-700">
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span>What you were trying to do</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span>What actually happened</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Error messages if you have them</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Your app URL or Base44 project ID if relevant</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div>
-          <div class="flex items-start">
+          <div class="flex flex-col md:flex-row gap-8">
             <div class="flex-shrink-0">
-              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white font-bold text-lg">
+              <div class="flex items-center justify-center h-16 w-16 rounded-xl bg-teal-700 text-white font-bold text-2xl shadow-lg shadow-teal-700/20">
                 2
               </div>
             </div>
-            <div class="ml-6">
-              <h2 class="text-2xl font-bold text-gray-900 mb-3">
-                I investigate
+            <div class="flex-1">
+              <h2 class="text-3xl font-bold text-slate-900 mb-4">
+                We investigate
               </h2>
-              <p class="text-gray-600 leading-relaxed mb-4">
-                I'll look at your build logs, entity schemas, connector configurations, DNS records, or whatever else is relevant. Most issues fall into a few categories:
+              <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                We dig into build logs, entity schemas, connector configs, DNS records, or whatever else is relevant. Most issues fall into a few categories:
               </p>
-              <ul class="space-y-2 text-gray-600">
-                <li>• Missing or misconfigured environment variables</li>
-                <li>• Schema mismatches between entities and queries</li>
-                <li>• DNS propagation delays or incorrect records</li>
-                <li>• API endpoint timeouts or CORS issues</li>
-                <li>• Asset path problems after deployment</li>
-              </ul>
-              <p class="text-gray-600 leading-relaxed mt-4">
-                I'll tell you what I find and whether I can fix it.
+              <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                <ul class="space-y-3 text-slate-700">
+                  <li class="flex items-start gap-3">
+                    <span class="text-teal-700 font-bold">•</span>
+                    <span>Missing or misconfigured environment variables</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="text-teal-700 font-bold">•</span>
+                    <span>Schema mismatches between entities and queries</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="text-teal-700 font-bold">•</span>
+                    <span>DNS propagation delays or incorrect records</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="text-teal-700 font-bold">•</span>
+                    <span>API endpoint timeouts or CORS issues</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="text-teal-700 font-bold">•</span>
+                    <span>Asset path problems after deployment</span>
+                  </li>
+                </ul>
+              </div>
+              <p class="text-lg text-slate-600 leading-relaxed mt-6">
+                We tell you what we find and whether we can fix it.
               </p>
             </div>
           </div>
-        </div>
 
-        <div>
-          <div class="flex items-start">
+          <div class="flex flex-col md:flex-row gap-8">
             <div class="flex-shrink-0">
-              <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white font-bold text-lg">
+              <div class="flex items-center justify-center h-16 w-16 rounded-xl bg-teal-700 text-white font-bold text-2xl shadow-lg shadow-teal-700/20">
                 3
               </div>
             </div>
-            <div class="ml-6">
-              <h2 class="text-2xl font-bold text-gray-900 mb-3">
+            <div class="flex-1">
+              <h2 class="text-3xl font-bold text-slate-900 mb-4">
                 We fix it
               </h2>
-              <p class="text-gray-600 leading-relaxed">
-                If it's something you can do yourself, I'll give you clear instructions. If it needs access to your Base44 project, DNS provider, or hosting dashboard, we'll coordinate that. Most fixes take less than an hour once we know what the problem is.
+              <p class="text-lg text-slate-600 leading-relaxed">
+                If it's something you can do yourself, we give you clear instructions. If it needs access to your Base44 project, DNS provider, or hosting dashboard, we coordinate that. Most fixes take less than an hour once we know what the problem is.
               </p>
             </div>
           </div>
@@ -92,36 +133,43 @@ import Footer from '../components/Footer.astro'
       </div>
     </section>
 
-    <section class="py-16 border-t border-gray-200">
-      <h2 class="text-3xl font-bold text-gray-900 mb-6">
-        What I don't do
-      </h2>
-      <div class="space-y-4 text-gray-600 leading-relaxed max-w-3xl">
-        <p>
-          I don't build new features or redesign apps. I solve technical blockers that prevent you from shipping what you've already built.
-        </p>
-        <p>
-          I don't teach you how to use Base44 from scratch. If you're just getting started, <a href="https://fixthebase.com" class="underline hover:text-gray-900">FixTheBase</a> is a better place to start—it's a tool I built that helps you generate working Base44 entity schemas and queries.
-        </p>
-        <p>
-          I don't take equity, retainers, or ongoing support contracts. You have a problem, I help fix it, you pay me, we're done.
-        </p>
+    <!-- What We Don't Do -->
+    <section class="section-padding bg-slate-50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-8">
+          What we don't do
+        </h2>
+        <div class="space-y-6 text-lg text-slate-600 leading-relaxed">
+          <p>
+            We don't build new features or redesign apps. We solve technical blockers that prevent you from shipping what you've already built.
+          </p>
+          <p>
+            We don't teach you how to use Base44 from scratch. If you're just getting started, <a href="https://fixthebase.com" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline hover:text-teal-800">FixTheBase</a> is a better place to start—it's a tool we built that helps you generate working Base44 entity schemas and queries.
+          </p>
+          <p>
+            We don't take equity, retainers, or ongoing support contracts. You have a problem, we help fix it, you pay us, we're done.
+          </p>
+        </div>
       </div>
     </section>
 
-    <section class="py-16 border-t border-gray-200">
-      <div class="bg-gray-50 rounded-lg p-8 sm:p-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+    <!-- CTA Section -->
+    <section class="section-padding bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">
           Ready to get unstuck?
         </h2>
-        <p class="text-lg text-gray-600 mb-6">
-          Tell me what's not working.
+        <p class="text-xl text-slate-600 mb-8">
+          Tell us what's not working.
         </p>
         <a 
           href="/contact" 
-          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800"
+          class="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold rounded-lg text-white bg-teal-700 hover:bg-teal-800 transition-colors shadow-lg shadow-teal-700/20"
         >
-          Contact me
+          Contact us
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
         </a>
       </div>
     </section>

@@ -1,0 +1,10 @@
+<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logomark: Abstract "B44" geometric shape -->
+  <rect x="2" y="8" width="24" height="24" rx="4" fill="#0F766E"/>
+  <path d="M8 14h6v4h-6v-4zm8 0h6v4h-6v-4zm-8 6h6v4h-6v-4zm8 0h6v4h-6v-4z" fill="#14B8A6" opacity="0.8"/>
+  <text x="11" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="white">44</text>
+  
+  <!-- Wordmark -->
+  <text x="34" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#0F172A" letter-spacing="-0.02em">Base44</text>
+  <text x="34" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="#64748B" letter-spacing="0.05em">EXPERT</text>
+</svg>
