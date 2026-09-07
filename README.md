@@ -85,20 +85,8 @@ DNS propagation typically completes within 1-2 hours.
 
 ## Contact Form Setup
 
-The contact form uses a placeholder Formspree ID. To make it functional:
+The contact page uses `mailto:na0ryank0@gmail.com` (no Formspree placeholder). Update the address in `src/pages/contact.astro` if needed.
 
-### Option 1: Formspree (Recommended)
-
-1. Sign up at [formspree.io](https://formspree.io)
-2. Create a new form
-3. Copy your form ID
-4. Replace `YOUR_FORM_ID` in `/src/pages/contact.astro` with your actual form ID
-
-### Option 2: Getform
-
-1. Sign up at [getform.io](https://getform.io)
-2. Create a new form
-3. Replace the entire form action URL in `/src/pages/contact.astro`
 
 ## Site Structure
 
