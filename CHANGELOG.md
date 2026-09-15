@@ -1,7 +1,8 @@
 # Changelog
 
 ## [Unreleased]
-- (none)
+- Deduplicate Base44 product changelog RSS items on home/updates (same title/link repeating) — park until Naor approves **v0.3.1**
+- Sync note: PR #2 https://github.com/rept0rix/base44expert/pull/2 aligns git with live (merge when go)
 
 ## [v0.3.0] — 2026-09-15 (live)
 - Deploy: `dpl_BTQhSXGN1azupsdX748sWZsfbS7W` → aliases `www.base44expert.com`
@@ -10,7 +11,6 @@
 - Blog (4 posts), FAQ + FAQPage schema, `llms.txt`
 - Live Base44 changelog feed from official docs RSS
 - SEO / GEO / AIO + WCAG 2.2 AA baseline
-- Note: git main still may lag this file deploy; prefer sync via PR when Cursor on-demand is back
 
 ## [v0.2.1] — 2026-09-07
 - Contact: mailto `na0ryank0@gmail.com`, Formspree placeholder removed from git
