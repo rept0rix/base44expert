@@ -1,47 +1,71 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors */
-  --color-brand-teal-dark: #0F766E;
-  --color-brand-teal: #14B8A6;
-  --color-brand-teal-light: #5EEAD4;
-  --color-brand-slate: #0F172A;
-  --color-brand-slate-light: #1E293B;
-  --color-brand-gray: #64748B;
-  
-  /* Extended palette for UI */
-  --color-slate-50: #F8FAFC;
-  --color-slate-100: #F1F5F9;
-  --color-slate-200: #E2E8F0;
-  --color-slate-700: #334155;
-  --color-slate-800: #1E293B;
-  --color-slate-900: #0F172A;
-  
-  --color-teal-50: #F0FDFA;
-  --color-teal-100: #CCFBF1;
-  --color-teal-500: #14B8A6;
-  --color-teal-600: #0D9488;
-  --color-teal-700: #0F766E;
-  
-  /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  
-  /* Spacing scale */
+  --color-paper: #F4F1EA;
+  --color-ink: #0A0A0A;
+  --color-stone: #6B6459;
+  --color-line: #E7E2DA;
+  --color-mute: #6B6459;
+  --color-accent: #C23A2B;
+  --color-accent-hover: #A32F23;
+  --color-surface: #FFFCF7;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --spacing-section: 5rem;
   --spacing-section-sm: 3rem;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-mono);
     font-feature-settings: "kern" 1, "liga" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  /* Custom selection color */
+
   ::selection {
-    background-color: var(--color-brand-teal-light);
-    color: var(--color-brand-slate);
+    background-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
   }
 }
 
@@ -49,16 +73,121 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
   .section-padding {
     padding-top: var(--spacing-section-sm);
     padding-bottom: var(--spacing-section-sm);
   }
-  
+
   @media (min-width: 768px) {
     .section-padding {
       padding-top: var(--spacing-section);
       padding-bottom: var(--spacing-section);
     }
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    border: 1px solid var(--color-line);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-ink);
+    background: #fff;
+  }
+
+  .prose-studio {
+    max-width: 42rem;
+  }
+
+  .prose-studio p + p {
+    margin-top: 1rem;
+  }
+
+  .prose-studio a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .card-panel {
+    border: 1px solid var(--color-line);
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .label-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+  }
+}
+
+@layer base {
+  summary::-webkit-details-marker {
+    display: none;
   }
 }

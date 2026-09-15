@@ -1,150 +1,90 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import Nav from '../components/Nav.astro'
-import Footer from '../components/Footer.astro'
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://base44expert.com/contact' },
+  ],
+}
 ---
 
-<Layout 
-  title="Contact - Base44 Expert"
-  description="Tell us what's not working with your Base44 app and we'll help you fix it. Fast diagnostics and clear solutions."
+<Layout
+  title="Contact — Base44 Expert"
+  description="Email Base44 Expert about a stuck app. Mailto intake only — no Formspree. Prefer the structured diagnostic at /start."
+  jsonLd={breadcrumb}
 >
-  <Nav />
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-b from-slate-50 to-white py-16 sm:py-24">
+  <main id="main">
+    <section class="section-padding">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-6 text-balance">
-          Get help with Base44
-        </h1>
-        <p class="text-xl sm:text-2xl text-slate-600 mb-8 leading-relaxed">
-          Tell us what's not working and we'll take a look. The more details you provide, the faster we can help.
+        <p class="label-eyebrow mb-2">Contact</p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance">Email us what’s stuck</h1>
+        <p class="text-lg text-stone max-w-2xl leading-relaxed mb-10">
+          This opens your mail app to na0ryank0@gmail.com with your note filled in.
+          There is no form backend and no ticket portal. For a structured case, use
+          <a href="/start" class="underline underline-offset-2 text-ink">Start a diagnostic</a>.
         </p>
-      </div>
-    </section>
 
-    <!-- Form Section -->
-    <section class="section-padding bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <!-- Form -->
           <div class="lg:col-span-2">
-            <form 
-              action="mailto:na0ryank0@gmail.com" enctype="text/plain"
-              method="POST"
-              class="space-y-6"
-            >
+            <form id="contact-form" class="space-y-6">
               <div>
-                <label for="name" class="block text-sm font-semibold text-slate-900 mb-2">
-                  Your name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 focus:border-transparent transition-colors"
-                  placeholder="John Smith"
-                />
+                <label for="name" class="block text-sm font-medium text-ink mb-2">Your name</label>
+                <input type="text" id="name" name="name" required autocomplete="name"
+                  class="w-full px-4 py-3 border border-line rounded bg-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent" />
               </div>
-
               <div>
-                <label for="email" class="block text-sm font-semibold text-slate-900 mb-2">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 focus:border-transparent transition-colors"
-                  placeholder="john@company.com"
-                />
+                <label for="email" class="block text-sm font-medium text-ink mb-2">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email"
+                  class="w-full px-4 py-3 border border-line rounded bg-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent" />
               </div>
-
               <div>
-                <label for="message" class="block text-sm font-semibold text-slate-900 mb-2">
-                  What's not working?
-                </label>
-                <p class="text-sm text-slate-600 mb-3">
-                  Include error messages, your app URL, and what you were trying to do when the problem happened.
-                </p>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows="10"
-                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 focus:border-transparent transition-colors resize-y"
-                  placeholder="I'm trying to publish my Base44 app but getting an error: &#10;&#10;[paste error message here]&#10;&#10;My app URL: https://..."
-                ></textarea>
+                <label for="message" class="block text-sm font-medium text-ink mb-2">What’s not working?</label>
+                <p class="text-sm text-stone mb-2">Error text, app URL, and what you were doing. No passwords or API keys.</p>
+                <textarea id="message" name="message" required rows="10"
+                  class="w-full px-4 py-3 border border-line rounded bg-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent resize-y"
+                  placeholder="Publish said success but live is unchanged…"></textarea>
               </div>
-
-              <button
-                type="submit"
-                class="w-full sm:w-auto px-8 py-4 text-base font-semibold rounded-lg text-white bg-teal-700 hover:bg-teal-800 transition-colors shadow-lg shadow-teal-700/20"
-              >
-                Send message
-              </button>
+              <button type="submit" class="btn-primary">Open email to send</button>
             </form>
-</div>
-
-          <!-- Sidebar Tips -->
-          <div class="lg:col-span-1">
-            <div class="sticky top-24">
-              <h2 class="text-xl font-bold text-slate-900 mb-4">
-                What to include
-              </h2>
-              <div class="space-y-4 text-sm text-slate-600">
-                <p>
-                  The more specific you are, the faster we can diagnose the problem:
-                </p>
-                <ul class="space-y-3">
-                  <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    <span>The exact error message</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Your Base44 app URL or project ID</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    <span>What you were doing when it broke</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    <span>What type of issue: publish, data, connectors, domain</span>
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 text-teal-700 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    <span>For domain issues: your domain name and DNS provider</span>
-                  </li>
-                </ul>
-                <div class="pt-4 border-t border-slate-200">
-                  <p class="font-medium text-slate-900">
-                    Response time
-                  </p>
-                  <p class="mt-1">
-                    We respond within 24 hours, usually faster.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <p class="mt-4 text-sm text-stone">
+              Opens mail to
+              <a href="mailto:na0ryank0@gmail.com?subject=Base44%20help%20request" class="underline underline-offset-2 text-ink">na0ryank0@gmail.com</a>.
+            </p>
           </div>
+          <aside class="lg:col-span-1" aria-labelledby="include-heading">
+            <h2 id="include-heading" class="font-display text-xl text-ink mb-4">What helps</h2>
+            <ul class="space-y-3 text-sm text-stone">
+              <li>Exact error message</li>
+              <li>App URL or project id</li>
+              <li>Last change (AI edit, publish, DNS)</li>
+              <li>Type: publish, domain, data, production</li>
+              <li>For domains: registrar / Cloudflare proxy on or off</li>
+            </ul>
+            <p class="mt-6 text-sm text-stone border-t border-line pt-4">
+              Rule out platform outages at
+              <a href="https://status.base44.com" class="underline underline-offset-2 text-ink" rel="noopener noreferrer" target="_blank">status.base44.com</a>
+              and skim
+              <a href="https://docs.base44.com/Community-and-support/Troubleshooting" class="underline underline-offset-2 text-ink" rel="noopener noreferrer" target="_blank">official troubleshooting</a>.
+            </p>
+          </aside>
         </div>
       </div>
     </section>
   </main>
-
-  <Footer />
 </Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const name = (document.getElementById('name') as HTMLInputElement).value.trim()
+    const email = (document.getElementById('email') as HTMLInputElement).value.trim()
+    const message = (document.getElementById('message') as HTMLTextAreaElement).value.trim()
+    const subject = encodeURIComponent('Base44 help request')
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
+    window.location.href = `mailto:na0ryank0@gmail.com?subject=${subject}&body=${body}`
+  })
+</script>

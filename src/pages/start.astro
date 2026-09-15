@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Start', item: 'https://base44expert.com/start' },
+  ],
+}
+---
+
+<Layout
+  title="Start a diagnostic — Base44 Expert"
+  description="3–4 step Base44 diagnostic: problem type, app URL, error details, and your email. Opens mailto with a case id — no form backend."
+  jsonLd={breadcrumb}
+>
+  <main id="main">
+    <section class="section-padding">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="label-eyebrow mb-2">Lead intake</p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance">Start a Base44 diagnostic</h1>
+        <p class="text-stone leading-relaxed mb-10">
+          Answer a few questions. We generate a case id in your browser and open your email client to
+          <a class="underline underline-offset-2 text-ink" href="mailto:na0ryank0@gmail.com">na0ryank0@gmail.com</a>
+          with subject and body filled. Nothing is stored on a form server. Do not paste passwords or API keys.
+        </p>
+
+        <form id="diagnostic-form" class="space-y-8" novalidate>
+          <fieldset class="space-y-3">
+            <legend class="font-display text-xl text-ink mb-2">1. What kind of stuck?</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { v: 'publish', l: 'Publish / deploy' },
+                { v: 'domain', l: 'Custom domain / SSL' },
+                { v: 'data', l: 'Data / schema' },
+                { v: 'production', l: 'Preview vs production' },
+              ].map((o) => (
+                <label class="card-panel flex items-center gap-3 cursor-pointer has-[:checked]:border-ink">
+                  <input type="radio" name="type" value={o.v} required class="accent-[var(--color-accent)]" />
+                  <span class="text-sm text-ink">{o.l}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div>
+            <label for="appUrl" class="block font-display text-xl text-ink mb-2">2. App URL</label>
+            <p class="text-sm text-stone mb-2">Base44 URL or custom domain.</p>
+            <input
+              type="url"
+              id="appUrl"
+              name="appUrl"
+              required
+              autocomplete="url"
+              placeholder="https://your-app.base44.app"
+              class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+          </div>
+
+          <div>
+            <label for="errorText" class="block font-display text-xl text-ink mb-2">3. What went wrong?</label>
+            <p class="text-sm text-stone mb-2">Error text, last change, and what you expected.</p>
+            <textarea
+              id="errorText"
+              name="errorText"
+              required
+              rows="7"
+              class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent resize-y"
+              placeholder="Publish said success but live still shows the old version…"
+            ></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="name" class="block font-display text-xl text-ink mb-2">4. Your name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+            </div>
+            <div>
+              <label for="email" class="block font-display text-xl text-ink mb-2">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+            </div>
+          </div>
+
+          <p id="case-preview" class="text-xs text-stone font-mono hidden" aria-live="polite"></p>
+
+          <button type="submit" class="btn-primary w-full sm:w-auto">
+            Open email with this case
+          </button>
+          <p class="text-sm text-stone">
+            Prefer a short note? Use <a href="/contact" class="underline underline-offset-2 text-ink">contact</a>.
+            Platform down? Check <a href="https://status.base44.com" class="underline underline-offset-2 text-ink" rel="noopener noreferrer" target="_blank">status.base44.com</a> first.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  function caseId() {
+    const t = Date.now().toString(36).toUpperCase()
+    const r = Math.random().toString(36).slice(2, 6).toUpperCase()
+    return `B44-${t}-${r}`
+  }
+
+  const form = document.getElementById('diagnostic-form') as HTMLFormElement | null
+  const preview = document.getElementById('case-preview')
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault()
+    if (!form.checkValidity()) {
+      form.reportValidity()
+      return
+    }
+    const fd = new FormData(form)
+    const type = String(fd.get('type') || 'other')
+    const appUrl = String(fd.get('appUrl') || '').trim()
+    const errorText = String(fd.get('errorText') || '').trim()
+    const name = String(fd.get('name') || '').trim()
+    const email = String(fd.get('email') || '').trim()
+    const id = caseId()
+
+    if (preview) {
+      preview.textContent = `Case id: ${id}`
+      preview.classList.remove('hidden')
+    }
+
+    const subject = encodeURIComponent(`Base44 case — ${type}`)
+    const body = encodeURIComponent(
+      [
+        `Case id: ${id}`,
+        `Type: ${type}`,
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `App URL: ${appUrl}`,
+        '',
+        'What went wrong:',
+        errorText,
+        '',
+        '(Generated by base44expert.com/start — client-side case id, no form backend.)',
+      ].join('\n')
+    )
+    window.location.href = `mailto:na0ryank0@gmail.com?subject=${subject}&body=${body}`
+  })
+</script>

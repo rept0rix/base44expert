@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { getChangelogItems } from '../lib/changelog'
+
+const { items, fromRss, productPage, statusPage } = await getChangelogItems(12)
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Updates', item: 'https://base44expert.com/updates' },
+  ],
+}
+---
+
+<Layout
+  title="Base44 updates — Base44 Expert"
+  description="Mirrored Base44 product changelog items (RSS at build when available). Always links to the official changelog and status page. No invented headlines."
+  jsonLd={breadcrumb}
+>
+  <main id="main">
+    <section class="section-padding">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="label-eyebrow mb-2">Updates</p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4">Live Base44 product updates</h1>
+        <p class="text-stone leading-relaxed mb-8">
+          This page mirrors titles from the official Base44 product changelog
+          {fromRss ? ' fetched via RSS at build time' : ''}.
+          Base44 Expert does not publish Base44’s product notes. If fetch fails, we show a single honest link — never fake titles.
+        </p>
+        <p class="text-sm text-stone mb-8 flex flex-wrap gap-4">
+          <a class="underline underline-offset-2 text-ink" href={productPage} rel="noopener noreferrer" target="_blank">Official changelog</a>
+          <a class="underline underline-offset-2 text-ink" href="https://docs.base44.com/changelog/product/rss.xml" rel="noopener noreferrer" target="_blank">Product RSS</a>
+          <a class="underline underline-offset-2 text-ink" href={statusPage} rel="noopener noreferrer" target="_blank">Platform status</a>
+          <a class="underline underline-offset-2 text-ink" href="https://docs.base44.com/Community-and-support/Troubleshooting" rel="noopener noreferrer" target="_blank">Troubleshooting docs</a>
+        </p>
+
+        <ul class="divide-y divide-line border border-line rounded-lg bg-white overflow-hidden" role="list">
+          {items.map((item) => (
+            <li class="px-5 py-4">
+              <a href={item.link} class="text-ink font-medium hover:text-accent" rel="noopener noreferrer" target="_blank">
+                {item.title}
+              </a>
+              <p class="text-xs text-stone mt-1 font-mono">
+                Source: {item.source}{item.date ? ` · ${item.date}` : ''}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+</Layout>
