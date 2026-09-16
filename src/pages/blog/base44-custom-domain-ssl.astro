@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+const title = "Base44 custom domain SSL still pending"
+const description = "DNS, Cloudflare proxy, and certificate timing when Base44 custom domain SSL stays pending."
+const datePublished = "2026-09-03"
+const url = 'https://base44expert.com/blog/base44-custom-domain-ssl'
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    datePublished,
+    author: { '@type': 'Organization', name: 'Base44 Expert' },
+    publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://base44expert.com' },
+    mainEntityOfPage: url,
+    url,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://base44expert.com/blog' },
+      { '@type': 'ListItem', position: 3, name: title, item: url },
+    ],
+  },
+]
+---
+
+<Layout title={`${title} — Base44 Expert`} description={description} jsonLd={jsonLd}>
+  <main id="main">
+    <article class="section-padding">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="label-eyebrow mb-2">
+          <a href="/blog" class="underline underline-offset-2">Blog</a>
+          <span aria-hidden="true"> · </span>
+          <time datetime={datePublished}>{datePublished}</time>
+        </p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-8 text-balance">{title}</h1>
+        <div class="prose-studio text-stone leading-relaxed space-y-4">
+          <p>Your app works on the Base44 host. On your domain, SSL stays pending or the browser refuses the connection.</p>
+          <p>Usually the fault is DNS timing, a wrong record, or a CDN proxy (often Cloudflare orange-cloud) blocking certificate issuance. Fix DNS before republishing the app.</p>
+          <p>Follow Base44’s guide: <a href="https://docs.base44.com/Setting-up-your-app/Setting-up-your-custom-domain" rel="noopener noreferrer" target="_blank">Setting up your custom domain</a>. Our studio page <a href="/custom-domains">/custom-domains</a> lists what we check when docs alone are not enough.</p>
+          <p>For help isolating records and proxy state, start a diagnostic with type <strong>domain</strong>.</p>
+
+        </div>
+        <p class="mt-12 pt-8 border-t border-line">
+          <a href="/start" class="btn-primary">Start a diagnostic</a>
+        </p>
+      </div>
+    </article>
+  </main>
+</Layout>

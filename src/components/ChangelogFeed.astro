@@ -1,0 +1,58 @@
+---
+import { getChangelogItems } from '../lib/changelog'
+
+interface Props {
+  limit?: number
+  heading?: string
+  compact?: boolean
+}
+
+const { limit = 5, heading = 'Live Base44 updates', compact = false } = Astro.props
+const { items, fromRss, productPage, statusPage } = await getChangelogItems(limit)
+---
+
+<section class="section-padding border-t border-line" aria-labelledby="changelog-heading">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+      <div>
+        <p class="label-eyebrow mb-2">From Base44</p>
+        <h2 id="changelog-heading" class="text-3xl sm:text-4xl text-ink">{heading}</h2>
+      </div>
+      <p class="text-sm text-stone max-w-md">
+        Sourced from the official product changelog{fromRss ? ' (RSS at build time)' : ''}.
+        We do not invent headlines.
+        Check <a class="underline underline-offset-2 text-ink" href={statusPage} rel="noopener noreferrer" target="_blank">status.base44.com</a> if the platform itself is down.
+      </p>
+    </div>
+
+    <ul class="divide-y divide-line border border-line rounded-lg bg-white overflow-hidden" role="list">
+      {items.map((item) => (
+        <li class="px-5 py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
+          <div class="min-w-0">
+            <a
+              href={item.link}
+              class="text-ink font-medium hover:text-accent transition-colors"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {item.title}
+            </a>
+            <p class="text-xs text-stone mt-1">Source: {item.source}</p>
+          </div>
+          {item.date && (
+            <time class="text-xs text-stone font-mono shrink-0" datetime={item.date}>{item.date}</time>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    {!compact && (
+      <div class="mt-6 flex flex-wrap gap-4 text-sm">
+        <a href="/updates" class="text-ink underline underline-offset-2">All mirrored updates</a>
+        <a href={productPage} class="text-stone underline underline-offset-2" rel="noopener noreferrer" target="_blank">Official changelog</a>
+        <a href={statusPage} class="text-stone underline underline-offset-2" rel="noopener noreferrer" target="_blank">Platform status</a>
+        <a href="https://docs.base44.com/Community-and-support/Troubleshooting" class="text-stone underline underline-offset-2" rel="noopener noreferrer" target="_blank">Docs troubleshooting</a>
+      </div>
+    )}
+  </div>
+</section>

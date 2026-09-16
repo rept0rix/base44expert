@@ -83,9 +83,9 @@ DNS configuration:
 
 DNS propagation typically completes within 1-2 hours.
 
-## Contact Form Setup
+## Contact
 
-The contact page uses `mailto:na0ryank0@gmail.com` (no Formspree placeholder). Update the address in `src/pages/contact.astro` if needed.
+Contact uses mailto to `na0ryank0@gmail.com` (opens the visitor email app). No Formspree placeholder.
 
 
 ## Site Structure
