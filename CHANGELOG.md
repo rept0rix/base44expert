@@ -1,7 +1,9 @@
 # Changelog
 
 ## [Unreleased]
-- Deduplicate Base44 product changelog RSS items on home/updates (same title/link repeating) — park until Naor approves **v0.3.1**
+- Lead path: `/start` urgency field, sharper case subject, clearer “what we do / don’t” box (on PR branch — not live until merge + תעשה)
+- Draft outreach: `drafts/lead-outreach-base44-stuck.md` (not posted)
+- Deduplicate Base44 product changelog RSS items on home/updates — park until Naor approves **v0.3.1**
 - Sync note: PR #2 https://github.com/rept0rix/base44expert/pull/2 aligns git with live (merge when go)
 
 ## [v0.3.0] — 2026-09-15 (live)
