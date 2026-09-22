@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" role="img" aria-label="Five-step triage stack">
+  <rect width="640" height="280" rx="16" fill="#1A1816"/>
+  <g font-family="IBM Plex Mono, monospace" font-size="13">
+    <rect x="24" y="28" width="592" height="40" rx="10" fill="#0F0E0E" stroke="#FF6A00" stroke-width="1.5"/>
+    <text x="40" y="54" fill="#FF8F5C">1 · status.base44.com</text>
+    <rect x="24" y="80" width="592" height="40" rx="10" fill="#0F0E0E" stroke="#312F2F" stroke-width="1.5"/>
+    <text x="40" y="106" fill="#F9F7F4">2 · publish / live mismatch</text>
+    <rect x="24" y="132" width="592" height="40" rx="10" fill="#0F0E0E" stroke="#312F2F" stroke-width="1.5"/>
+    <text x="40" y="158" fill="#F9F7F4">3 · blank screen / last edit</text>
+    <rect x="24" y="184" width="592" height="40" rx="10" fill="#0F0E0E" stroke="#312F2F" stroke-width="1.5"/>
+    <text x="40" y="210" fill="#F9F7F4">4 · custom domain / SSL</text>
+    <rect x="24" y="236" width="592" height="28" rx="8" fill="rgba(255,106,0,0.1)"/>
+    <text x="40" y="255" fill="#8E8E8E">5 · data / schema last</text>
+  </g>
+</svg>

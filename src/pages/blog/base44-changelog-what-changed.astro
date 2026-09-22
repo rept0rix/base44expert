@@ -1,10 +1,53 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import FaqList from '../../components/FaqList.astro'
+import type { FaqItem } from '../../lib/faq'
 
-const title = "How to read the Base44 changelog when your app feels stuck"
-const description = "Use the official Base44 product changelog and RSS; never invent titles. Pair with status."
-const datePublished = "2026-09-04"
+const title = 'How to read Base44 updates when your app feels stuck'
+const description =
+  'Use official Base44 product and developer notes, pair them with status, and decide whether a platform change explains your stuck app.'
+const datePublished = '2026-09-04'
 const url = 'https://base44expert.com/blog/base44-changelog-what-changed'
+const hero = '/blog/hero-changelog.svg'
+const diagram = '/blog/diagram-updates.svg'
+
+const faqs: FaqItem[] = [
+  {
+    question: 'Where should I read Base44 product changes?',
+    answer:
+      'Start at the official <a href="https://docs.base44.com/changelog/product" rel="noopener noreferrer" target="_blank">product changelog</a>. For CLI and API notes, open the <a href="https://docs.base44.com/changelog/developers" rel="noopener noreferrer" target="_blank">developer changelog</a>.',
+  },
+  {
+    question: 'Why check status at the same time?',
+    answer:
+      'A changelog entry is not the same as an active incident. If Hosting or Builder is degraded on <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a>, wait before rewriting your app.',
+  },
+  {
+    question: 'How do I use updates during triage?',
+    answer:
+      'Skim recent product and developer notes for anything that touches publish, domains, data, or the builder. If nothing lines up, treat it as an app-level fault and keep isolating.',
+  },
+  {
+    question: 'What is on /updates on this site?',
+    answer:
+      '<a href="/updates">/updates</a> is a builder-facing view of recent official Base44 notes plus our own triage posts. It is not a substitute for the official docs pages.',
+  },
+  {
+    question: 'Should I assume a silent platform change broke my schema?',
+    answer:
+      'No. Confirm with the official changelog and status first. Guessing “they shipped something” without a source wastes the next hour.',
+  },
+]
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]+>/g, '') },
+  })),
+}
 
 const jsonLd = [
   {
@@ -13,6 +56,7 @@ const jsonLd = [
     headline: title,
     description,
     datePublished,
+    image: `https://base44expert.com${hero}`,
     author: { '@type': 'Organization', name: 'Base44 Expert' },
     publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://base44expert.com' },
     mainEntityOfPage: url,
@@ -27,6 +71,7 @@ const jsonLd = [
       { '@type': 'ListItem', position: 3, name: title, item: url },
     ],
   },
+  faqLd,
 ]
 ---
 
@@ -34,16 +79,36 @@ const jsonLd = [
   <main id="main">
     <article class="section-padding">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl text-ink mb-8 text-balance">{title}</h1>
-        <div class="prose-studio text-stone leading-relaxed space-y-4">
-          <p>When your app feels stuck after a platform change, read the official product changelog — do not invent what “must have shipped.”</p>
-          <p>Canonical sources: <a href="https://docs.base44.com/changelog/product" rel="noopener noreferrer" target="_blank">docs.base44.com/changelog/product</a> and its <a href="https://docs.base44.com/changelog/product/rss.xml" rel="noopener noreferrer" target="_blank">RSS feed</a>. Pair that with <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a>.</p>
-          <p>This studio mirrors titles at build time on <a href="/updates">/updates</a> and the homepage. If RSS cannot be fetched, we show an honest link — never fake headlines.</p>
-          <p>Changelog literacy is part of triage: know what Base44 changed before you assume your schema is haunted.</p>
+        <p class="font-mono text-xs text-muted mb-3">
+          <time datetime={datePublished}>{datePublished}</time>
+        </p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance">{title}</h1>
+        <img class="blog-hero" src={hero} alt="Product and developer Base44 update lanes for builders" width="960" height="540" />
 
+        <div class="prose-studio text-muted leading-relaxed space-y-4">
+          <p>
+            When an app feels stuck after “something changed,” read what Base44 actually published. Do not invent a phantom release note.
+          </p>
+          <img class="blog-diagram" src={diagram} alt="Changelog plus status feeding triage" width="640" height="200" loading="lazy" />
+          <h2 class="font-display text-2xl text-ink pt-2">A builder habit</h2>
+          <ol class="list-decimal list-inside space-y-2">
+            <li>Skim the <a href="https://docs.base44.com/changelog/product" rel="noopener noreferrer" target="_blank">product changelog</a> for builder-facing changes.</li>
+            <li>Check the <a href="https://docs.base44.com/changelog/developers" rel="noopener noreferrer" target="_blank">developer changelog</a> if you use CLI, branches, or APIs.</li>
+            <li>Open <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a> before you blame your schema.</li>
+            <li>Only then continue app-level triage on <a href="/base44-not-working">/base44-not-working</a>.</li>
+          </ol>
+          <p>
+            We keep a dense builder view on <a href="/updates">/updates</a>. Pair it with official docs — the source of truth stays with Base44.
+          </p>
         </div>
-        <p class="mt-12 pad-inset-md border-t border-line">
-          <a href="/start" class="btn-primary">Start a diagnostic</a>
+
+        <section class="mt-12" aria-labelledby="post-faq">
+          <h2 id="post-faq" class="font-display text-2xl sm:text-3xl text-ink mb-5">Questions &amp; answers</h2>
+          <FaqList items={faqs} idPrefix="chg" />
+        </section>
+
+        <p class="mt-12 pt-8 border-t border-line">
+          <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
         </p>
       </div>
     </article>

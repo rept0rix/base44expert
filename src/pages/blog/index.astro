@@ -7,24 +7,32 @@ const posts = [
     title: 'Base44 not working: a calm triage order',
     description: 'Status first, then publish, blank screen, domain, and schema.',
     date: '2026-09-01',
+    image: '/blog/hero-not-working.svg',
+    imageAlt: 'Triage ladder diagram',
   },
   {
     href: '/blog/base44-publish-error',
     title: 'When Base44 publish says success but live is unchanged',
-    description: 'Separate build failure, stale output, and wrong target.',
+    description: 'Separate build failure, stale output, and blank screens.',
     date: '2026-09-02',
+    image: '/blog/hero-publish-error.svg',
+    imageAlt: 'Publish success versus live unchanged',
   },
   {
     href: '/blog/base44-custom-domain-ssl',
     title: 'Base44 custom domain SSL still pending',
     description: 'DNS, Cloudflare proxy, and certificate timing.',
     date: '2026-09-03',
+    image: '/blog/hero-domain-ssl.svg',
+    imageAlt: 'DNS to certificate path',
   },
   {
     href: '/blog/base44-changelog-what-changed',
-    title: 'How to read the Base44 changelog when your app feels stuck',
-    description: 'Official product RSS, status, and what not to invent.',
+    title: 'How to read Base44 updates when your app feels stuck',
+    description: 'Official product and developer notes, paired with status.',
     date: '2026-09-04',
+    image: '/blog/hero-changelog.svg',
+    imageAlt: 'Product and developer update lanes',
   },
 ]
 
@@ -40,20 +48,25 @@ const breadcrumb = {
 
 <Layout
   title="Blog — Base44 Expert"
-  description="Notes on Base44 publish errors, custom domain SSL, triage order, and reading the official changelog."
+  description="Notes on Base44 publish errors, custom domain SSL, triage order, and reading official updates."
   jsonLd={breadcrumb}
 >
   <main id="main">
-    <section class="section-padding">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl text-ink mb-8">Notes from the studio</h1>
-        <ul class="space-y-4" role="list">
+    <section class="section-padding page-heat">
+      <div class="page-heat__glow" aria-hidden="true"></div>
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl sm:text-5xl text-ink mb-3">Notes from the studio</h1>
+        <p class="text-muted mb-10 max-w-xl leading-relaxed">
+          Practical triage for stuck Base44 apps — with diagrams, not vibes.
+        </p>
+        <ul class="space-y-5" role="list">
           {posts.map((p) => (
             <li>
-              <a href={p.href} class="card-panel block hover:border-ink">
-                <time class="font-mono text-xs text-stone" datetime={p.date}>{p.date}</time>
+              <a href={p.href} class="card-panel block hover:border-accent/50 transition-colors">
+                <img class="blog-card-thumb" src={p.image} alt={p.imageAlt} width="640" height="360" loading="lazy" />
+                <time class="font-mono text-xs text-muted" datetime={p.date}>{p.date}</time>
                 <h2 class="font-display text-2xl text-ink mt-2 mb-2">{p.title}</h2>
-                <p class="text-sm text-stone">{p.description}</p>
+                <p class="text-sm text-muted">{p.description}</p>
               </a>
             </li>
           ))}

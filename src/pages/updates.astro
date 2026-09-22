@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getChangelogItems, getStudioShipNotes } from '../lib/changelog'
+import { getChangelogItems, getStudioBlogNotes } from '../lib/changelog'
 
-const { items, fromRss, productPage, statusPage } = await getChangelogItems(12)
-const studioNotes = getStudioShipNotes(3)
+const { items, fromRss, productPage, statusPage } = await getChangelogItems(22)
+const studioPosts = getStudioBlogNotes()
 
 const breadcrumb = {
   '@context': 'https://schema.org',
@@ -13,36 +13,42 @@ const breadcrumb = {
     { '@type': 'ListItem', position: 2, name: 'Updates', item: 'https://base44expert.com/updates' },
   ],
 }
+
+function kindLabel(kind: string) {
+  return kind === 'developer' ? 'Developer' : 'Product'
+}
 ---
 
 <Layout
   title="Base44 updates — Base44 Expert"
-  description="Mirrored Base44 product changelog items (RSS at build when available). Always links to the official changelog and status page. No invented headlines."
+  description="What’s new in Base44 for builders — product and developer notes from the official changelog, plus studio triage posts."
   jsonLd={breadcrumb}
 >
   <main id="main">
-    <section class="section-padding">
+    <section class="section-padding page-heat">
+      <div class="page-heat__glow" aria-hidden="true"></div>
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl text-ink mb-4">Live Base44 product updates</h1>
+        <div class="flex flex-col sm:flex-row sm:items-end gap-6 mb-4">
+          <h1 class="text-4xl sm:text-5xl text-ink">What’s new in Base44</h1>
+          <img class="page-heat__viz shrink-0" src="/blog/hero-changelog.svg" alt="" width="240" height="135" />
+        </div>
         <p class="text-stone leading-relaxed mb-8">
-          This page mirrors feature headlines from the official Base44 product changelog
-          {fromRss ? ' fetched via RSS at build time' : ''}.
-          Real titles come from each entry’s content (the &lt;h3&gt;), not the date-only RSS title.
-          Base44 Expert does not invent Base44 product notes.
+          Fresh product and developer notes from Base44 — useful when you are shipping,
+          debugging publish, or checking whether a platform change explains a stuck app.
         </p>
         <p class="text-sm text-stone mb-8 flex flex-wrap gap-4">
           <a class="underline underline-offset-2 text-ink" href={productPage} rel="noopener noreferrer" target="_blank">Official changelog</a>
-          <a class="underline underline-offset-2 text-ink" href="https://docs.base44.com/changelog/product/rss.xml" rel="noopener noreferrer" target="_blank">Product RSS</a>
           <a class="underline underline-offset-2 text-ink" href={statusPage} rel="noopener noreferrer" target="_blank">Platform status</a>
           <a class="underline underline-offset-2 text-ink" href="https://docs.base44.com/Community-and-support/Troubleshooting" rel="noopener noreferrer" target="_blank">Troubleshooting docs</a>
         </p>
 
         {!fromRss && (
           <div class="mb-6 border border-line rounded-lg bg-bg-2 px-4 py-4 text-sm text-stone leading-relaxed">
-            <p class="font-medium text-ink mb-1">Changelog feed unavailable</p>
+            <p class="font-medium text-ink mb-1">Feed temporarily unavailable</p>
             <p>
-              We could not fetch the official RSS at build time, so there is nothing to mirror here.
-              Use the official changelog link above — we never invent Base44 headlines.
+              Browse the
+              <a class="underline underline-offset-2 text-ink" href={productPage} rel="noopener noreferrer" target="_blank">official Base44 changelog</a>
+              for the latest notes.
             </p>
           </div>
         )}
@@ -51,6 +57,9 @@ const breadcrumb = {
           {items.map((item) => (
             <li class="px-3 py-4">
               <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                <span class="inline-flex items-center rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-accent-2">
+                  {kindLabel(item.kind)}
+                </span>
                 {item.category && (
                   <span class="inline-flex items-center rounded-full border border-line px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted">
                     {item.category}
@@ -68,23 +77,25 @@ const breadcrumb = {
               {item.summary && (
                 <p class="text-sm text-stone mt-2 leading-relaxed">{item.summary}</p>
               )}
-              <p class="text-xs text-stone mt-2 font-mono">
-                Source: {item.source}
-              </p>
             </li>
           ))}
         </ul>
 
-        {studioNotes.length > 0 && (
+        {studioPosts.length > 0 && (
           <aside class="mt-12 border border-line rounded-lg bg-bg-2 pad-inset px-4 py-5" aria-labelledby="studio-notes-heading">
-            <p class="font-mono text-[10px] uppercase tracking-wider text-muted mb-2">Studio — Base44 Expert</p>
-            <h2 id="studio-notes-heading" class="text-xl text-ink mb-3">Our own ship notes</h2>
+            <p class="font-mono text-[10px] uppercase tracking-wider text-muted mb-2">From the studio</p>
+            <h2 id="studio-notes-heading" class="text-xl text-ink mb-3">Triage notes for builders</h2>
             <p class="text-sm text-stone mb-4">
-              Not Base44 product news — recent changes to this site (from our CHANGELOG).
+              Our own posts — not Base44 product announcements.
             </p>
-            <ul class="space-y-2 text-sm text-stone list-disc list-inside">
-              {studioNotes.map((note) => (
-                <li class="leading-relaxed">{note}</li>
+            <ul class="space-y-3">
+              {studioPosts.map((post) => (
+                <li>
+                  <a href={post.href} class="text-ink font-medium hover:text-accent underline-offset-2 hover:underline">
+                    {post.title}
+                  </a>
+                  <p class="text-sm text-stone mt-0.5">{post.blurb}</p>
+                </li>
               ))}
             </ul>
           </aside>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-label="DNS checklist before SSL">
+  <rect width="640" height="220" rx="16" fill="#1A1816"/>
+  <text x="32" y="48" fill="#FF8F5C" font-family="IBM Plex Mono, monospace" font-size="13">CHECKLIST</text>
+  <g font-family="IBM Plex Sans, sans-serif" font-size="16" fill="#F9F7F4">
+    <circle cx="40" cy="84" r="6" fill="#FF6A00"/>
+    <text x="60" y="90">Exact A / CNAME from Base44 docs</text>
+    <circle cx="40" cy="124" r="6" fill="#FF6A00"/>
+    <text x="60" y="130">Proxy off (grey cloud) until cert issues</text>
+    <circle cx="40" cy="164" r="6" fill="#FF6A00"/>
+    <text x="60" y="170">Wait for DNS propagation — then recheck SSL</text>
+  </g>
+</svg>

@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v0.4.2] — 2026-09-22
+- Home scrub / heat band: brighter lava (#FF6A00+), higher opacity, stronger glow, readable copy scrim — fixes “invisible” fault-line section
+- Site-wide motion + imagery: cursor heat trail + magnetic CTAs (reduced-motion safe); page-heat viz on start/work/updates/blog/keyword pages; reuse `/viz` + `/blog` SVGs
+- `/updates`: human intro (no RSS/h3/build-time meta); Product + Developer chips; denser dual-feed merge (~22 items, longer summaries); “From the studio” blog links
+- Blog: hero + diagram SVGs per post, index thumbnails, every post has FAQ (`FaqList`) + FAQPage JSON-LD; changelog post rewritten for builders (no scrape mechanics)
+- ChangelogFeed empty state: calm official link only
+
 ## [v0.4.1] — 2026-09-22
 - Updates feed: prefer first `<h3>` inside RSS `content:encoded` as title (RSS `<title>` is often just a date); strip HTML summary (~160 chars); parse category + guid; dedupe by guid
 - `/updates` + ChangelogFeed show real headline, summary, category chip, date; clear empty-state copy when RSS fallback

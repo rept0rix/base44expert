@@ -1,10 +1,53 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import FaqList from '../../components/FaqList.astro'
+import type { FaqItem } from '../../lib/faq'
 
-const title = "Base44 not working: a calm triage order"
-const description = "Status first, then publish, blank screen, domain, and schema when Base44 is not working."
-const datePublished = "2026-09-01"
+const title = 'Base44 not working: a calm triage order'
+const description =
+  'Status first, then publish, blank screen, domain, and schema when Base44 feels broken. Concrete steps, not panic rewrites.'
+const datePublished = '2026-09-01'
 const url = 'https://base44expert.com/blog/base44-not-working'
+const hero = '/blog/hero-not-working.svg'
+const diagram = '/blog/diagram-triage.svg'
+
+const faqs: FaqItem[] = [
+  {
+    question: 'Should I rebuild the app when Base44 feels broken?',
+    answer:
+      'Almost never as step one. Rebuilding burns credits and hides the real fault. Check <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status</a>, then isolate publish vs blank screen vs domain vs schema.',
+  },
+  {
+    question: 'What if status.base44.com shows everything green?',
+    answer:
+      'Green status rules out a platform-wide outage, not your app. Move to publish logs, the live URL vs preview, DNS/SSL, then entity data.',
+  },
+  {
+    question: 'Blank screen after an AI edit — where do I look?',
+    answer:
+      'Note the last prompt or change, open the browser console, and see whether preview and published URLs match. Rollback or undo the last edit before rewriting screens.',
+  },
+  {
+    question: 'When is it a custom domain problem instead?',
+    answer:
+      'If the Base44 host URL works and your domain does not (SSL pending, connection refused, wrong site), stop editing the app and fix DNS first. See <a href="/blog/base44-custom-domain-ssl">custom domain SSL</a>.',
+  },
+  {
+    question: 'What should I send in a diagnostic?',
+    answer:
+      'App URL, whether preview works, exact error text, last change, and screenshots of DNS or publish logs if you have them. Use <a href="/start">/start</a>.',
+  },
+]
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]+>/g, '') },
+  })),
+}
 
 const jsonLd = [
   {
@@ -13,6 +56,7 @@ const jsonLd = [
     headline: title,
     description,
     datePublished,
+    image: `https://base44expert.com${hero}`,
     author: { '@type': 'Organization', name: 'Base44 Expert' },
     publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://base44expert.com' },
     mainEntityOfPage: url,
@@ -27,6 +71,7 @@ const jsonLd = [
       { '@type': 'ListItem', position: 3, name: title, item: url },
     ],
   },
+  faqLd,
 ]
 ---
 
@@ -34,16 +79,45 @@ const jsonLd = [
   <main id="main">
     <article class="section-padding">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl text-ink mb-8 text-balance">{title}</h1>
-        <div class="prose-studio text-stone leading-relaxed space-y-4">
-          <p>When someone says “Base44 not working,” they usually mean one concrete stuck moment: publish failed, live output did not change, blank screen after an edit, domain pending, or data missing.</p>
-          <p>Start at <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a>. If Hosting or Builder is degraded, do not burn credits rewriting the app.</p>
-          <p>Next, separate publish problems from domain problems from schema problems. Our page on <a href="/base44-not-working">Base44 not working</a> lists that order. Official notes live in <a href="https://docs.base44.com/Community-and-support/Troubleshooting" rel="noopener noreferrer" target="_blank">docs troubleshooting</a>.</p>
-          <p>If you are past status and still stuck, <a href="/start">start a diagnostic</a> with the error text and app URL.</p>
+        <p class="font-mono text-xs text-muted mb-3">
+          <time datetime={datePublished}>{datePublished}</time>
+        </p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance">{title}</h1>
+        <img class="blog-hero" src={hero} alt="Triage ladder: status, publish, blank screen, domain, data" width="960" height="540" />
 
+        <div class="prose-studio text-muted leading-relaxed space-y-4">
+          <p>
+            “Base44 not working” almost always means one stuck moment: publish failed, live did not change, blank screen after an edit, domain pending, or data missing. Treat it as a triage, not a rewrite.
+          </p>
+          <p>
+            Open <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a> first. If Hosting or Builder is degraded, wait. Burning generation credits on a platform incident wastes money and time.
+          </p>
+          <img class="blog-diagram" src={diagram} alt="Five-step triage stack from status to schema" width="640" height="280" loading="lazy" />
+          <h2 class="font-display text-2xl text-ink pt-2">Concrete order</h2>
+          <ol class="list-decimal list-inside space-y-2 text-muted">
+            <li><strong class="text-ink">Status</strong> — confirm Builder / Hosting are healthy.</li>
+            <li><strong class="text-ink">Publish</strong> — did the job fail, or succeed with stale live output?</li>
+            <li><strong class="text-ink">Blank screen</strong> — last edit, console error, preview vs published.</li>
+            <li><strong class="text-ink">Domain</strong> — host URL works, custom domain does not → DNS/SSL.</li>
+            <li><strong class="text-ink">Schema / data</strong> — entities, permissions, empty queries last.</li>
+          </ol>
+          <p>
+            Official troubleshooting lives in
+            <a href="https://docs.base44.com/Community-and-support/Troubleshooting" rel="noopener noreferrer" target="_blank">Base44 docs</a>.
+            Our studio page <a href="/base44-not-working">/base44-not-working</a> is the short version of this order.
+          </p>
+          <p>
+            Past status and still stuck? <a href="/start">Start a diagnostic</a> with the error text and app URL. We isolate one fault line — we do not invent incident queues.
+          </p>
         </div>
-        <p class="mt-12 pad-inset-md border-t border-line">
-          <a href="/start" class="btn-primary">Start a diagnostic</a>
+
+        <section class="mt-12" aria-labelledby="post-faq">
+          <h2 id="post-faq" class="font-display text-2xl sm:text-3xl text-ink mb-5">Questions &amp; answers</h2>
+          <FaqList items={faqs} idPrefix="nw" />
+        </section>
+
+        <p class="mt-12 pt-8 border-t border-line">
+          <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
         </p>
       </div>
     </article>

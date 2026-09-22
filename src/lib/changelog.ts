@@ -1,32 +1,40 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+export type ChangelogKind = 'product' | 'developer'
+
 export type ChangelogItem = {
   title: string
   date: string
   link: string
   source: string
+  kind: ChangelogKind
   category?: string
   summary?: string
   guid?: string
-  /** RSS <title> when it looks like a date (e.g. "September 17, 2026") */
+  /** Display date from RSS <title> when it looks like a date label */
   dateLabel?: string
 }
 
 const PRODUCT_RSS = 'https://docs.base44.com/changelog/product/rss.xml'
 const PRODUCT_RSS_ALT = 'https://base44.com/changelog/product/rss.xml'
+const DEVELOPER_RSS = 'https://docs.base44.com/changelog/developers/rss.xml'
 const PRODUCT_PAGE = 'https://docs.base44.com/changelog/product'
+const DEVELOPER_PAGE = 'https://docs.base44.com/changelog/developers'
 const STATUS_PAGE = 'https://status.base44.com'
 
-/** Honest fallback: never invent Base44 changelog headlines. */
+const SUMMARY_MAX = 300
+
+/** Honest fallback shown when feeds are unavailable — calm copy, no fetch jargon. */
 const FALLBACK_ITEMS: ChangelogItem[] = [
   {
     title: 'See the official Base44 product changelog',
     date: '',
     link: PRODUCT_PAGE,
     source: 'Base44 Product Changelog',
+    kind: 'product',
     summary:
-      'RSS was unavailable at build time. Open the official changelog for real feature notes — we never invent Base44 headlines.',
+      'Open the official changelog for current feature notes from Base44. Pair it with platform status if something feels off.',
   },
 ]
 
@@ -92,21 +100,22 @@ function looksLikeDateTitle(title: string): boolean {
   return false
 }
 
-function summarizeAfterH3(html: string, maxLen = 160): string {
+function summarizeAfterH3(html: string, maxLen = SUMMARY_MAX): string {
   const withoutH3 = html.replace(/<h3[^>]*>[\s\S]*?<\/h3>/i, ' ')
   const text = stripHtml(withoutH3)
   if (!text) return ''
   if (text.length <= maxLen) return text
   const cut = text.slice(0, maxLen)
   const lastSpace = cut.lastIndexOf(' ')
-  const trimmed = lastSpace > 80 ? cut.slice(0, lastSpace) : cut
+  const trimmed = lastSpace > 100 ? cut.slice(0, lastSpace) : cut
   return `${trimmed.replace(/[.,;:\s]+$/, '')}…`
 }
 
-function parseRssItems(xml: string): ChangelogItem[] {
+function parseRssItems(xml: string, kind: ChangelogKind): ChangelogItem[] {
   const items: ChangelogItem[] = []
-  const seen = new Set<string>()
   const itemBlocks = xml.match(/<item[\s\S]*?<\/item>/gi) ?? []
+  const source =
+    kind === 'developer' ? 'Base44 Developer Changelog' : 'Base44 Product Changelog'
 
   for (const block of itemBlocks) {
     const rssTitle = tagText(block, 'title')
@@ -120,10 +129,6 @@ function parseRssItems(xml: string): ChangelogItem[] {
     const dateAsLabel = Boolean(rssTitle && looksLikeDateTitle(rssTitle))
     const title = h3Title || rssTitle
     if (!title || !link) continue
-
-    const dedupeKey = guid || `${link}::${title}`
-    if (seen.has(dedupeKey)) continue
-    seen.add(dedupeKey)
 
     let date = ''
     if (pubDateRaw) {
@@ -139,7 +144,8 @@ function parseRssItems(xml: string): ChangelogItem[] {
       title,
       date,
       link,
-      source: 'Base44 Product Changelog',
+      source,
+      kind,
       category,
       summary: summary || undefined,
       guid,
@@ -167,24 +173,50 @@ async function tryFetchRss(url: string): Promise<string | null> {
   }
 }
 
+function dedupeMerge(all: ChangelogItem[]): ChangelogItem[] {
+  const seen = new Set<string>()
+  const out: ChangelogItem[] = []
+  for (const item of all) {
+    const key = item.guid || item.link
+    if (seen.has(key)) continue
+    seen.add(key)
+    out.push(item)
+  }
+  out.sort((a, b) => {
+    const da = a.date || ''
+    const db = b.date || ''
+    if (da !== db) return db.localeCompare(da)
+    return a.title.localeCompare(b.title)
+  })
+  return out
+}
+
 export async function getChangelogItems(limit = 6): Promise<{
   items: ChangelogItem[]
   fromRss: boolean
   productPage: string
+  developerPage: string
   statusPage: string
 }> {
-  const xml =
-    (await tryFetchRss(PRODUCT_RSS)) ?? (await tryFetchRss(PRODUCT_RSS_ALT))
+  const [productXml, productAltXml, developerXml] = await Promise.all([
+    tryFetchRss(PRODUCT_RSS),
+    tryFetchRss(PRODUCT_RSS_ALT),
+    tryFetchRss(DEVELOPER_RSS),
+  ])
 
-  if (xml) {
-    const parsed = parseRssItems(xml).slice(0, limit)
-    if (parsed.length > 0) {
-      return {
-        items: parsed,
-        fromRss: true,
-        productPage: PRODUCT_PAGE,
-        statusPage: STATUS_PAGE,
-      }
+  const productFeed = productXml ?? productAltXml
+  const parsed: ChangelogItem[] = []
+  if (productFeed) parsed.push(...parseRssItems(productFeed, 'product'))
+  if (developerXml) parsed.push(...parseRssItems(developerXml, 'developer'))
+
+  const merged = dedupeMerge(parsed)
+  if (merged.length > 0) {
+    return {
+      items: merged.slice(0, limit),
+      fromRss: true,
+      productPage: PRODUCT_PAGE,
+      developerPage: DEVELOPER_PAGE,
+      statusPage: STATUS_PAGE,
     }
   }
 
@@ -192,6 +224,7 @@ export async function getChangelogItems(limit = 6): Promise<{
     items: FALLBACK_ITEMS,
     fromRss: false,
     productPage: PRODUCT_PAGE,
+    developerPage: DEVELOPER_PAGE,
     statusPage: STATUS_PAGE,
   }
 }
@@ -217,4 +250,30 @@ export function getStudioShipNotes(limit = 3): string[] {
   }
 }
 
-export { PRODUCT_PAGE, STATUS_PAGE }
+/** Studio blog posts for “From the studio” (not CHANGELOG ship notes). */
+export function getStudioBlogNotes(): { href: string; title: string; blurb: string }[] {
+  return [
+    {
+      href: '/blog/base44-not-working',
+      title: 'Base44 not working: a calm triage order',
+      blurb: 'Status first, then publish, blank screen, domain, schema.',
+    },
+    {
+      href: '/blog/base44-publish-error',
+      title: 'When publish says success but live is unchanged',
+      blurb: 'Split build failure from stale output and wrong target.',
+    },
+    {
+      href: '/blog/base44-custom-domain-ssl',
+      title: 'Custom domain SSL still pending',
+      blurb: 'DNS, Cloudflare proxy, and certificate timing.',
+    },
+    {
+      href: '/blog/base44-changelog-what-changed',
+      title: 'Reading Base44 updates as a builder',
+      blurb: 'Official product and developer notes, paired with status.',
+    },
+  ]
+}
+
+export { PRODUCT_PAGE, DEVELOPER_PAGE, STATUS_PAGE }

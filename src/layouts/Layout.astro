@@ -67,5 +67,45 @@ const ogURL = new URL(ogImage, Astro.site).toString()
       <slot />
     </div>
     {showFooter && <Footer />}
+
+    <div class="cursor-heat" id="cursor-heat" aria-hidden="true"></div>
+    <script is:inline>
+      (() => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const fine = window.matchMedia('(pointer: fine)').matches;
+        if (reduce || !fine) return;
+
+        const heat = document.getElementById('cursor-heat');
+        if (heat) {
+          let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
+          const tick = () => {
+            x += (tx - x) * 0.18;
+            y += (ty - y) * 0.18;
+            heat.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            raf = requestAnimationFrame(tick);
+          };
+          window.addEventListener('pointermove', (e) => {
+            tx = e.clientX;
+            ty = e.clientY;
+            heat.classList.add('is-live');
+            if (!raf) raf = requestAnimationFrame(tick);
+          }, { passive: true });
+          window.addEventListener('pointerleave', () => heat.classList.remove('is-live'), { passive: true });
+        }
+
+        document.querySelectorAll('.magnetic').forEach((el) => {
+          const strength = 18;
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            const dx = e.clientX - (r.left + r.width / 2);
+            const dy = e.clientY - (r.top + r.height / 2);
+            el.style.transform = `translate(${dx / strength}px, ${dy / strength}px)`;
+          });
+          el.addEventListener('pointerleave', () => {
+            el.style.transform = '';
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

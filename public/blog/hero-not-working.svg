@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Calm triage ladder for a stuck Base44 app">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F0E0E"/>
+      <stop offset="100%" stop-color="#1A1816"/>
+    </linearGradient>
+    <linearGradient id="lava" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF8F5C"/>
+      <stop offset="100%" stop-color="#FF6A00"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"/>
+  <circle cx="820" cy="80" r="120" fill="#FF6A00" opacity="0.08"/>
+  <circle cx="120" cy="460" r="90" fill="#FF6A00" opacity="0.06"/>
+  <text x="64" y="72" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="0.12em">TRIAGE ORDER</text>
+  <text x="64" y="120" fill="#F9F7F4" font-family="Syne, sans-serif" font-size="42" font-weight="800">Status → Publish → Screen → Domain → Data</text>
+  <g font-family="IBM Plex Sans, sans-serif" font-size="18">
+    <rect x="64" y="180" width="200" height="72" rx="14" fill="#1A1816" stroke="#312F2F" stroke-width="2"/>
+    <text x="164" y="224" text-anchor="middle" fill="#F9F7F4" font-family="Syne, sans-serif" font-weight="700">1 Status</text>
+    <path d="M274 216 H310" stroke="#FF6A00" stroke-width="3" stroke-linecap="round"/>
+    <rect x="320" y="180" width="200" height="72" rx="14" fill="#1A1816" stroke="#FF6A00" stroke-width="2"/>
+    <text x="420" y="224" text-anchor="middle" fill="#FF8F5C" font-family="Syne, sans-serif" font-weight="700">2 Publish</text>
+    <path d="M530 216 H566" stroke="#FF6A00" stroke-width="3" stroke-linecap="round"/>
+    <rect x="576" y="180" width="200" height="72" rx="14" fill="#1A1816" stroke="#312F2F" stroke-width="2"/>
+    <text x="676" y="224" text-anchor="middle" fill="#F9F7F4" font-family="Syne, sans-serif" font-weight="700">3 Blank</text>
+  </g>
+  <g>
+    <rect x="64" y="300" width="832" height="160" rx="18" fill="#0F0E0E" stroke="#312F2F" stroke-width="2"/>
+    <rect x="96" y="336" width="160" height="88" rx="12" fill="rgba(255,106,0,0.08)" stroke="#FF6A00" stroke-width="2"/>
+    <text x="176" y="388" text-anchor="middle" fill="#FF8F5C" font-family="IBM Plex Mono, monospace" font-size="16">domain</text>
+    <path d="M268 380 H320" stroke="#FF6A00" stroke-width="2.5" stroke-dasharray="6 5"/>
+    <rect x="320" y="336" width="160" height="88" rx="12" fill="#1A1816" stroke="#312F2F" stroke-width="2"/>
+    <text x="400" y="388" text-anchor="middle" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="16">schema</text>
+    <path d="M492 380 H544" stroke="#312F2F" stroke-width="2"/>
+    <rect x="544" y="336" width="312" height="88" rx="12" fill="#1A1816" stroke="#312F2F" stroke-width="2"/>
+    <text x="700" y="378" text-anchor="middle" fill="#F9F7F4" font-family="Syne, sans-serif" font-size="20" font-weight="700">One fault at a time</text>
+    <text x="700" y="404" text-anchor="middle" fill="#8E8E8E" font-family="IBM Plex Sans, sans-serif" font-size="14">Do not rewrite the whole app first</text>
+  </g>
+</svg>

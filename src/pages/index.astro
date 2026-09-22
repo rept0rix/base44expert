@@ -116,7 +116,7 @@ const faultPhrases = [
           Publish lies. Domains stall. Schema drifts. We find the fault line and fix it.
         </p>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="/start" class="btn-primary">Start a diagnostic</a>
+          <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
           <a href="/work" class="btn-secondary">See the process</a>
         </div>
       </div>
@@ -221,7 +221,7 @@ const faultPhrases = [
             { href: '/blog/base44-not-working', title: 'Base44 not working: a calm triage order', d: 'Status first, then publish, domain, and schema.' },
             { href: '/blog/base44-publish-error', title: 'When publish says success but live is unchanged', d: 'Stale cache, failed build, wrong target.' },
             { href: '/blog/base44-custom-domain-ssl', title: 'Custom domain SSL still pending', d: 'DNS, proxy, and certificate timing.' },
-            { href: '/blog/base44-changelog-what-changed', title: 'How to read the Base44 changelog', d: 'Product RSS, status, and what it means for stuck apps.' },
+            { href: '/blog/base44-changelog-what-changed', title: 'How to read the Base44 changelog', d: 'Official notes, status, and what it means for stuck apps.' },
           ].map((p) => (
             <li>
               <a href={p.href} class="card-panel block h-full hover:border-accent/40 transition-colors group">
@@ -276,7 +276,7 @@ const faultPhrases = [
         <p class="text-muted mb-8 leading-relaxed max-w-prose mx-auto">
           Open a structured diagnostic email. No Formspree. No invented ticket queue - just a clear case for us to reply to.
         </p>
-        <a href="/start" class="btn-primary">Start a diagnostic</a>
+        <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
       </div>
     </section>
   </main>

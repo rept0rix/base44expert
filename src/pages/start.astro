@@ -17,7 +17,8 @@ const breadcrumb = {
   jsonLd={breadcrumb}
 >
   <main id="main">
-    <section class="section-padding relative overflow-hidden">
+    <section class="section-padding relative overflow-hidden page-heat">
+      <div class="page-heat__glow" aria-hidden="true"></div>
       <div
         class="pointer-events-none absolute inset-0"
         aria-hidden="true"
@@ -25,6 +26,7 @@ const breadcrumb = {
       ></div>
       <div class="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <img class="start-melt-mark" src="/logo-melt.svg" alt="" width="72" height="96" />
+        <img class="page-heat__viz mt-4 mb-6" src="/viz/fault-publish.svg" alt="" width="320" height="200" />
         <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance leading-[1.05]">
           Your Base44 app is stuck. Open a diagnostic case.
         </h1>
@@ -126,7 +128,7 @@ const breadcrumb = {
 
           <p id="case-preview" class="text-xs text-muted font-mono hidden" aria-live="polite"></p>
 
-          <button type="submit" class="btn-primary w-full sm:w-auto">
+          <button type="submit" class="btn-primary magnetic w-full sm:w-auto">
             Open email, then hit Send
           </button>
           <p class="text-sm text-muted">
