@@ -24,9 +24,9 @@ const { items, fromRss, productPage, statusPage } = await getChangelogItems(limi
       </p>
     </div>
 
-    <ul class="divide-y divide-line border border-line rounded-xl bg-bg-2 overflow-hidden" role="list">
+    <ul class="divide-y divide-line border border-line rounded-xl bg-bg-2 overflow-hidden pad-inset" role="list">
       {items.map((item) => (
-        <li class="px-5 py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
+        <li class="px-3 py-3 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
           <div class="min-w-0">
             <a
               href={item.link}

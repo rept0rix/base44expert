@@ -34,11 +34,6 @@ const jsonLd = [
   <main id="main">
     <article class="section-padding">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-2">
-          <a href="/blog" class="underline underline-offset-2">Blog</a>
-          <span aria-hidden="true"> · </span>
-          <time datetime={datePublished}>{datePublished}</time>
-        </p>
         <h1 class="text-4xl sm:text-5xl text-ink mb-8 text-balance">{title}</h1>
         <div class="prose-studio text-stone leading-relaxed space-y-4">
           <p>When someone says “Base44 not working,” they usually mean one concrete stuck moment: publish failed, live output did not change, blank screen after an edit, domain pending, or data missing.</p>
@@ -47,7 +42,7 @@ const jsonLd = [
           <p>If you are past status and still stuck, <a href="/start">start a diagnostic</a> with the error text and app URL.</p>
 
         </div>
-        <p class="mt-12 pt-8 border-t border-line">
+        <p class="mt-12 pad-inset-md border-t border-line">
           <a href="/start" class="btn-primary">Start a diagnostic</a>
         </p>
       </div>

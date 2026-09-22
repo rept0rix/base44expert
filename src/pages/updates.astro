@@ -22,7 +22,6 @@ const breadcrumb = {
   <main id="main">
     <section class="section-padding">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-2">Updates</p>
         <h1 class="text-4xl sm:text-5xl text-ink mb-4">Live Base44 product updates</h1>
         <p class="text-stone leading-relaxed mb-8">
           This page mirrors titles from the official Base44 product changelog
@@ -36,9 +35,9 @@ const breadcrumb = {
           <a class="underline underline-offset-2 text-ink" href="https://docs.base44.com/Community-and-support/Troubleshooting" rel="noopener noreferrer" target="_blank">Troubleshooting docs</a>
         </p>
 
-        <ul class="divide-y divide-line border border-line rounded-lg bg-bg-2 overflow-hidden" role="list">
+        <ul class="divide-y divide-line border border-line rounded-lg bg-bg-2 overflow-hidden pad-inset" role="list">
           {items.map((item) => (
-            <li class="px-5 py-4">
+            <li class="px-3 py-3">
               <a href={item.link} class="text-ink font-medium hover:text-accent" rel="noopener noreferrer" target="_blank">
                 {item.title}
               </a>

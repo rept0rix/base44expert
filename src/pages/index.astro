@@ -42,21 +42,18 @@ const faqTeaser = [
 
 const unstick = [
   {
-    tag: 'Publish',
     title: 'Deploy said success. Live did not move.',
     body: 'Build failed, blank screen after publish, or a stale live URL. We start with status, then logs.',
     href: '/base44-not-working',
     flip: false,
   },
   {
-    tag: 'Domains',
     title: 'Works on Base44. Breaks on yours.',
     body: 'DNS, Cloudflare proxy, certificate still pending. Custom domain stuck in limbo.',
     href: '/custom-domains',
     flip: true,
   },
   {
-    tag: 'Data',
     title: 'Schema drifted after an AI edit.',
     body: 'Records missing, validation errors you cannot trace, entity fields that no longer match production.',
     href: null,
@@ -64,7 +61,6 @@ const unstick = [
     wide: true,
   },
   {
-    tag: 'Live vs preview',
     title: 'Fine in preview. Dead in production.',
     body: 'Connectors, env, assets, or auth that only fail once the app is live.',
     href: null,
@@ -72,7 +68,7 @@ const unstick = [
   },
 ]
 
-const marqueePhrases = [
+const faultPhrases = [
   'publish success, live unchanged',
   'SSL pending',
   'schema mismatch',
@@ -102,8 +98,6 @@ const marqueePhrases = [
         <div class="melt-puddle"></div>
         <p class="melt-wordmark">Base44 <span>Expert</span></p>
       </div>
-      <div class="grain-overlay" aria-hidden="true"></div>
-
       <div class="hero-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-6xl text-ink max-w-3xl text-balance mb-5 leading-[1.05]">
           Stuck Base44 apps thaw under heat.
@@ -118,17 +112,13 @@ const marqueePhrases = [
       </div>
     </section>
 
-    <!-- Molten error marquee (max one per page) -->
-    <div class="error-marquee" aria-hidden="true">
-      <div class="error-marquee__track">
-        {[...marqueePhrases, ...marqueePhrases].map((phrase, i) => (
-          <span>
-            {i % 2 === 0 ? <span aria-hidden="true">●</span> : null}
-            {' '}
-            {phrase}
-          </span>
+    <!-- Fault-line phrases: static, readable (no marquee) -->
+    <div class="error-phrases">
+      <ul class="error-phrases__list" role="list">
+        {faultPhrases.map((phrase) => (
+          <li>{phrase}</li>
         ))}
-      </div>
+      </ul>
     </div>
 
     <!-- Scroll-scrub sticky heat band -->
@@ -162,7 +152,6 @@ const marqueePhrases = [
             row.href ? (
               <a href={row.href} class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
                 <div class="unstick-meta">
-                  <span class="unstick-tag">{row.tag}</span>
                   <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
                 </div>
                 <p class="text-muted leading-relaxed max-w-prose">{row.body}</p>
@@ -170,7 +159,6 @@ const marqueePhrases = [
             ) : (
               <div class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
                 <div class="unstick-meta">
-                  <span class="unstick-tag">{row.tag}</span>
                   <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
                 </div>
                 <p class="text-muted leading-relaxed max-w-prose">{row.body}</p>
