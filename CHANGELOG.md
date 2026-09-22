@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ## [v0.4.2] — 2026-09-22
+- `/start` intake: practical tips instead of scope-refusal; open stuck type (free text + optional chips, not required 4-radio cage); stronger SEO H1/lead; drop contact/status footer line
 - Unstick scrub motion: always-on liquid pulse/glow (even mid-sticky), scrub sticky trap lowered (~115vh), scroll scrub no longer freezes lava at mid-opacity
 - Home scrub / heat band: brighter lava (#FF6A00+), higher opacity, stronger glow, readable copy scrim — fixes “invisible” fault-line section
 - Site-wide motion + imagery: cursor heat trail + magnetic CTAs (reduced-motion safe); page-heat viz on start/work/updates/blog/keyword pages; reuse `/viz` + `/blog` SVGs

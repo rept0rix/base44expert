@@ -9,11 +9,22 @@ const breadcrumb = {
     { '@type': 'ListItem', position: 2, name: 'Start', item: 'https://base44expert.com/start' },
   ],
 }
+
+const tipChips = [
+  { v: 'publish', l: 'Publish / deploy' },
+  { v: 'domain', l: 'Domain & SSL' },
+  { v: 'data', l: 'Data & schema' },
+  { v: 'preview', l: 'Preview vs live' },
+  { v: 'auth', l: 'Auth & users' },
+  { v: 'ai-edit', l: 'AI edit broke it' },
+  { v: 'payments', l: 'Payments' },
+  { v: 'other', l: 'Something else' },
+]
 ---
 
 <Layout
   title="Start a diagnostic - Base44 Expert"
-  description="Stuck Base44 app? Open a structured diagnostic case by email. Publish, domain SSL, schema, or preview-vs-live - we reply with a next step."
+  description="Base44 app stuck? Publish error, custom domain SSL, schema mismatch, or preview vs live — open a free diagnostic. We reply with the next step."
   jsonLd={breadcrumb}
 >
   <main id="main">
@@ -28,35 +39,45 @@ const breadcrumb = {
         <img class="start-melt-mark" src="/logo-melt.svg" alt="" width="72" height="96" />
         <img class="page-heat__viz mt-4 mb-6" src="/viz/fault-publish.svg" alt="" width="320" height="200" />
         <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance leading-[1.05]">
-          Your Base44 app is stuck. Open a diagnostic case.
+          Base44 app stuck? Start a diagnostic.
         </h1>
         <p class="text-muted leading-relaxed mb-6">
-          Fill this once. Your mail app opens with a case id, the problem type, and the details already written.
-          Hit Send. We reply on that thread with what we need next - not a ticket portal, not a chatbot.
+          Publish errors, custom domain / SSL limbo, schema drift, preview vs live mismatch — or anything else that froze your app.
+          We unstick stuck Base44 apps and reply with a concrete next step.
+          Tell us what broke; we open a case thread by email.
         </p>
         <ul class="mb-10 space-y-2 text-sm text-muted border border-line rounded-xl bg-bg-2 pad-inset-lg">
-          <li>We unstick existing apps: publish, custom domain / SSL, schema, preview vs production.</li>
-          <li>We do not greenfield-build apps. Platform outages → <a class="underline underline-offset-2 text-accent hover:text-accent-2" href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a>.</li>
+          <li>Paste the exact error text and the app URL (preview + live if they differ).</li>
+          <li>Say what you changed last (AI edit, domain, publish, schema).</li>
+          <li>Screenshots help — attach them in the email after it opens.</li>
           <li>No passwords or API keys in the message.</li>
         </ul>
 
         <form id="diagnostic-form" class="space-y-8" novalidate>
-          <fieldset class="space-y-3">
-            <legend class="font-display text-xl text-ink mb-2">1. What kind of stuck?</legend>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { v: 'publish', l: 'Publish / deploy' },
-                { v: 'domain', l: 'Custom domain / SSL' },
-                { v: 'data', l: 'Data / schema' },
-                { v: 'production', l: 'Preview vs production' },
-              ].map((o) => (
-                <label class="card-panel flex items-center gap-3 cursor-pointer has-[:checked]:border-accent transition-colors">
-                  <input type="radio" name="type" value={o.v} required class="accent-[var(--color-accent)]" />
-                  <span class="text-sm text-ink">{o.l}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
+          <div>
+            <label for="stuckShort" class="block font-display text-xl text-ink mb-2">1. What's stuck?</label>
+            <p class="text-sm text-muted mb-2">One short line — optional tags below if they help.</p>
+            <input
+              type="text"
+              id="stuckShort"
+              name="stuckShort"
+              autocomplete="off"
+              placeholder="e.g. Publish says success but live is still old"
+              class="w-full px-4 py-3 border border-line rounded-xl bg-bg-2 text-ink font-mono text-sm placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            <fieldset class="mt-3 space-y-2">
+              <legend class="sr-only">Optional problem tags</legend>
+              <p class="text-xs text-muted mb-2">Optional tags (not required):</p>
+              <div class="flex flex-wrap gap-2">
+                {tipChips.map((o) => (
+                  <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-line bg-bg-2 text-sm text-ink cursor-pointer has-[:checked]:border-accent has-[:checked]:text-accent transition-colors">
+                    <input type="checkbox" name="typeChip" value={o.v} class="sr-only" />
+                    <span>{o.l}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          </div>
 
           <fieldset class="space-y-3">
             <legend class="font-display text-xl text-ink mb-2">2. How urgent?</legend>
@@ -131,10 +152,6 @@ const breadcrumb = {
           <button type="submit" class="btn-primary magnetic w-full sm:w-auto">
             Open email, then hit Send
           </button>
-          <p class="text-sm text-muted">
-            Prefer a short note? Use <a href="/contact" class="underline underline-offset-2 text-accent hover:text-accent-2">contact</a>.
-            Platform down? Check <a href="https://status.base44.com" class="underline underline-offset-2 text-accent hover:text-accent-2" rel="noopener noreferrer" target="_blank">status.base44.com</a> first.
-          </p>
         </form>
       </div>
     </section>
@@ -158,7 +175,8 @@ const breadcrumb = {
       return
     }
     const fd = new FormData(form)
-    const type = String(fd.get('type') || 'other')
+    const stuckShort = String(fd.get('stuckShort') || '').trim()
+    const chips = fd.getAll('typeChip').map((v) => String(v))
     const urgency = String(fd.get('urgency') || 'exploring')
     const appUrl = String(fd.get('appUrl') || '').trim()
     const errorText = String(fd.get('errorText') || '').trim()
@@ -166,27 +184,35 @@ const breadcrumb = {
     const email = String(fd.get('email') || '').trim()
     const id = caseId()
 
+    // Type label: prefer free short title, else first chip, else other
+    const typeLabel = stuckShort
+      ? stuckShort.slice(0, 60)
+      : chips.length > 0
+        ? chips.join('+')
+        : 'other'
+
     if (preview) {
       preview.textContent = `Case id: ${id}`
       preview.classList.remove('hidden')
     }
 
-    const subject = encodeURIComponent(`Base44 case ${id} - ${type} - ${urgency}`)
-    const body = encodeURIComponent(
-      [
-        `Case id: ${id}`,
-        `Type: ${type}`,
-        `Urgency: ${urgency}`,
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `App URL: ${appUrl}`,
-        '',
-        'What went wrong:',
-        errorText,
-        '',
-        '(Generated by base44expert.com/start - client-side case id, no form backend.)',
-      ].join('\n')
-    )
+    const subject = encodeURIComponent(`Base44 case ${id} - ${typeLabel} - ${urgency}`)
+    const bodyLines = [
+      `Case id: ${id}`,
+      `What's stuck: ${stuckShort || '(not provided)'}`,
+      chips.length ? `Tags: ${chips.join(', ')}` : null,
+      `Urgency: ${urgency}`,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `App URL: ${appUrl}`,
+      '',
+      'What went wrong:',
+      errorText,
+      '',
+      '(Generated by base44expert.com/start - client-side case id, no form backend.)',
+    ].filter((line) => line !== null) as string[]
+
+    const body = encodeURIComponent(bodyLines.join('\n'))
     window.location.href = `mailto:na0ryank0@gmail.com?subject=${subject}&body=${body}`
   })
 </script>
