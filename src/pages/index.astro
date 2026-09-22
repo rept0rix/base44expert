@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import ChangelogFeed from '../components/ChangelogFeed.astro'
 import FaqList from '../components/FaqList.astro'
+import HeroMolten from '../components/HeroMolten.astro'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -40,98 +41,128 @@ const faqTeaser = [
   },
 ]
 
-const unstick = [
+const warRoom = [
   {
-    title: 'Deploy said success. Live did not move.',
-    body: 'Build failed, blank screen after publish, or a stale live URL. We start with status, then logs.',
-    href: '/base44-not-working',
-    flip: false,
+    symptom: 'Publish button green. Live URL still yesterday.',
+    fault: 'Stale artifact, wrong publish target, or CDN holding the old build.',
+    move: 'Diff the live HTML hash vs the editor preview. Check status. Then logs — not a full redesign.',
     viz: '/viz/fault-publish.svg',
-    vizAlt: 'Diagram: build reports success while live stays unchanged',
+    href: '/base44-not-working',
   },
   {
-    title: 'Works on Base44. Breaks on yours.',
-    body: 'DNS, Cloudflare proxy, certificate still pending. Custom domain stuck in limbo.',
-    href: '/custom-domains',
-    flip: true,
+    symptom: 'Custom domain stuck on “certificate pending”.',
+    fault: 'DNS not authoritative, Cloudflare proxy orange, or CAA blocking issue.',
+    move: 'Resolve A/CNAME first. Flatten proxy. Wait for issuance only after DNS answers correctly.',
     viz: '/viz/fault-domain.svg',
-    vizAlt: 'Diagram: DNS to proxy to SSL still pending',
+    href: '/custom-domains',
   },
   {
-    title: 'Schema drifted after an AI edit.',
-    body: 'Records missing, validation errors you cannot trace, entity fields that no longer match production.',
-    href: null,
-    flip: false,
-    wide: true,
+    symptom: 'AI edited an entity. Saves fail. Old records look haunted.',
+    fault: 'Schema drift: required fields, types, or relations that production data never had.',
+    move: 'Export sample records. Diff schema versions. Patch fields or migrate data — do not guess in the UI.',
     viz: '/viz/fault-schema.svg',
-    vizAlt: 'Diagram: entity schema version mismatch',
+    href: null,
   },
   {
-    title: 'Fine in preview. Dead in production.',
-    body: 'Connectors, env, assets, or auth that only fail once the app is live.',
-    href: null,
-    flip: true,
+    symptom: 'Preview works. Production throws or blanks.',
+    fault: 'Live-only connectors, missing secrets, auth redirect, or asset paths that only resolve in preview.',
+    move: 'Compare env and connector bindings. Reproduce with production URL + hard refresh. Isolate before rewrite.',
     viz: '/viz/fault-preview.svg',
-    vizAlt: 'Diagram: preview healthy, production breaks',
+    href: null,
   },
 ]
 
-const faultPhrases = [
-  'publish success, live unchanged',
-  'SSL pending',
-  'schema mismatch',
-  'blank after deploy',
-  'preview fine, prod broken',
-  'entity field drift',
-  'DNS not propagating',
-  'connector timeout',
+const changelogTension = [
+  {
+    note: 'Platform ships a new publish path',
+    risk: 'Your “success” toast may mean a different target than the URL you share with clients.',
+  },
+  {
+    note: 'Domain / SSL tooling changes',
+    risk: 'Pending certificates linger longer when DNS was “close enough” under the old flow.',
+  },
+  {
+    note: 'Entity / AI builder updates',
+    risk: 'Generated schema edits can invalidate validation on data you already collected.',
+  },
 ]
 ---
 
 <Layout
   title="Base44 Expert - Unstick stuck Base44 apps"
-  description="Specialist studio for Base44 publish errors, custom domain SSL, schema mismatches, and preview-vs-production blockers. Start a diagnostic."
+  description="Specialist desk for Base44 publish failures, custom domain SSL limbo, schema drift after AI edits, and preview-vs-production breaks. Concrete triage — start a diagnostic."
   jsonLd={jsonLd}
 >
   <main id="main">
-    <!-- Hero: molten mark drips, settles into living mark + wordmark -->
-    <section class="hero-melt" aria-labelledby="hero-heading">
-      <div class="melt-stage" aria-hidden="true">
-        <div class="melt-glow-pulse"></div>
-        <img class="lava-veins" src="/viz/lava-veins.svg" alt="" width="800" height="600" />
-        <img class="melt-blob" src="/logo-melt.svg" alt="" width="300" height="400" />
-        <div class="melt-liquid"></div>
-        <div class="melt-drip"></div>
-        <div class="melt-drip-b"></div>
-        <div class="melt-drip-c"></div>
-        <div class="melt-puddle"></div>
-        <div class="melt-ember"></div>
-        <p class="melt-wordmark">Base44 <span>Expert</span></p>
-      </div>
-      <div class="hero-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-6xl text-ink max-w-3xl text-balance mb-5 leading-[1.05]">
-          Stuck Base44 apps thaw under heat.
-        </h1>
-        <p class="text-lg sm:text-xl text-muted max-w-xl leading-relaxed mb-8">
-          Publish lies. Domains stall. Schema drifts. We find the fault line and fix it.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-3">
-          <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
-          <a href="/work" class="btn-secondary">See the process</a>
+    <HeroMolten />
+
+    <!-- War room: dense specialist intel (not equal feature cards) -->
+    <section id="war-room" class="war-room" aria-labelledby="war-heading">
+      <div class="war-room__inner max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="war-room__intro">
+          <h2 id="war-heading" class="war-room__title">
+            War room: what actually breaks in Base44
+          </h2>
+          <p class="war-room__lead">
+            This is the desk view — symptoms we see, the fault underneath, and the first move.
+            Soft “we help you build” copy does not belong here.
+          </p>
+        </div>
+
+        <div class="war-room__layout">
+          <figure class="war-room__diagram">
+            <img
+              src="/viz/war-room-triage.svg"
+              alt="Triage ladder: status, publish, DNS/SSL, schema, connectors"
+              width="720"
+              height="420"
+              loading="eager"
+            />
+            <figcaption class="war-room__caption">
+              Stop at the first red rung. Rewriting the app before status + publish is how stuck apps stay stuck.
+            </figcaption>
+          </figure>
+
+          <ol class="war-room__cases" role="list">
+            {warRoom.map((row, i) => (
+              <li class={`war-case${i % 2 === 1 ? ' is-offset' : ''}`}>
+                <img class="war-case__viz" src={row.viz} alt="" width="200" height="125" loading="lazy" />
+                <div class="war-case__body">
+                  <p class="war-case__symptom">{row.symptom}</p>
+                  <p class="war-case__fault"><span>Fault</span> {row.fault}</p>
+                  <p class="war-case__move"><span>First move</span> {row.move}</p>
+                  {row.href ? (
+                    <a href={row.href} class="link-draw text-sm">Deeper note</a>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="war-tension view-reveal">
+          <h3 class="war-tension__title">Changelog tension</h3>
+          <p class="war-tension__lead">
+            Official Base44 notes are useful. They are not a diagnosis. Product ships; your app may still be stuck on an older assumption.
+          </p>
+          <ul class="war-tension__list" role="list">
+            {changelogTension.map((t) => (
+              <li>
+                <strong>{t.note}</strong>
+                <span>{t.risk}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="war-tension__links">
+            <a href="/updates" class="link-draw">Official updates we track</a>
+            <span aria-hidden="true"> · </span>
+            <a href="/blog/base44-changelog-what-changed" class="link-draw">How to read a changelog when you are stuck</a>
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Fault-line phrases: static chips with heat shimmer (no marquee) -->
-    <div class="error-phrases">
-      <ul class="error-phrases__list" role="list">
-        {faultPhrases.map((phrase) => (
-          <li>{phrase}</li>
-        ))}
-      </ul>
-    </div>
-
-    <!-- Scroll-scrub sticky heat band with morphing liquid orb -->
+    <!-- Scroll-scrub heat band -->
     <section class="scrub-sticky" aria-labelledby="scrub-heading">
       <div class="scrub-sticky__pin">
         <div class="scrub-orb" aria-hidden="true"></div>
@@ -141,61 +172,31 @@ const faultPhrases = [
             Heat finds the fault line.
           </h2>
           <p class="text-muted leading-relaxed">
-            Status, logs, DNS, schema. Isolate first. Fix second. Explain always.
+            Status first. Then publish logs. Then DNS. Then schema. Then connectors.
+            Isolate before you touch the UI.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- What we unstick: asymmetric zig-zag + fault diagrams -->
-    <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="unstick-heading">
-      <div
-        class="parallax-glow pointer-events-none absolute -right-24 top-10 w-72 h-72 rounded-full opacity-40"
-        aria-hidden="true"
-        style="background: radial-gradient(circle, rgba(255,106,0,0.22), transparent 70%); filter: blur(12px);"
-      ></div>
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <h2 id="unstick-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-12 max-w-2xl">
-          What we unstick
-        </h2>
-        <div class="flex flex-col gap-6 md:gap-8">
-          {unstick.map((row) => (
-            row.href ? (
-              <a href={row.href} class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
-                <div class="unstick-meta">
-                  <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
-                  <p class="text-muted leading-relaxed max-w-prose mt-3">{row.body}</p>
-                </div>
-                <img class="unstick-viz" src={row.viz} alt={row.vizAlt} width="320" height="200" loading="lazy" />
-              </a>
-            ) : (
-              <div class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
-                <div class="unstick-meta">
-                  <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
-                  <p class="text-muted leading-relaxed max-w-prose mt-3">{row.body}</p>
-                </div>
-                <img class="unstick-viz" src={row.viz} alt={row.vizAlt} width="320" height="200" loading="lazy" />
-              </div>
-            )
-          ))}
         </div>
       </div>
     </section>
 
     <ChangelogFeed limit={5} />
 
-    <!-- Process strip -->
+    <!-- Process: dense strip, not four equal marketing cards -->
     <section class="section-padding border-t border-line" aria-labelledby="method-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 id="method-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-10">
-          Diagnostic first. Then the fix.
+        <h2 id="method-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-4">
+          Diagnostic first. Fix second. Explain always.
         </h2>
+        <p class="text-muted max-w-2xl mb-10 leading-relaxed">
+          You send the stuck moment, the app URL, and the last change. We return with the fault line named —
+          not a vague “let’s hop on a call” pitch.
+        </p>
         <div class="process-strip view-reveal-delay">
           {[
-            { t: 'Intake', d: 'You describe the stuck moment, app URL, and last change.' },
-            { t: 'Isolate', d: 'Status, logs, DNS, schema, connectors - find the real fault line.' },
-            { t: 'Fix', d: 'Scoped change in place. No rebuild-everything by default.' },
-            { t: 'Explain', d: 'What broke, why, and how to avoid the same trap next time.' },
+            { t: 'Intake', d: 'Stuck symptom, URL, last publish / AI edit / DNS change. Structured mailto — no form SaaS.' },
+            { t: 'Isolate', d: 'Status → publish → DNS/SSL → schema → connectors. Stop at the first red rung.' },
+            { t: 'Fix', d: 'Scoped change in place. We do not sell rebuild-everything as the default.' },
+            { t: 'Explain', d: 'What broke, why, and the trap to avoid next time you touch that surface.' },
           ].map((s) => (
             <div class="process-cell">
               <h3 class="font-display text-xl text-ink mb-2">{s.t}</h3>
@@ -209,24 +210,51 @@ const faultPhrases = [
       </div>
     </section>
 
-    <!-- Blog teaser -->
+    <!-- Notes: asymmetric, with imagery -->
     <section class="section-padding border-t border-line bg-bg-2" aria-labelledby="blog-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between gap-4 mb-8">
-          <h2 id="blog-heading" class="view-reveal text-3xl sm:text-4xl text-ink">Latest notes</h2>
+          <h2 id="blog-heading" class="view-reveal text-3xl sm:text-4xl text-ink">Field notes worth reading</h2>
           <a href="/blog" class="link-draw text-sm text-muted shrink-0">All posts</a>
         </div>
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <ul class="home-notes" role="list">
           {[
-            { href: '/blog/base44-not-working', title: 'Base44 not working: a calm triage order', d: 'Status first, then publish, domain, and schema.' },
-            { href: '/blog/base44-publish-error', title: 'When publish says success but live is unchanged', d: 'Stale cache, failed build, wrong target.' },
-            { href: '/blog/base44-custom-domain-ssl', title: 'Custom domain SSL still pending', d: 'DNS, proxy, and certificate timing.' },
-            { href: '/blog/base44-changelog-what-changed', title: 'How to read the Base44 changelog', d: 'Official notes, status, and what it means for stuck apps.' },
+            {
+              href: '/blog/base44-not-working',
+              title: 'Base44 not working: calm triage order',
+              d: 'Status before panic. Publish before redesign. The order that saves hours.',
+              img: '/blog/hero-not-working.svg',
+              wide: true,
+            },
+            {
+              href: '/blog/base44-publish-error',
+              title: 'Publish said success. Live did not move.',
+              d: 'Stale cache, failed build, wrong target — how to prove which.',
+              img: '/blog/hero-publish-error.svg',
+              wide: false,
+            },
+            {
+              href: '/blog/base44-custom-domain-ssl',
+              title: 'Custom domain SSL still pending',
+              d: 'DNS, proxy, CAA, and why waiting without fixing names never works.',
+              img: '/blog/hero-domain-ssl.svg',
+              wide: false,
+            },
+            {
+              href: '/blog/base44-changelog-what-changed',
+              title: 'How to read the Base44 changelog when stuck',
+              d: 'Product notes vs your fault line — what to extract, what to ignore.',
+              img: '/blog/hero-changelog.svg',
+              wide: true,
+            },
           ].map((p) => (
-            <li class="view-reveal">
-              <a href={p.href} class="card-panel block h-full hover:border-accent/40 transition-colors group">
-                <h3 class="font-display text-xl text-ink mb-2 group-hover:text-accent transition-colors">{p.title}</h3>
-                <p class="text-sm text-muted">{p.d}</p>
+            <li class={`home-notes__item${p.wide ? ' is-wide' : ''} view-reveal`}>
+              <a href={p.href} class="home-notes__card">
+                <img src={p.img} alt="" width="480" height="240" loading="lazy" />
+                <div>
+                  <h3>{p.title}</h3>
+                  <p>{p.d}</p>
+                </div>
               </a>
             </li>
           ))}
@@ -234,7 +262,6 @@ const faultPhrases = [
       </div>
     </section>
 
-    <!-- FAQ teaser -->
     <section class="section-padding border-t border-line" aria-labelledby="faq-teaser-heading">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 id="faq-teaser-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-8">Quick answers</h2>
@@ -245,7 +272,6 @@ const faultPhrases = [
       </div>
     </section>
 
-    <!-- FixTheBase aside -->
     <section class="section-padding border-t border-line" aria-labelledby="fixthebase-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <aside class="glow-aside flex flex-col md:flex-row md:items-center md:justify-between gap-6 view-reveal">
@@ -264,7 +290,6 @@ const faultPhrases = [
       </div>
     </section>
 
-    <!-- Final CTA -->
     <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="cta-heading">
       <div
         class="parallax-glow pointer-events-none absolute inset-0 opacity-60"
@@ -272,9 +297,11 @@ const faultPhrases = [
         style="background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255,106,0,0.2), transparent 60%);"
       ></div>
       <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 id="cta-heading" class="view-reveal font-display text-3xl sm:text-4xl mb-4 text-ink">Ready to unstick it?</h2>
+        <h2 id="cta-heading" class="view-reveal font-display text-3xl sm:text-4xl mb-4 text-ink">
+          Send the stuck moment.
+        </h2>
         <p class="text-muted mb-8 leading-relaxed max-w-prose mx-auto">
-          Open a structured diagnostic email. No Formspree. No invented ticket queue - just a clear case for us to reply to.
+          App URL, what broke, last change. Structured diagnostic email — no Formspree, no invented ticket queue.
         </p>
         <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
       </div>
@@ -283,8 +310,6 @@ const faultPhrases = [
 </Layout>
 
 <script>
-  // IntersectionObserver fallback when CSS scroll-driven animations are unsupported.
-  // No window scroll listeners; no React state.
   const supportsViewTimeline =
     typeof CSS !== 'undefined' &&
     typeof CSS.supports === 'function' &&

@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v0.4.3] — 2026-09-22
+- Home blast: pointer-reactive molten orb (canvas rAF) + heat-distorting headline + fault crack; custom `/viz/hero-fault.svg`, `fault-crack.svg`, `war-room-triage.svg`
+- Specialist desk strip in the fold: PUB/DNS/SCH/PRV failure modes with first-check tips (readable intel, not motion-only)
+- War room section: concrete Base44 symptoms → fault → first move + triage ladder diagram + changelog tension (not equal feature cards)
+- Sharper home copy/CTAs; asymmetric field notes with blog SVGs; `prefers-reduced-motion` keeps static composition
+- Impeccable: do not `display:none` magnetic CTAs under reduced-motion
+
 ## [v0.4.2] — 2026-09-22
 - FAQ: rebuilt as `src/data/faq.json` + `src/lib/faq.ts` with ~200+ long-tail Q&As (categories, search, accordion, FAQPage JSON-LD); SEO title aimed at Base44 not working / stuck FAQ
 - Analytics: `@vercel/analytics` + `@vercel/speed-insights` in Layout; optional `PUBLIC_GA_MEASUREMENT_ID` gtag when set; OPS notes for Vercel Analytics toggle
