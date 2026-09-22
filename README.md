@@ -83,6 +83,18 @@ DNS configuration:
 
 DNS propagation typically completes within 1-2 hours.
 
+## Visits & analytics
+
+- `@vercel/analytics` + `@vercel/speed-insights` are injected in the site layout.
+- See visits in **Vercel → project base44expert → Analytics**. Enable Web Analytics in the dashboard if the toggle is off.
+- Optional: set `PUBLIC_GA_MEASUREMENT_ID` in Vercel env for gtag (only loads when set).
+- Details: [`docs/OPS.md`](docs/OPS.md)
+
+## Content admin
+
+- Decap CMS at `/admin/` (GitHub backend for `rept0rix/base44expert`).
+- FAQ content: `src/data/faq.json` (editable via Decap once OAuth is configured — see OPS.md).
+
 ## Contact
 
 Contact uses mailto to `na0ryank0@gmail.com` (opens the visitor email app). No Formspree placeholder.
@@ -96,6 +108,9 @@ Contact uses mailto to `na0ryank0@gmail.com` (opens the visitor email app). No F
 - `/base44-not-working` - Troubleshooting guide
 - `/custom-domains` - Custom domain setup guide
 - `/contact` - Contact form
+- `/faq` - Long-tail stuck Base44 FAQ
+- `/updates` - Base44 product/developer updates
+- `/admin` - Decap CMS (auth required)
 
 ## SEO Features
 

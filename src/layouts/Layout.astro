@@ -3,6 +3,8 @@ import '../styles/global.css'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import JsonLd from '../components/JsonLd.astro'
+import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from '@vercel/speed-insights/astro'
 
 interface Props {
   title: string
@@ -26,6 +28,7 @@ const {
 
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString()
 const ogURL = new URL(ogImage, Astro.site).toString()
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 ---
 
 <!doctype html>
@@ -112,5 +115,18 @@ const ogURL = new URL(ogImage, Astro.site).toString()
         });
       })();
     </script>
+    <Analytics />
+    <SpeedInsights />
+    {gaId ? (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    ) : null}
   </body>
 </html>

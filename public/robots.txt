@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://base44expert.com/sitemap-index.xml
+Disallow: /admin/
