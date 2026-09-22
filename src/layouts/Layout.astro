@@ -38,7 +38,8 @@ const ogURL = new URL(ogImage, Astro.site).toString()
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#F4F1EA" />
+    <meta name="theme-color" content="#0F0E0E" />
+    <meta name="color-scheme" content="dark" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Base44 Expert" />
     <meta property="og:title" content={title} />
@@ -52,14 +53,14 @@ const ogURL = new URL(ogImage, Astro.site).toString()
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap"
       rel="stylesheet"
     />
     <title>{title}</title>
     {jsonLd && <JsonLd data={jsonLd} />}
     <slot name="head" />
   </head>
-  <body class="min-h-screen flex flex-col bg-paper text-ink antialiased">
+  <body class="min-h-screen flex flex-col bg-bg text-ink antialiased">
     <a href="#main" class="skip-link">Skip to main content</a>
     {showNav && <Nav />}
     <div class="flex-1 flex flex-col">

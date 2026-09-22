@@ -31,31 +31,68 @@ const faqTeaser = [
   {
     question: 'Do you build new Base44 apps from scratch?',
     answer:
-      'No. We unstick existing apps — publish, domains, data, production. We do not sell greenfield builds as a productized service.',
+      'No. We unstick existing apps - publish, domains, data, production. We do not sell greenfield builds as a productized service.',
   },
   {
     question: 'How do I start?',
     answer:
-      'Use the <a href="/start">diagnostic form</a>. It opens your email client with a structured case to na0ryank0@gmail.com — no third-party form backend.',
+      'Use the <a href="/start">diagnostic form</a>. It opens your email client with a structured case to na0ryank0@gmail.com - no third-party form backend.',
+  },
+]
+
+const unstick = [
+  {
+    tag: 'Publish',
+    title: 'Deploy said success. Live did not move.',
+    body: 'Build failed, blank screen after publish, or a stale live URL. We start with status, then logs.',
+    href: '/base44-not-working',
+    flip: false,
+  },
+  {
+    tag: 'Domains',
+    title: 'Works on Base44. Breaks on yours.',
+    body: 'DNS, Cloudflare proxy, certificate still pending. Custom domain stuck in limbo.',
+    href: '/custom-domains',
+    flip: true,
+  },
+  {
+    tag: 'Data',
+    title: 'Schema drifted after an AI edit.',
+    body: 'Records missing, validation errors you cannot trace, entity fields that no longer match production.',
+    href: null,
+    flip: false,
+    wide: true,
+  },
+  {
+    tag: 'Live vs preview',
+    title: 'Fine in preview. Dead in production.',
+    body: 'Connectors, env, assets, or auth that only fail once the app is live.',
+    href: null,
+    flip: true,
   },
 ]
 ---
 
 <Layout
-  title="Base44 Expert — Unstick stuck Base44 apps"
+  title="Base44 Expert - Unstick stuck Base44 apps"
   description="Specialist studio for Base44 publish errors, custom domain SSL, schema mismatches, and preview-vs-production blockers. Start a diagnostic."
   jsonLd={jsonLd}
 >
   <main id="main">
-    <section class="section-padding border-b border-line" aria-labelledby="hero-heading">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-4">Specialist studio · English</p>
-        <h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-6xl text-ink max-w-3xl text-balance mb-6">
-          Your Base44 app is stuck. We get it unstuck.
+    <!-- Hero: molten mark drips, reforms into wordmark -->
+    <section class="hero-melt" aria-labelledby="hero-heading">
+      <div class="melt-stage" aria-hidden="true">
+        <img class="melt-blob" src="/logo-melt.svg" alt="" width="280" height="326" />
+        <div class="melt-drip"></div>
+        <p class="melt-wordmark">Base44 <span>Expert</span></p>
+      </div>
+
+      <div class="hero-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-6xl text-ink max-w-3xl text-balance mb-5 leading-[1.05]">
+          Stuck Base44 apps thaw under heat.
         </h1>
-        <p class="text-lg sm:text-xl text-stone max-w-2xl leading-relaxed mb-8">
-          Publish said success but the live URL did not change. Domain pending SSL.
-          Schema mismatch. Preview fine, production broken. We read logs, DNS, and configs — then fix and explain.
+        <p class="text-lg sm:text-xl text-muted max-w-xl leading-relaxed mb-8">
+          Publish lies. Domains stall. Schema drifts. We find the fault line and fix it.
         </p>
         <div class="flex flex-col sm:flex-row gap-3">
           <a href="/start" class="btn-primary">Start a diagnostic</a>
@@ -64,91 +101,69 @@ const faqTeaser = [
       </div>
     </section>
 
-    <ChangelogFeed limit={5} />
-
+    <!-- What we unstick: asymmetric zig-zag, not 3 equal cards -->
     <section class="section-padding border-t border-line" aria-labelledby="unstick-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-2">What we unstick</p>
-        <h2 id="unstick-heading" class="text-3xl sm:text-4xl text-ink mb-10 max-w-2xl">
-          Specific stuck moments — not a digital landscape pitch
+        <h2 id="unstick-heading" class="text-3xl sm:text-4xl text-ink mb-12 max-w-2xl">
+          What we unstick
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <a href="/base44-not-working" class="card-panel hover:border-ink transition-colors block group">
-            <h3 class="font-display text-2xl text-ink mb-2 group-hover:text-accent">Publish &amp; deploy</h3>
-            <p class="text-stone text-sm leading-relaxed">
-              Build failed, publish reported success with no live change, blank screen after publish.
-              Start with status, then logs.
-            </p>
-          </a>
-          <a href="/custom-domains" class="card-panel hover:border-ink transition-colors block group">
-            <h3 class="font-display text-2xl text-ink mb-2 group-hover:text-accent">Custom domains &amp; SSL</h3>
-            <p class="text-stone text-sm leading-relaxed">
-              Works on the Base44 URL, breaks on yours. DNS, Cloudflare proxy, certificate pending.
-            </p>
-          </a>
-          <div class="card-panel">
-            <h3 class="font-display text-2xl text-ink mb-2">Data &amp; schema</h3>
-            <p class="text-stone text-sm leading-relaxed">
-              Records missing, validation errors you cannot trace, entity fields that drifted after an AI edit.
-            </p>
-          </div>
-          <div class="card-panel">
-            <h3 class="font-display text-2xl text-ink mb-2">Preview vs production</h3>
-            <p class="text-stone text-sm leading-relaxed">
-              Connectors, env, assets, or auth that only fail once the app is live.
-            </p>
-          </div>
+        <div class="flex flex-col gap-6 md:gap-8">
+          {unstick.map((row) => (
+            row.href ? (
+              <a href={row.href} class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
+                <div class="unstick-meta">
+                  <span class="unstick-tag">{row.tag}</span>
+                  <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
+                </div>
+                <p class="text-muted leading-relaxed max-w-prose">{row.body}</p>
+              </a>
+            ) : (
+              <div class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
+                <div class="unstick-meta">
+                  <span class="unstick-tag">{row.tag}</span>
+                  <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
+                </div>
+                <p class="text-muted leading-relaxed max-w-prose">{row.body}</p>
+              </div>
+            )
+          ))}
         </div>
       </div>
     </section>
 
-    <section class="section-padding border-t border-line bg-white" aria-labelledby="method-heading">
+    <ChangelogFeed limit={5} />
+
+    <!-- Process strip -->
+    <section class="section-padding border-t border-line" aria-labelledby="method-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-2">Method</p>
-        <h2 id="method-heading" class="text-3xl sm:text-4xl text-ink mb-10">Diagnostic first. Then the fix.</h2>
-        <ol class="grid grid-cols-1 md:grid-cols-4 gap-6 list-none">
+        <h2 id="method-heading" class="text-3xl sm:text-4xl text-ink mb-10">
+          Diagnostic first. Then the fix.
+        </h2>
+        <div class="process-strip">
           {[
-            { n: '01', t: 'Intake', d: 'You describe the stuck moment, app URL, and last change.' },
-            { n: '02', t: 'Isolate', d: 'Status page, logs, DNS, schema, connectors — find the real fault line.' },
-            { n: '03', t: 'Fix', d: 'Scoped change in place. No rebuild-everything by default.' },
-            { n: '04', t: 'Explain', d: 'What broke, why, and how to avoid the same trap next time.' },
+            { t: 'Intake', d: 'You describe the stuck moment, app URL, and last change.' },
+            { t: 'Isolate', d: 'Status, logs, DNS, schema, connectors - find the real fault line.' },
+            { t: 'Fix', d: 'Scoped change in place. No rebuild-everything by default.' },
+            { t: 'Explain', d: 'What broke, why, and how to avoid the same trap next time.' },
           ].map((s) => (
-            <li class="border-t border-line pt-4">
-              <p class="font-mono text-xs text-accent mb-2">{s.n}</p>
+            <div class="process-cell">
               <h3 class="font-display text-xl text-ink mb-2">{s.t}</h3>
-              <p class="text-sm text-stone leading-relaxed">{s.d}</p>
-            </li>
+              <p class="text-sm text-muted leading-relaxed">{s.d}</p>
+            </div>
           ))}
-        </ol>
+        </div>
         <p class="mt-8">
-          <a href="/work" class="text-sm text-ink underline underline-offset-2">Full process →</a>
+          <a href="/work" class="text-sm text-accent hover:text-accent-2 underline underline-offset-2 transition-colors">Full process</a>
         </p>
       </div>
     </section>
 
-    <section class="section-padding border-t border-line" aria-labelledby="paths-heading">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-2">Keyword paths</p>
-        <h2 id="paths-heading" class="text-3xl sm:text-4xl text-ink mb-8">Go straight to the problem page</h2>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 font-mono text-sm">
-          <li><a class="block card-panel hover:border-ink" href="/base44-not-working">base44 not working</a></li>
-          <li><a class="block card-panel hover:border-ink" href="/blog/base44-publish-error">base44 publish error</a></li>
-          <li><a class="block card-panel hover:border-ink" href="/custom-domains">base44 custom domain</a></li>
-          <li><a class="block card-panel hover:border-ink" href="/base44-expert">base44 expert</a></li>
-          <li><a class="block card-panel hover:border-ink" href="/updates">base44 changelog</a></li>
-          <li><a class="block card-panel hover:border-ink" href="/faq">FAQ</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section-padding border-t border-line" aria-labelledby="blog-heading">
+    <!-- Blog teaser -->
+    <section class="section-padding border-t border-line bg-bg-2" aria-labelledby="blog-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between gap-4 mb-8">
-          <div>
-            <p class="label-eyebrow mb-2">Blog</p>
-            <h2 id="blog-heading" class="text-3xl sm:text-4xl text-ink">Latest notes</h2>
-          </div>
-          <a href="/blog" class="text-sm text-stone underline underline-offset-2 shrink-0">All posts</a>
+          <h2 id="blog-heading" class="text-3xl sm:text-4xl text-ink">Latest notes</h2>
+          <a href="/blog" class="text-sm text-muted hover:text-accent underline underline-offset-2 shrink-0 transition-colors">All posts</a>
         </div>
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
@@ -158,9 +173,9 @@ const faqTeaser = [
             { href: '/blog/base44-changelog-what-changed', title: 'How to read the Base44 changelog', d: 'Product RSS, status, and what it means for stuck apps.' },
           ].map((p) => (
             <li>
-              <a href={p.href} class="card-panel block h-full hover:border-ink">
-                <h3 class="font-display text-xl text-ink mb-2">{p.title}</h3>
-                <p class="text-sm text-stone">{p.d}</p>
+              <a href={p.href} class="card-panel block h-full hover:border-accent/40 transition-colors group">
+                <h3 class="font-display text-xl text-ink mb-2 group-hover:text-accent transition-colors">{p.title}</h3>
+                <p class="text-sm text-muted">{p.d}</p>
               </a>
             </li>
           ))}
@@ -168,37 +183,47 @@ const faqTeaser = [
       </div>
     </section>
 
-    <section class="section-padding border-t border-line bg-white" aria-labelledby="faq-teaser-heading">
+    <!-- FAQ teaser -->
+    <section class="section-padding border-t border-line" aria-labelledby="faq-teaser-heading">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-2">FAQ</p>
         <h2 id="faq-teaser-heading" class="text-3xl sm:text-4xl text-ink mb-8">Quick answers</h2>
         <FaqList items={faqTeaser} idPrefix="home-faq" />
-        <p class="mt-6 text-sm"><a href="/faq" class="underline underline-offset-2 text-ink">Full FAQ →</a></p>
+        <p class="mt-6 text-sm">
+          <a href="/faq" class="underline underline-offset-2 text-accent hover:text-accent-2 transition-colors">Full FAQ</a>
+        </p>
       </div>
     </section>
 
+    <!-- FixTheBase aside -->
     <section class="section-padding border-t border-line" aria-labelledby="fixthebase-heading">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        <div>
-          <p class="label-eyebrow mb-2">Also by us</p>
-          <h2 id="fixthebase-heading" class="text-3xl text-ink mb-2">FixTheBase</h2>
-          <p class="text-stone max-w-xl text-sm leading-relaxed">
-            A related Base44-oriented tool from the same builder. Studio rescue work stays on Base44 Expert;
-            FixTheBase is a separate product surface.
-          </p>
-        </div>
-        <a href="https://fixthebase.com" class="btn-secondary" rel="noopener noreferrer" target="_blank">
-          Visit FixTheBase
-          <span class="sr-only">(opens in new tab)</span>
-        </a>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <aside class="glow-aside flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <h2 id="fixthebase-heading" class="text-3xl text-ink mb-2">FixTheBase</h2>
+            <p class="text-muted max-w-xl text-sm leading-relaxed">
+              A related Base44-oriented tool from the same builder. Studio rescue work stays on Base44 Expert;
+              FixTheBase is a separate product surface.
+            </p>
+          </div>
+          <a href="https://fixthebase.com" class="btn-secondary shrink-0" rel="noopener noreferrer" target="_blank">
+            Visit FixTheBase
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
+        </aside>
       </div>
     </section>
 
-    <section class="section-padding border-t border-line bg-ink text-paper" aria-labelledby="cta-heading">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 id="cta-heading" class="font-display text-3xl sm:text-4xl mb-4 text-paper">Ready to unstick it?</h2>
-        <p class="text-paper/70 mb-8 leading-relaxed">
-          Open a structured diagnostic email. No Formspree. No invented ticket queue — just a clear case for us to reply to.
+    <!-- Final CTA -->
+    <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="cta-heading">
+      <div
+        class="pointer-events-none absolute inset-0 opacity-60"
+        aria-hidden="true"
+        style="background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255,106,0,0.18), transparent 60%);"
+      ></div>
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 id="cta-heading" class="font-display text-3xl sm:text-4xl mb-4 text-ink">Ready to unstick it?</h2>
+        <p class="text-muted mb-8 leading-relaxed max-w-prose mx-auto">
+          Open a structured diagnostic email. No Formspree. No invented ticket queue - just a clear case for us to reply to.
         </p>
         <a href="/start" class="btn-primary">Start a diagnostic</a>
       </div>

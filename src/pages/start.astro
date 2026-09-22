@@ -12,23 +12,28 @@ const breadcrumb = {
 ---
 
 <Layout
-  title="Start a diagnostic — Base44 Expert"
-  description="Stuck Base44 app? Open a structured diagnostic case by email. Publish, domain SSL, schema, or preview-vs-live — we reply with a next step."
+  title="Start a diagnostic - Base44 Expert"
+  description="Stuck Base44 app? Open a structured diagnostic case by email. Publish, domain SSL, schema, or preview-vs-live - we reply with a next step."
   jsonLd={breadcrumb}
 >
-
   <main id="main">
-    <section class="section-padding">
-      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="label-eyebrow mb-2">Lead intake</p>
-        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance">Your Base44 app is stuck. Open a diagnostic case.</h1>
-        <p class="text-stone leading-relaxed mb-6">
+    <section class="section-padding relative overflow-hidden">
+      <div
+        class="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style="background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,106,0,0.12), transparent 55%);"
+      ></div>
+      <div class="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance leading-[1.05]">
+          Your Base44 app is stuck. Open a diagnostic case.
+        </h1>
+        <p class="text-muted leading-relaxed mb-6">
           Fill this once. Your mail app opens with a case id, the problem type, and the details already written.
-          Hit Send. We reply on that thread with what we need next — not a ticket portal, not a chatbot.
+          Hit Send. We reply on that thread with what we need next - not a ticket portal, not a chatbot.
         </p>
-        <ul class="mb-10 space-y-2 text-sm text-stone border border-line rounded-lg bg-white p-4">
+        <ul class="mb-10 space-y-2 text-sm text-muted border border-line rounded-xl bg-bg-2 p-4">
           <li>We unstick existing apps: publish, custom domain / SSL, schema, preview vs production.</li>
-          <li>We do not greenfield-build apps. Platform outages → <a class="underline underline-offset-2 text-ink" href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a>.</li>
+          <li>We do not greenfield-build apps. Platform outages → <a class="underline underline-offset-2 text-accent hover:text-accent-2" href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a>.</li>
           <li>No passwords or API keys in the message.</li>
         </ul>
 
@@ -42,7 +47,7 @@ const breadcrumb = {
                 { v: 'data', l: 'Data / schema' },
                 { v: 'production', l: 'Preview vs production' },
               ].map((o) => (
-                <label class="card-panel flex items-center gap-3 cursor-pointer has-[:checked]:border-ink">
+                <label class="card-panel flex items-center gap-3 cursor-pointer has-[:checked]:border-accent transition-colors">
                   <input type="radio" name="type" value={o.v} required class="accent-[var(--color-accent)]" />
                   <span class="text-sm text-ink">{o.l}</span>
                 </label>
@@ -58,7 +63,7 @@ const breadcrumb = {
                 { v: 'this-week', l: 'This week' },
                 { v: 'exploring', l: 'Exploring options' },
               ].map((o) => (
-                <label class="card-panel flex items-center gap-3 cursor-pointer has-[:checked]:border-ink">
+                <label class="card-panel flex items-center gap-3 cursor-pointer has-[:checked]:border-accent transition-colors">
                   <input type="radio" name="urgency" value={o.v} required class="accent-[var(--color-accent)]" />
                   <span class="text-sm text-ink">{o.l}</span>
                 </label>
@@ -68,7 +73,7 @@ const breadcrumb = {
 
           <div>
             <label for="appUrl" class="block font-display text-xl text-ink mb-2">3. App URL</label>
-            <p class="text-sm text-stone mb-2">Base44 URL or custom domain that is broken or stale.</p>
+            <p class="text-sm text-muted mb-2">Base44 URL or custom domain that is broken or stale.</p>
             <input
               type="url"
               id="appUrl"
@@ -76,20 +81,20 @@ const breadcrumb = {
               required
               autocomplete="url"
               placeholder="https://your-app.base44.app"
-              class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              class="w-full px-4 py-3 border border-line rounded-xl bg-bg-2 text-ink font-mono text-sm placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
           <div>
             <label for="errorText" class="block font-display text-xl text-ink mb-2">4. What went wrong?</label>
-            <p class="text-sm text-stone mb-2">Exact error text if any, last change, and what you expected to see live.</p>
+            <p class="text-sm text-muted mb-2">Exact error text if any, last change, and what you expected to see live.</p>
             <textarea
               id="errorText"
               name="errorText"
               required
               rows="7"
-              class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent resize-y"
-              placeholder="Publish said success but live still shows the old version…"
+              class="w-full px-4 py-3 border border-line rounded-xl bg-bg-2 text-ink font-mono text-sm placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent resize-y"
+              placeholder="Publish said success but live still shows the old version..."
             ></textarea>
           </div>
 
@@ -102,7 +107,7 @@ const breadcrumb = {
                 name="name"
                 required
                 autocomplete="name"
-                class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                class="w-full px-4 py-3 border border-line rounded-xl bg-bg-2 text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
             <div>
@@ -113,19 +118,19 @@ const breadcrumb = {
                 name="email"
                 required
                 autocomplete="email"
-                class="w-full px-4 py-3 border border-line rounded bg-white text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                class="w-full px-4 py-3 border border-line rounded-xl bg-bg-2 text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
           </div>
 
-          <p id="case-preview" class="text-xs text-stone font-mono hidden" aria-live="polite"></p>
+          <p id="case-preview" class="text-xs text-muted font-mono hidden" aria-live="polite"></p>
 
           <button type="submit" class="btn-primary w-full sm:w-auto">
-            Open email — then hit Send
+            Open email, then hit Send
           </button>
-          <p class="text-sm text-stone">
-            Prefer a short note? Use <a href="/contact" class="underline underline-offset-2 text-ink">contact</a>.
-            Platform down? Check <a href="https://status.base44.com" class="underline underline-offset-2 text-ink" rel="noopener noreferrer" target="_blank">status.base44.com</a> first.
+          <p class="text-sm text-muted">
+            Prefer a short note? Use <a href="/contact" class="underline underline-offset-2 text-accent hover:text-accent-2">contact</a>.
+            Platform down? Check <a href="https://status.base44.com" class="underline underline-offset-2 text-accent hover:text-accent-2" rel="noopener noreferrer" target="_blank">status.base44.com</a> first.
           </p>
         </form>
       </div>
@@ -163,7 +168,7 @@ const breadcrumb = {
       preview.classList.remove('hidden')
     }
 
-    const subject = encodeURIComponent(`Base44 case ${id} — ${type} — ${urgency}`)
+    const subject = encodeURIComponent(`Base44 case ${id} - ${type} - ${urgency}`)
     const body = encodeURIComponent(
       [
         `Case id: ${id}`,
@@ -176,7 +181,7 @@ const breadcrumb = {
         'What went wrong:',
         errorText,
         '',
-        '(Generated by base44expert.com/start — client-side case id, no form backend.)',
+        '(Generated by base44expert.com/start - client-side case id, no form backend.)',
       ].join('\n')
     )
     window.location.href = `mailto:na0ryank0@gmail.com?subject=${subject}&body=${body}`

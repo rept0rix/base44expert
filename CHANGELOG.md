@@ -1,6 +1,20 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v0.4.0] — working (branch v0.4.0-liquid-orange)
+- Molten orange / charcoal visual system (Base44-family #FF6A00 heat, not teal, not paper)
+- Melting logo hero animation + motion-heavy home (Taste + Emil rules)
+- Skills vendored: design-taste-frontend, emil-design-eng, impeccable
+- Global tokens: Syne + IBM Plex, melt/@keyframes, reduced-motion guards, btn active scale(0.97), accent glow
+- Assets: public/logo-melt.svg + orange/dark logo + favicon variants
+- Layout/Nav/Footer restyled to dark foundry (#0F0E0E / #F9F7F4 / #FF6A00)
+- Home rebuilt: full-viewport melt hero, asymmetric unstick zig-zag, process strip, restyled changelog/blog/FAQ/FixTheBase/CTA
+- /start restyled to molten system; mailto diagnostic + urgency field kept
+- Other pages inherit dark tokens (bg-white -> bg-bg-2)
+- Draft only - not live until תעשה
+
+## [Unreleased]
 - Lead path: `/start` urgency field, sharper case subject, clearer “what we do / don’t” box (on PR branch — not live until merge + תעשה)
 - Draft outreach: `drafts/lead-outreach-base44-stuck.md` (not posted)
 - Deduplicate Base44 product changelog RSS items on home/updates — park until Naor approves **v0.3.1**

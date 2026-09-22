@@ -15,10 +15,10 @@ function isActive(href: string) {
 }
 ---
 
-<header class="border-b border-line bg-paper/95 backdrop-blur sticky top-0 z-50">
+<header class="border-b border-line bg-bg/90 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
-      <a href="/" class="flex items-center gap-2 shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent rounded">
+      <a href="/" class="flex items-center gap-2 shrink-0 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
         <img src="/logo.svg" alt="Base44 Expert" width="180" height="32" class="h-8 w-auto" />
       </a>
 
@@ -28,8 +28,8 @@ function isActive(href: string) {
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
-              'text-sm font-medium transition-colors',
-              isActive(item.href) ? 'text-ink' : 'text-stone hover:text-ink',
+              'text-sm font-medium transition-colors duration-150',
+              isActive(item.href) ? 'text-ink' : 'text-muted hover:text-ink',
             ]}
           >
             {item.label}
@@ -42,7 +42,7 @@ function isActive(href: string) {
         <button
           type="button"
           id="mobile-menu-button"
-          class="inline-flex items-center justify-center p-2 rounded border border-line text-ink hover:bg-white"
+          class="inline-flex items-center justify-center p-2 rounded-xl border border-line text-ink hover:bg-bg-2 transition-colors"
           aria-controls="mobile-menu"
           aria-expanded="false"
           aria-label="Open menu"
@@ -58,15 +58,15 @@ function isActive(href: string) {
     </div>
   </div>
 
-  <div class="md:hidden hidden border-t border-line bg-paper" id="mobile-menu" hidden>
+  <div class="md:hidden hidden border-t border-line bg-bg" id="mobile-menu" hidden>
     <nav class="px-4 py-3 space-y-1" aria-label="Mobile">
       {navItems.map((item) => (
         <a
           href={item.href}
           aria-current={isActive(item.href) ? 'page' : undefined}
           class:list={[
-            'block px-3 py-3 rounded text-base font-medium',
-            isActive(item.href) ? 'bg-white text-ink border border-line' : 'text-stone hover:text-ink hover:bg-white',
+            'block px-3 py-3 rounded-xl text-base font-medium',
+            isActive(item.href) ? 'bg-bg-2 text-ink border border-line' : 'text-muted hover:text-ink hover:bg-bg-2',
           ]}
         >
           {item.label}
