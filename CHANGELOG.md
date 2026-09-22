@@ -12,6 +12,9 @@
 - Home rebuilt: full-viewport melt hero, asymmetric unstick zig-zag, process strip, restyled changelog/blog/FAQ/FixTheBase/CTA
 - /start restyled to molten system; mailto diagnostic + urgency field kept
 - Other pages inherit dark tokens (bg-white -> bg-bg-2)
+- Amp: morphing SVG blob (feTurbulence + path morph), multi-strand drips, puddle, glow pulse, film grain
+- Amp: CSS scroll-driven sticky scrub orb + view() section reveals (IO fallback); molten error marquee
+- Amp: button hover lift, link-draw underline; reduced-motion still kills big motion
 - Draft only - not live until תעשה
 
 ## [Unreleased]

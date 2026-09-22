@@ -71,6 +71,17 @@ const unstick = [
     flip: true,
   },
 ]
+
+const marqueePhrases = [
+  'publish success, live unchanged',
+  'SSL pending',
+  'schema mismatch',
+  'blank after deploy',
+  'preview fine, prod broken',
+  'entity field drift',
+  'DNS not propagating',
+  'connector timeout',
+]
 ---
 
 <Layout
@@ -82,10 +93,16 @@ const unstick = [
     <!-- Hero: molten mark drips, reforms into wordmark -->
     <section class="hero-melt" aria-labelledby="hero-heading">
       <div class="melt-stage" aria-hidden="true">
-        <img class="melt-blob" src="/logo-melt.svg" alt="" width="280" height="326" />
+        <div class="melt-glow-pulse"></div>
+        <img class="melt-blob" src="/logo-melt.svg" alt="" width="300" height="400" />
+        <div class="melt-liquid"></div>
         <div class="melt-drip"></div>
+        <div class="melt-drip-b"></div>
+        <div class="melt-drip-c"></div>
+        <div class="melt-puddle"></div>
         <p class="melt-wordmark">Base44 <span>Expert</span></p>
       </div>
+      <div class="grain-overlay" aria-hidden="true"></div>
 
       <div class="hero-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-6xl text-ink max-w-3xl text-balance mb-5 leading-[1.05]">
@@ -101,10 +118,43 @@ const unstick = [
       </div>
     </section>
 
-    <!-- What we unstick: asymmetric zig-zag, not 3 equal cards -->
-    <section class="section-padding border-t border-line" aria-labelledby="unstick-heading">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 id="unstick-heading" class="text-3xl sm:text-4xl text-ink mb-12 max-w-2xl">
+    <!-- Molten error marquee (max one per page) -->
+    <div class="error-marquee" aria-hidden="true">
+      <div class="error-marquee__track">
+        {[...marqueePhrases, ...marqueePhrases].map((phrase, i) => (
+          <span>
+            {i % 2 === 0 ? <span aria-hidden="true">●</span> : null}
+            {' '}
+            {phrase}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Scroll-scrub sticky heat band -->
+    <section class="scrub-sticky" aria-labelledby="scrub-heading">
+      <div class="scrub-sticky__pin">
+        <div class="scrub-orb" aria-hidden="true"></div>
+        <div class="scrub-copy">
+          <h2 id="scrub-heading" class="font-display text-3xl sm:text-5xl text-ink text-balance mb-4 leading-[1.08]">
+            Heat finds the fault line.
+          </h2>
+          <p class="text-muted leading-relaxed">
+            Status, logs, DNS, schema. Isolate first. Fix second. Explain always.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What we unstick: asymmetric zig-zag -->
+    <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="unstick-heading">
+      <div
+        class="parallax-glow pointer-events-none absolute -right-24 top-10 w-72 h-72 rounded-full opacity-40"
+        aria-hidden="true"
+        style="background: radial-gradient(circle, rgba(255,106,0,0.22), transparent 70%); filter: blur(12px);"
+      ></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <h2 id="unstick-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-12 max-w-2xl">
           What we unstick
         </h2>
         <div class="flex flex-col gap-6 md:gap-8">
@@ -136,10 +186,10 @@ const unstick = [
     <!-- Process strip -->
     <section class="section-padding border-t border-line" aria-labelledby="method-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 id="method-heading" class="text-3xl sm:text-4xl text-ink mb-10">
+        <h2 id="method-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-10">
           Diagnostic first. Then the fix.
         </h2>
-        <div class="process-strip">
+        <div class="process-strip view-reveal-delay">
           {[
             { t: 'Intake', d: 'You describe the stuck moment, app URL, and last change.' },
             { t: 'Isolate', d: 'Status, logs, DNS, schema, connectors - find the real fault line.' },
@@ -153,7 +203,7 @@ const unstick = [
           ))}
         </div>
         <p class="mt-8">
-          <a href="/work" class="text-sm text-accent hover:text-accent-2 underline underline-offset-2 transition-colors">Full process</a>
+          <a href="/work" class="link-draw text-sm">Full process</a>
         </p>
       </div>
     </section>
@@ -162,8 +212,8 @@ const unstick = [
     <section class="section-padding border-t border-line bg-bg-2" aria-labelledby="blog-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between gap-4 mb-8">
-          <h2 id="blog-heading" class="text-3xl sm:text-4xl text-ink">Latest notes</h2>
-          <a href="/blog" class="text-sm text-muted hover:text-accent underline underline-offset-2 shrink-0 transition-colors">All posts</a>
+          <h2 id="blog-heading" class="view-reveal text-3xl sm:text-4xl text-ink">Latest notes</h2>
+          <a href="/blog" class="link-draw text-sm text-muted shrink-0">All posts</a>
         </div>
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
@@ -186,10 +236,10 @@ const unstick = [
     <!-- FAQ teaser -->
     <section class="section-padding border-t border-line" aria-labelledby="faq-teaser-heading">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 id="faq-teaser-heading" class="text-3xl sm:text-4xl text-ink mb-8">Quick answers</h2>
+        <h2 id="faq-teaser-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-8">Quick answers</h2>
         <FaqList items={faqTeaser} idPrefix="home-faq" />
         <p class="mt-6 text-sm">
-          <a href="/faq" class="underline underline-offset-2 text-accent hover:text-accent-2 transition-colors">Full FAQ</a>
+          <a href="/faq" class="link-draw">Full FAQ</a>
         </p>
       </div>
     </section>
@@ -197,7 +247,7 @@ const unstick = [
     <!-- FixTheBase aside -->
     <section class="section-padding border-t border-line" aria-labelledby="fixthebase-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <aside class="glow-aside flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <aside class="glow-aside flex flex-col md:flex-row md:items-center md:justify-between gap-6 view-reveal">
           <div>
             <h2 id="fixthebase-heading" class="text-3xl text-ink mb-2">FixTheBase</h2>
             <p class="text-muted max-w-xl text-sm leading-relaxed">
@@ -216,12 +266,12 @@ const unstick = [
     <!-- Final CTA -->
     <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="cta-heading">
       <div
-        class="pointer-events-none absolute inset-0 opacity-60"
+        class="parallax-glow pointer-events-none absolute inset-0 opacity-60"
         aria-hidden="true"
-        style="background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255,106,0,0.18), transparent 60%);"
+        style="background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255,106,0,0.2), transparent 60%);"
       ></div>
       <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 id="cta-heading" class="font-display text-3xl sm:text-4xl mb-4 text-ink">Ready to unstick it?</h2>
+        <h2 id="cta-heading" class="view-reveal font-display text-3xl sm:text-4xl mb-4 text-ink">Ready to unstick it?</h2>
         <p class="text-muted mb-8 leading-relaxed max-w-prose mx-auto">
           Open a structured diagnostic email. No Formspree. No invented ticket queue - just a clear case for us to reply to.
         </p>
@@ -230,3 +280,36 @@ const unstick = [
     </section>
   </main>
 </Layout>
+
+<script>
+  // IntersectionObserver fallback when CSS scroll-driven animations are unsupported.
+  // No window scroll listeners; no React state.
+  const supportsViewTimeline =
+    typeof CSS !== 'undefined' &&
+    typeof CSS.supports === 'function' &&
+    CSS.supports('animation-timeline: view()')
+
+  const reduce =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (!supportsViewTimeline && !reduce) {
+    const targets = document.querySelectorAll('.view-reveal, .view-reveal-delay')
+    if (targets.length && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.setAttribute('data-inview', '')
+              io.unobserve(entry.target)
+            }
+          }
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -8% 0px' }
+      )
+      targets.forEach((el) => io.observe(el))
+    } else {
+      targets.forEach((el) => el.setAttribute('data-inview', ''))
+    }
+  }
+</script>
