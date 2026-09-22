@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getChangelogItems } from '../lib/changelog'
+import { getChangelogItems, getStudioShipNotes } from '../lib/changelog'
 
 const { items, fromRss, productPage, statusPage } = await getChangelogItems(12)
+const studioNotes = getStudioShipNotes(3)
 
 const breadcrumb = {
   '@context': 'https://schema.org',
@@ -24,9 +25,10 @@ const breadcrumb = {
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-4xl sm:text-5xl text-ink mb-4">Live Base44 product updates</h1>
         <p class="text-stone leading-relaxed mb-8">
-          This page mirrors titles from the official Base44 product changelog
+          This page mirrors feature headlines from the official Base44 product changelog
           {fromRss ? ' fetched via RSS at build time' : ''}.
-          Base44 Expert does not publish Base44’s product notes. If fetch fails, we show a single honest link — never fake titles.
+          Real titles come from each entry’s content (the &lt;h3&gt;), not the date-only RSS title.
+          Base44 Expert does not invent Base44 product notes.
         </p>
         <p class="text-sm text-stone mb-8 flex flex-wrap gap-4">
           <a class="underline underline-offset-2 text-ink" href={productPage} rel="noopener noreferrer" target="_blank">Official changelog</a>
@@ -35,18 +37,58 @@ const breadcrumb = {
           <a class="underline underline-offset-2 text-ink" href="https://docs.base44.com/Community-and-support/Troubleshooting" rel="noopener noreferrer" target="_blank">Troubleshooting docs</a>
         </p>
 
+        {!fromRss && (
+          <div class="mb-6 border border-line rounded-lg bg-bg-2 px-4 py-4 text-sm text-stone leading-relaxed">
+            <p class="font-medium text-ink mb-1">Changelog feed unavailable</p>
+            <p>
+              We could not fetch the official RSS at build time, so there is nothing to mirror here.
+              Use the official changelog link above — we never invent Base44 headlines.
+            </p>
+          </div>
+        )}
+
         <ul class="divide-y divide-line border border-line rounded-lg bg-bg-2 overflow-hidden pad-inset" role="list">
           {items.map((item) => (
-            <li class="px-3 py-3">
-              <a href={item.link} class="text-ink font-medium hover:text-accent" rel="noopener noreferrer" target="_blank">
+            <li class="px-3 py-4">
+              <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                {item.category && (
+                  <span class="inline-flex items-center rounded-full border border-line px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted">
+                    {item.category}
+                  </span>
+                )}
+                {(item.dateLabel || item.date) && (
+                  <time class="text-xs text-muted font-mono" datetime={item.date || undefined}>
+                    {item.dateLabel || item.date}
+                  </time>
+                )}
+              </div>
+              <a href={item.link} class="text-ink font-medium hover:text-accent text-lg leading-snug" rel="noopener noreferrer" target="_blank">
                 {item.title}
               </a>
-              <p class="text-xs text-stone mt-1 font-mono">
-                Source: {item.source}{item.date ? ` · ${item.date}` : ''}
+              {item.summary && (
+                <p class="text-sm text-stone mt-2 leading-relaxed">{item.summary}</p>
+              )}
+              <p class="text-xs text-stone mt-2 font-mono">
+                Source: {item.source}
               </p>
             </li>
           ))}
         </ul>
+
+        {studioNotes.length > 0 && (
+          <aside class="mt-12 border border-line rounded-lg bg-bg-2 pad-inset px-4 py-5" aria-labelledby="studio-notes-heading">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-muted mb-2">Studio — Base44 Expert</p>
+            <h2 id="studio-notes-heading" class="text-xl text-ink mb-3">Our own ship notes</h2>
+            <p class="text-sm text-stone mb-4">
+              Not Base44 product news — recent changes to this site (from our CHANGELOG).
+            </p>
+            <ul class="space-y-2 text-sm text-stone list-disc list-inside">
+              {studioNotes.map((note) => (
+                <li class="leading-relaxed">{note}</li>
+              ))}
+            </ul>
+          </aside>
+        )}
       </div>
     </section>
   </main>

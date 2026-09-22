@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v0.4.1] — 2026-09-22
+- Updates feed: prefer first `<h3>` inside RSS `content:encoded` as title (RSS `<title>` is often just a date); strip HTML summary (~160 chars); parse category + guid; dedupe by guid
+- `/updates` + ChangelogFeed show real headline, summary, category chip, date; clear empty-state copy when RSS fallback
+- Optional studio ship notes (last bullets from CHANGELOG.md), labeled as studio — not Base44 product
+
 ## [v0.4.0] — working (branch v0.4.0-liquid-orange)
 - Restore liquid-orange WOW: settling melt mark + breath, visible lava veins, fault diagrams, scroll liquid scrub; keep Impeccable bans (no marquee/kickers/buried grain/zero-offset orange glow)
 - Impeccable pass: removed dark-glow / marquee / kickers / buried grain / all-caps body; fixed cramped padding with literal rem insets; excluded .agents from Tailwind scan (no amber tutorial utils in CSS)
