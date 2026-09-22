@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ## [v0.4.0] — working (branch v0.4.0-liquid-orange)
+- Restore liquid-orange WOW: settling melt mark + breath, visible lava veins, fault diagrams, scroll liquid scrub; keep Impeccable bans (no marquee/kickers/buried grain/zero-offset orange glow)
 - Impeccable pass: removed dark-glow / marquee / kickers / buried grain / all-caps body; fixed cramped padding with literal rem insets; excluded .agents from Tailwind scan (no amber tutorial utils in CSS)
 - Molten orange / charcoal visual system (Base44-family #FF6A00 heat, not teal, not paper)
 - Melting logo hero animation + motion-heavy home (Taste + Emil rules)

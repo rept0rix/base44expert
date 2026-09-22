@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="Domain SSL fault diagram">
+  <rect width="320" height="200" rx="16" fill="#1A1816"/>
+  <g fill="none" stroke-linecap="round">
+    <circle cx="64" cy="100" r="28" stroke="#312F2F" stroke-width="2" fill="#0F0E0E"/>
+    <text x="64" y="104" text-anchor="middle" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="10">DNS</text>
+    <path d="M92 100 H128" stroke="#FF6A00" stroke-width="2.5"/>
+    <circle cx="160" cy="100" r="28" stroke="#FF6A00" stroke-width="2" fill="rgba(255,106,0,0.1)"/>
+    <text x="160" y="104" text-anchor="middle" fill="#FF8F5C" font-family="IBM Plex Mono, monospace" font-size="10">proxy</text>
+    <path d="M188 100 H224" stroke="#FF6A00" stroke-width="2.5" stroke-dasharray="5 4"/>
+    <circle cx="256" cy="100" r="28" stroke="#312F2F" stroke-width="2" fill="#0F0E0E"/>
+    <text x="256" y="100" text-anchor="middle" fill="#F9F7F4" font-family="IBM Plex Mono, monospace" font-size="9">SSL</text>
+    <text x="256" y="112" text-anchor="middle" fill="#FF6A00" font-family="IBM Plex Mono, monospace" font-size="9">pending</text>
+  </g>
+</svg>

@@ -46,12 +46,16 @@ const unstick = [
     body: 'Build failed, blank screen after publish, or a stale live URL. We start with status, then logs.',
     href: '/base44-not-working',
     flip: false,
+    viz: '/viz/fault-publish.svg',
+    vizAlt: 'Diagram: build reports success while live stays unchanged',
   },
   {
     title: 'Works on Base44. Breaks on yours.',
     body: 'DNS, Cloudflare proxy, certificate still pending. Custom domain stuck in limbo.',
     href: '/custom-domains',
     flip: true,
+    viz: '/viz/fault-domain.svg',
+    vizAlt: 'Diagram: DNS to proxy to SSL still pending',
   },
   {
     title: 'Schema drifted after an AI edit.',
@@ -59,12 +63,16 @@ const unstick = [
     href: null,
     flip: false,
     wide: true,
+    viz: '/viz/fault-schema.svg',
+    vizAlt: 'Diagram: entity schema version mismatch',
   },
   {
     title: 'Fine in preview. Dead in production.',
     body: 'Connectors, env, assets, or auth that only fail once the app is live.',
     href: null,
     flip: true,
+    viz: '/viz/fault-preview.svg',
+    vizAlt: 'Diagram: preview healthy, production breaks',
   },
 ]
 
@@ -86,16 +94,18 @@ const faultPhrases = [
   jsonLd={jsonLd}
 >
   <main id="main">
-    <!-- Hero: molten mark drips, reforms into wordmark -->
+    <!-- Hero: molten mark drips, settles into living mark + wordmark -->
     <section class="hero-melt" aria-labelledby="hero-heading">
       <div class="melt-stage" aria-hidden="true">
         <div class="melt-glow-pulse"></div>
+        <img class="lava-veins" src="/viz/lava-veins.svg" alt="" width="800" height="600" />
         <img class="melt-blob" src="/logo-melt.svg" alt="" width="300" height="400" />
         <div class="melt-liquid"></div>
         <div class="melt-drip"></div>
         <div class="melt-drip-b"></div>
         <div class="melt-drip-c"></div>
         <div class="melt-puddle"></div>
+        <div class="melt-ember"></div>
         <p class="melt-wordmark">Base44 <span>Expert</span></p>
       </div>
       <div class="hero-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -112,7 +122,7 @@ const faultPhrases = [
       </div>
     </section>
 
-    <!-- Fault-line phrases: static, readable (no marquee) -->
+    <!-- Fault-line phrases: static chips with heat shimmer (no marquee) -->
     <div class="error-phrases">
       <ul class="error-phrases__list" role="list">
         {faultPhrases.map((phrase) => (
@@ -121,10 +131,11 @@ const faultPhrases = [
       </ul>
     </div>
 
-    <!-- Scroll-scrub sticky heat band -->
+    <!-- Scroll-scrub sticky heat band with morphing liquid orb -->
     <section class="scrub-sticky" aria-labelledby="scrub-heading">
       <div class="scrub-sticky__pin">
         <div class="scrub-orb" aria-hidden="true"></div>
+        <div class="scrub-liquid" aria-hidden="true"></div>
         <div class="scrub-copy">
           <h2 id="scrub-heading" class="font-display text-3xl sm:text-5xl text-ink text-balance mb-4 leading-[1.08]">
             Heat finds the fault line.
@@ -136,7 +147,7 @@ const faultPhrases = [
       </div>
     </section>
 
-    <!-- What we unstick: asymmetric zig-zag -->
+    <!-- What we unstick: asymmetric zig-zag + fault diagrams -->
     <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="unstick-heading">
       <div
         class="parallax-glow pointer-events-none absolute -right-24 top-10 w-72 h-72 rounded-full opacity-40"
@@ -153,15 +164,17 @@ const faultPhrases = [
               <a href={row.href} class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
                 <div class="unstick-meta">
                   <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
+                  <p class="text-muted leading-relaxed max-w-prose mt-3">{row.body}</p>
                 </div>
-                <p class="text-muted leading-relaxed max-w-prose">{row.body}</p>
+                <img class="unstick-viz" src={row.viz} alt={row.vizAlt} width="320" height="200" loading="lazy" />
               </a>
             ) : (
               <div class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
                 <div class="unstick-meta">
                   <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
+                  <p class="text-muted leading-relaxed max-w-prose mt-3">{row.body}</p>
                 </div>
-                <p class="text-muted leading-relaxed max-w-prose">{row.body}</p>
+                <img class="unstick-viz" src={row.viz} alt={row.vizAlt} width="320" height="200" loading="lazy" />
               </div>
             )
           ))}
