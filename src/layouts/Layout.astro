@@ -90,19 +90,24 @@ const ogURL = new URL(ogImage, Astro.site).toString()
             heat.classList.add('is-live');
             if (!raf) raf = requestAnimationFrame(tick);
           }, { passive: true });
-          window.addEventListener('pointerleave', () => heat.classList.remove('is-live'), { passive: true });
+          document.documentElement.addEventListener('pointerleave', () => {
+            heat.classList.remove('is-live');
+          }, { passive: true });
         }
 
         document.querySelectorAll('.magnetic').forEach((el) => {
+          if (!(el instanceof HTMLElement)) return;
           const strength = 18;
           el.addEventListener('pointermove', (e) => {
             const r = el.getBoundingClientRect();
             const dx = e.clientX - (r.left + r.width / 2);
             const dy = e.clientY - (r.top + r.height / 2);
-            el.style.transform = `translate(${dx / strength}px, ${dy / strength}px)`;
+            el.style.setProperty('--mx', `${dx / strength}px`);
+            el.style.setProperty('--my', `${dy / strength}px`);
           });
           el.addEventListener('pointerleave', () => {
-            el.style.transform = '';
+            el.style.setProperty('--mx', '0px');
+            el.style.setProperty('--my', '0px');
           });
         });
       })();

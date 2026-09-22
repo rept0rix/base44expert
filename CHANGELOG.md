@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ## [v0.4.2] — 2026-09-22
+- Unstick scrub motion: always-on liquid pulse/glow (even mid-sticky), scrub sticky trap lowered (~115vh), scroll scrub no longer freezes lava at mid-opacity
 - Home scrub / heat band: brighter lava (#FF6A00+), higher opacity, stronger glow, readable copy scrim — fixes “invisible” fault-line section
 - Site-wide motion + imagery: cursor heat trail + magnetic CTAs (reduced-motion safe); page-heat viz on start/work/updates/blog/keyword pages; reuse `/viz` + `/blog` SVGs
 - `/updates`: human intro (no RSS/h3/build-time meta); Product + Developer chips; denser dual-feed merge (~22 items, longer summaries); “From the studio” blog links

@@ -61,7 +61,7 @@ const breadcrumb = {
         </p>
         <ul class="space-y-5" role="list">
           {posts.map((p) => (
-            <li>
+            <li class="view-reveal">
               <a href={p.href} class="card-panel block hover:border-accent/50 transition-colors">
                 <img class="blog-card-thumb" src={p.image} alt={p.imageAlt} width="640" height="360" loading="lazy" />
                 <time class="font-mono text-xs text-muted" datetime={p.date}>{p.date}</time>

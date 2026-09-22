@@ -223,7 +223,7 @@ const faultPhrases = [
             { href: '/blog/base44-custom-domain-ssl', title: 'Custom domain SSL still pending', d: 'DNS, proxy, and certificate timing.' },
             { href: '/blog/base44-changelog-what-changed', title: 'How to read the Base44 changelog', d: 'Official notes, status, and what it means for stuck apps.' },
           ].map((p) => (
-            <li>
+            <li class="view-reveal">
               <a href={p.href} class="card-panel block h-full hover:border-accent/40 transition-colors group">
                 <h3 class="font-display text-xl text-ink mb-2 group-hover:text-accent transition-colors">{p.title}</h3>
                 <p class="text-sm text-muted">{p.d}</p>

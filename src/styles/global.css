@@ -781,7 +781,7 @@
   /* ---- Scroll-scrub / view timelines ---- */
   .scrub-sticky {
     position: relative;
-    min-height: 160vh;
+    min-height: 115vh;
   }
 
   .scrub-sticky__pin {
@@ -853,18 +853,32 @@
     transform: none;
   }
 
+  /* Always-on lava life (even when not scrubbing / mid sticky) */
+  @media (prefers-reduced-motion: no-preference) {
+    .scrub-orb {
+      animation: scrub-lava-glow 3.6s ease-in-out infinite;
+    }
+
+    .scrub-liquid {
+      animation: scrub-liquid-blob 4.5s ease-in-out infinite;
+    }
+  }
+
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
+      /* Scroll scrub + continuous pulse; glow/blob avoid transform so they compose */
       .scrub-orb {
-        animation: scrub-orb-progress linear both;
-        animation-timeline: view();
-        animation-range: cover 0% cover 100%;
+        animation:
+          scrub-orb-progress linear both,
+          scrub-lava-glow 3.6s ease-in-out infinite;
+        animation-timeline: view(), auto;
+        animation-range: cover 0% cover 100%, normal;
       }
 
       .scrub-liquid {
         animation:
           scrub-liquid-progress linear both,
-          melt-liquid-morph 5s ease-in-out infinite;
+          scrub-liquid-blob 4.5s ease-in-out infinite;
         animation-timeline: view(), auto;
         animation-range: cover 0% cover 100%, normal;
       }
@@ -872,7 +886,7 @@
       .scrub-copy {
         animation: scrub-copy-progress linear both;
         animation-timeline: view();
-        animation-range: cover 10% cover 55%;
+        animation-range: cover 5% cover 45%;
       }
 
       .view-reveal {
@@ -901,14 +915,6 @@
     }
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    @supports not (animation-timeline: view()) {
-      .scrub-liquid {
-        animation: melt-liquid-morph 5s ease-in-out infinite;
-      }
-    }
-  }
-
   /* Fallback when scroll timelines unsupported: IntersectionObserver sets [data-inview] */
   @supports not (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
@@ -931,30 +937,59 @@
 
   @keyframes scrub-orb-progress {
     from {
-      opacity: 0.7;
-      transform: scale(0.78) translateY(6%);
+      opacity: 0.88;
+      transform: scale(0.88) translateY(4%);
     }
     to {
       opacity: 1;
-      transform: scale(1.28) translateY(-12%);
+      transform: scale(1.22) translateY(-10%);
     }
   }
 
   @keyframes scrub-liquid-progress {
     from {
-      opacity: 0.82;
-      transform: scale(0.72) translateY(14%);
+      opacity: 0.9;
+      transform: scale(0.85) translateY(8%);
     }
     to {
       opacity: 1;
-      transform: scale(1.18) translateY(-8%);
+      transform: scale(1.14) translateY(-6%);
+    }
+  }
+
+  /* Continuous pulse: filter/shadow only — does not fight scroll transform */
+  @keyframes scrub-lava-glow {
+    0%, 100% {
+      filter: blur(14px) brightness(1) saturate(1.08);
+      box-shadow:
+        0 0 80px 28px rgba(255, 106, 0, 0.45),
+        0 0 160px 60px rgba(255, 80, 0, 0.28);
+    }
+    50% {
+      filter: blur(18px) brightness(1.2) saturate(1.25);
+      box-shadow:
+        0 0 110px 42px rgba(255, 130, 30, 0.62),
+        0 0 190px 78px rgba(255, 90, 0, 0.4);
+    }
+  }
+
+  /* Continuous morph: border-radius only — composes with scrub transform */
+  @keyframes scrub-liquid-blob {
+    0%, 100% {
+      border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+    }
+    33% {
+      border-radius: 45% 55% 40% 60% / 55% 45% 55% 45%;
+    }
+    66% {
+      border-radius: 55% 45% 60% 40% / 40% 60% 40% 60%;
     }
   }
 
   @keyframes scrub-copy-progress {
     from {
-      opacity: 0;
-      transform: translateY(24px) scale(0.96);
+      opacity: 0.55;
+      transform: translateY(16px) scale(0.98);
     }
     to {
       opacity: 1;
@@ -1108,21 +1143,19 @@
     }
   }
 
-}
-
   /* ---- Site-wide heat FX (cursor + magnetic CTAs) ---- */
   .cursor-heat {
     position: fixed;
     top: 0;
     left: 0;
-    width: 220px;
-    height: 220px;
-    margin: -110px 0 0 -110px;
+    width: 260px;
+    height: 260px;
+    margin: -130px 0 0 -130px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 60;
     opacity: 0;
-    background: radial-gradient(circle, rgba(255, 160, 60, 0.35) 0%, rgba(255, 106, 0, 0.18) 38%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 180, 80, 0.45) 0%, rgba(255, 106, 0, 0.28) 36%, rgba(255, 80, 0, 0.1) 58%, transparent 72%);
     mix-blend-mode: screen;
     transform: translate3d(-100vw, -100vh, 0);
     transition: opacity 220ms var(--ease-out);
@@ -1135,8 +1168,21 @@
 
   .magnetic {
     display: inline-flex;
+    --mx: 0px;
+    --my: 0px;
+    transform: translate(var(--mx), var(--my));
     transition: transform 160ms var(--ease-out);
     will-change: transform;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary.magnetic:hover {
+      transform: translate(var(--mx), var(--my)) translateY(-2px);
+    }
+  }
+
+  .btn-primary.magnetic:active {
+    transform: translate(var(--mx), var(--my)) scale(0.97);
   }
 
   .page-heat {
@@ -1204,3 +1250,5 @@
       display: none !important;
     }
   }
+
+}
