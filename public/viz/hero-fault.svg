@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="lavaCore" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE0B8"/>
+      <stop offset="35%" stop-color="#FF8F5C"/>
+      <stop offset="70%" stop-color="#FF6A00"/>
+      <stop offset="100%" stop-color="#C43A00"/>
+    </linearGradient>
+    <linearGradient id="faultGlow" x1="0" y1="0.5" x2="1" y2="0.5">
+      <stop offset="0%" stop-color="#FF6A00" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#FF6A00" stop-opacity="0.85"/>
+      <stop offset="55%" stop-color="#FFB088" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FF6A00" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="orbFill" cx="42%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#FFE8C8"/>
+      <stop offset="28%" stop-color="#FFB060"/>
+      <stop offset="58%" stop-color="#FF6A00"/>
+      <stop offset="100%" stop-color="#7A2200" stop-opacity="0.15"/>
+    </radialGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="crackWobble">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="6"/>
+    </filter>
+  </defs>
+  <!-- Deep charcoal plates -->
+  <rect width="1400" height="900" fill="#0F0E0E"/>
+  <path d="M0 0 H1400 V420 C1100 390 900 470 700 440 C480 405 260 480 0 450 Z" fill="#161412"/>
+  <path d="M0 450 C260 480 480 405 700 440 C900 470 1100 390 1400 420 V900 H0 Z" fill="#121110"/>
+  <!-- Fault glow seam -->
+  <path filter="url(#crackWobble)" d="M-40 448 C180 410 320 510 520 455 C700 410 820 520 1020 460 C1180 415 1320 490 1440 440"
+        fill="none" stroke="url(#faultGlow)" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+  <path filter="url(#crackWobble)" d="M-20 452 C200 430 340 500 540 460 C720 425 840 510 1040 468 C1200 430 1340 485 1420 450"
+        fill="none" stroke="#FFD0A0" stroke-width="2.5" stroke-linecap="round" opacity="0.95"/>
+  <!-- Molten orb -->
+  <g filter="url(#softGlow)" transform="translate(980 250)">
+    <circle cx="0" cy="0" r="130" fill="url(#orbFill)"/>
+    <ellipse cx="-28" cy="-36" rx="48" ry="28" fill="#FFE8C8" opacity="0.55"/>
+    <path d="M-10 90 C-4 130 8 170 4 210" fill="none" stroke="url(#lavaCore)" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+    <path d="M22 85 C30 125 18 165 28 205" fill="none" stroke="#FF8F5C" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="6" cy="218" r="9" fill="#FF6A00"/>
+    <circle cx="30" cy="212" r="6" fill="#FF8F5C"/>
+  </g>
+  <!-- Side veins -->
+  <g fill="none" stroke="#FF6A00" stroke-opacity="0.35" stroke-width="1.8" stroke-linecap="round">
+    <path d="M80 120 C160 180 140 260 220 300"/>
+    <path d="M160 80 C200 140 260 160 280 220"/>
+    <path d="M40 600 C120 560 180 620 260 580 C340 540 400 600 480 570"/>
+    <path d="M1100 680 C1180 640 1240 700 1320 660"/>
+  </g>
+</svg>

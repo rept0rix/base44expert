@@ -1,10 +1,58 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import FaqList from '../../components/FaqList.astro'
+import type { FaqItem } from '../../lib/faq'
 
-const title = "Base44 custom domain SSL still pending"
-const description = "DNS, Cloudflare proxy, and certificate timing when Base44 custom domain SSL stays pending."
-const datePublished = "2026-09-03"
+const title = 'Base44 custom domain SSL still pending'
+const description =
+  'DNS records, Cloudflare proxy, and certificate timing when Base44 custom domain SSL stays pending.'
+const datePublished = '2026-09-03'
 const url = 'https://base44expert.com/blog/base44-custom-domain-ssl'
+const hero = '/blog/hero-domain-ssl.svg'
+const diagram = '/blog/diagram-dns.svg'
+
+const faqs: FaqItem[] = [
+  {
+    question: 'Why is SSL pending when the Base44 host URL works?',
+    answer:
+      'Certificates issue against your custom hostname. If DNS is wrong, proxied, or still propagating, the host URL can work while the custom domain stays pending.',
+  },
+  {
+    question: 'Should I turn Cloudflare to grey cloud?',
+    answer:
+      'Often yes while the cert issues. Orange-cloud proxy can block HTTP-01 style checks. Set DNS to DNS-only, wait for the cert, then re-enable proxy if you still need it.',
+  },
+  {
+    question: 'How long should I wait after fixing DNS?',
+    answer:
+      'Propagation can take minutes to a few hours. Re-check records with dig/nslookup before republishing the app. Fixing DNS beats another publish cycle.',
+  },
+  {
+    question: 'Do I need to republish the Base44 app for SSL?',
+    answer:
+      'Usually not. Domain and certificate state live outside the app build. Confirm records match Base44’s guide first.',
+  },
+  {
+    question: 'Where are the official domain steps?',
+    answer:
+      'See <a href="https://docs.base44.com/Setting-up-your-app/Setting-up-your-custom-domain" rel="noopener noreferrer" target="_blank">Setting up your custom domain</a> and our page <a href="/custom-domains">/custom-domains</a>.',
+  },
+  {
+    question: 'What belongs in a domain diagnostic email?',
+    answer:
+      'Custom domain, registrar/DNS host, whether Cloudflare is proxied, screenshots of records, and whether the *.base44 host still works. Use type <strong>domain</strong> on <a href="/start">/start</a>.',
+  },
+]
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]+>/g, '') },
+  })),
+}
 
 const jsonLd = [
   {
@@ -13,6 +61,7 @@ const jsonLd = [
     headline: title,
     description,
     datePublished,
+    image: `https://base44expert.com${hero}`,
     author: { '@type': 'Organization', name: 'Base44 Expert' },
     publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://base44expert.com' },
     mainEntityOfPage: url,
@@ -27,6 +76,7 @@ const jsonLd = [
       { '@type': 'ListItem', position: 3, name: title, item: url },
     ],
   },
+  faqLd,
 ]
 ---
 
@@ -34,16 +84,38 @@ const jsonLd = [
   <main id="main">
     <article class="section-padding">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl text-ink mb-8 text-balance">{title}</h1>
-        <div class="prose-studio text-stone leading-relaxed space-y-4">
-          <p>Your app works on the Base44 host. On your domain, SSL stays pending or the browser refuses the connection.</p>
-          <p>Usually the fault is DNS timing, a wrong record, or a CDN proxy (often Cloudflare orange-cloud) blocking certificate issuance. Fix DNS before republishing the app.</p>
-          <p>Follow Base44’s guide: <a href="https://docs.base44.com/Setting-up-your-app/Setting-up-your-custom-domain" rel="noopener noreferrer" target="_blank">Setting up your custom domain</a>. Our studio page <a href="/custom-domains">/custom-domains</a> lists what we check when docs alone are not enough.</p>
-          <p>For help isolating records and proxy state, start a diagnostic with type <strong>domain</strong>.</p>
+        <p class="font-mono text-xs text-muted mb-3">
+          <time datetime={datePublished}>{datePublished}</time>
+        </p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance">{title}</h1>
+        <img class="blog-hero" src={hero} alt="DNS to certificate path for a Base44 custom domain" width="960" height="540" />
 
+        <div class="prose-studio text-muted leading-relaxed space-y-4">
+          <p>
+            Your app works on the Base44 host. On your domain, SSL stays pending or the browser refuses the connection. That is almost never “republish the app again.”
+          </p>
+          <img class="blog-diagram" src={diagram} alt="DNS checklist before SSL issues" width="640" height="220" loading="lazy" />
+          <h2 class="font-display text-2xl text-ink pt-2">What we check</h2>
+          <ol class="list-decimal list-inside space-y-2">
+            <li>Exact A / CNAME values from Base44’s domain docs.</li>
+            <li>Proxy state (Cloudflare orange cloud often blocks issuance).</li>
+            <li>Propagation — dig both apex and www before touching the builder.</li>
+            <li>Certificate status after DNS is correct — then HTTPS redirects.</li>
+          </ol>
+          <p>
+            Follow Base44’s guide:
+            <a href="https://docs.base44.com/Setting-up-your-app/Setting-up-your-custom-domain" rel="noopener noreferrer" target="_blank">Setting up your custom domain</a>.
+            Studio notes: <a href="/custom-domains">/custom-domains</a>.
+          </p>
         </div>
-        <p class="mt-12 pad-inset-md border-t border-line">
-          <a href="/start" class="btn-primary">Start a diagnostic</a>
+
+        <section class="mt-12" aria-labelledby="post-faq">
+          <h2 id="post-faq" class="font-display text-2xl sm:text-3xl text-ink mb-5">Questions &amp; answers</h2>
+          <FaqList items={faqs} idPrefix="dom" />
+        </section>
+
+        <p class="mt-12 pt-8 border-t border-line">
+          <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
         </p>
       </div>
     </article>

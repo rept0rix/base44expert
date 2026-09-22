@@ -1,10 +1,53 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import FaqList from '../../components/FaqList.astro'
+import type { FaqItem } from '../../lib/faq'
 
-const title = "When Base44 publish says success but live is unchanged"
-const description = "Separate build failure, stale live output, and blank screens after publish on Base44."
-const datePublished = "2026-09-02"
+const title = 'When Base44 publish says success but live is unchanged'
+const description =
+  'Separate build failure, stale live output, and blank screens after publish on Base44 — with a practical checklist.'
+const datePublished = '2026-09-02'
 const url = 'https://base44expert.com/blog/base44-publish-error'
+const hero = '/blog/hero-publish-error.svg'
+const diagram = '/blog/diagram-publish.svg'
+
+const faqs: FaqItem[] = [
+  {
+    question: 'Publish succeeded — why is live still yesterday’s version?',
+    answer:
+      'Success means the job reported OK, not that the URL you opened is the new build. Check cache, the exact published URL, and whether you edited a branch or preview that never targeted production.',
+  },
+  {
+    question: 'How do I tell a failed build from a stale publish?',
+    answer:
+      'Failed builds leave an error in publish/logs. Stale live usually has a green publish with unchanged content. Blank screens after an AI edit are a third path — capture the console error.',
+  },
+  {
+    question: 'Should I hit publish again immediately?',
+    answer:
+      'Only after you know what failed. Re-publishing the same broken state burns time. Copy the log line, note the last change, then retry once with a clear hypothesis.',
+  },
+  {
+    question: 'Could this be a platform incident?',
+    answer:
+      'Yes. Check <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a> before deep debugging. If Hosting is degraded, wait.',
+  },
+  {
+    question: 'What do you need for a publish diagnostic?',
+    answer:
+      'App URL, publish result (success/fail), any log snippet, whether preview matches live, and the last change. Open <a href="/start">/start</a> with type publish.',
+  },
+]
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]+>/g, '') },
+  })),
+}
 
 const jsonLd = [
   {
@@ -13,6 +56,7 @@ const jsonLd = [
     headline: title,
     description,
     datePublished,
+    image: `https://base44expert.com${hero}`,
     author: { '@type': 'Organization', name: 'Base44 Expert' },
     publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://base44expert.com' },
     mainEntityOfPage: url,
@@ -27,6 +71,7 @@ const jsonLd = [
       { '@type': 'ListItem', position: 3, name: title, item: url },
     ],
   },
+  faqLd,
 ]
 ---
 
@@ -34,16 +79,36 @@ const jsonLd = [
   <main id="main">
     <article class="section-padding">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl text-ink mb-8 text-balance">{title}</h1>
-        <div class="prose-studio text-stone leading-relaxed space-y-4">
-          <p>A common stuck moment: the UI says publish succeeded, but the live URL still shows yesterday’s version — or a blank screen.</p>
-          <p>Treat these as different faults. A failed build needs logs. A “success” with stale live output may be caching, a wrong publish target, or a change that never left preview. A blank screen after an AI edit needs the last change and any console error you can copy.</p>
-          <p>Check <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">platform status</a> first, then capture the exact message. We walk triage on <a href="/base44-not-working">/base44-not-working</a>.</p>
-          <p>We do not invent incident queues. If you want a human pass, use <a href="/start">/start</a> with type <strong>publish</strong>.</p>
+        <p class="font-mono text-xs text-muted mb-3">
+          <time datetime={datePublished}>{datePublished}</time>
+        </p>
+        <h1 class="text-4xl sm:text-5xl text-ink mb-4 text-balance">{title}</h1>
+        <img class="blog-hero" src={hero} alt="Publish reports success while live URL stays unchanged" width="960" height="540" />
 
+        <div class="prose-studio text-muted leading-relaxed space-y-4">
+          <p>
+            Classic stuck moment: the UI says publish succeeded, but the live URL still shows yesterday — or a blank screen. Those are different faults. Mixing them costs hours.
+          </p>
+          <img class="blog-diagram" src={diagram} alt="Three publish failure modes: build failed, stale live, blank screen" width="640" height="240" loading="lazy" />
+          <h2 class="font-display text-2xl text-ink pt-2">Split the fault</h2>
+          <ul class="list-disc list-inside space-y-2">
+            <li><strong class="text-ink">Build failed</strong> — read the log; fix the error before another publish.</li>
+            <li><strong class="text-ink">Stale live</strong> — caching, wrong target, or a change that never left preview.</li>
+            <li><strong class="text-ink">Blank after edit</strong> — last AI change + console error; undo before redesigning.</li>
+          </ul>
+          <p>
+            Check <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">platform status</a>, capture the exact message, then walk
+            <a href="/base44-not-working">/base44-not-working</a>. We do not invent incident queues — if you want a human pass, use <a href="/start">/start</a> with type <strong>publish</strong>.
+          </p>
         </div>
-        <p class="mt-12 pad-inset-md border-t border-line">
-          <a href="/start" class="btn-primary">Start a diagnostic</a>
+
+        <section class="mt-12" aria-labelledby="post-faq">
+          <h2 id="post-faq" class="font-display text-2xl sm:text-3xl text-ink mb-5">Questions &amp; answers</h2>
+          <FaqList items={faqs} idPrefix="pub" />
+        </section>
+
+        <p class="mt-12 pt-8 border-t border-line">
+          <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
         </p>
       </div>
     </article>

@@ -1,0 +1,342 @@
+---
+/**
+ * Full-viewport molten hero: pointer-reactive lava orb (canvas rAF),
+ * heat-distorting headline chars, fault crack under the line.
+ * Specialist desk strip (real failure modes) sits in the fold — not motion-only.
+ * Static SVG composition when prefers-reduced-motion.
+ */
+const headline = 'Publish lied. Live froze.'
+const chars = [...headline]
+
+const deskFaults = [
+  { code: 'PUB', label: 'Publish OK, live stale', tip: 'Check build artifact + CDN cache before rewriting the app.' },
+  { code: 'DNS', label: 'SSL pending forever', tip: 'Proxy orange-cloud + wrong A/CNAME = certificate never issues.' },
+  { code: 'SCH', label: 'Schema after AI edit', tip: 'Entity fields drift; validation fails on records that used to save.' },
+  { code: 'PRV', label: 'Preview fine, prod dead', tip: 'Connectors, secrets, and auth paths that only exist live.' },
+]
+---
+
+<section class="hero-blast" aria-labelledby="hero-heading" data-hero-blast>
+  <div class="hero-blast__stage" aria-hidden="true">
+    <img
+      class="hero-blast__art"
+      src="/viz/hero-fault.svg"
+      alt=""
+      width="1400"
+      height="900"
+      decoding="async"
+    />
+    <canvas class="hero-blast__canvas" data-molten-canvas width="1400" height="900"></canvas>
+    <div class="hero-blast__vignette"></div>
+  </div>
+
+  <div class="hero-blast__grid max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="hero-blast__content">
+      <p class="hero-blast__mark">Independent Base44 rescue studio</p>
+      <h1 id="hero-heading" class="hero-blast__title" data-heat-title>
+        {headline.split(' ').map((word, wi, arr) => (
+          <>
+            <span class="heat-word" aria-hidden="true">
+              {[...word].map((ch) => (
+                <span class="heat-char" data-heat-char>{ch}</span>
+              ))}
+            </span>
+            {wi < arr.length - 1 ? <span class="heat-space" aria-hidden="true"> </span> : null}
+          </>
+        ))}
+        <span class="sr-only">{headline}</span>
+      </h1>
+      <div class="hero-blast__fault" data-fault-crack aria-hidden="true">
+        <img src="/viz/fault-crack.svg" alt="" width="900" height="80" />
+        <span class="hero-blast__fault-core" data-fault-core></span>
+      </div>
+      <p class="hero-blast__lead">
+        When a Base44 app sticks, tutorials do not help. Status, publish logs, DNS, schema, connectors —
+        isolate the fault line, then fix the break. Not a rebuild. Not vibes.
+      </p>
+      <div class="hero-blast__cta">
+        <a href="/start" class="btn-primary magnetic">Send the stuck moment</a>
+        <a href="#war-room" class="btn-secondary">Open the war room</a>
+      </div>
+    </div>
+
+    <aside class="hero-desk" aria-label="Common Base44 fault lines">
+      <header class="hero-desk__head">
+        <span class="hero-desk__eyebrow">Desk notes</span>
+        <span class="hero-desk__meta">First things we check</span>
+      </header>
+      <ul class="hero-desk__list" role="list">
+        {deskFaults.map((f) => (
+          <li class="hero-desk__row">
+            <span class="hero-desk__code">{f.code}</span>
+            <div>
+              <p class="hero-desk__label">{f.label}</p>
+              <p class="hero-desk__tip">{f.tip}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="hero-desk__foot">
+        Triage order:
+        <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status</a>
+        → publish → DNS/SSL → schema → connectors
+      </p>
+    </aside>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.querySelector('[data-hero-blast]')
+    if (!(root instanceof HTMLElement)) return
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const fine = window.matchMedia('(pointer: fine)').matches
+    const canvas = root.querySelector('[data-molten-canvas]')
+    const chars = root.querySelectorAll('[data-heat-char]')
+    const faultCore = root.querySelector('[data-fault-core]')
+
+    if (reduce || !(canvas instanceof HTMLCanvasElement)) {
+      root.classList.add('is-static')
+      return
+    }
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) {
+      root.classList.add('is-static')
+      return
+    }
+
+    let w = 0
+    let h = 0
+    let dpr = 1
+    let raf = 0
+    let running = false
+
+    let tx = 0.72
+    let ty = 0.38
+    let x = 0.72
+    let y = 0.38
+    let heat = 0.35
+    let targetHeat = 0.35
+
+    /** @type {{ x: number, y: number, vy: number, life: number, w: number }[]} */
+    const drips = []
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect()
+      dpr = Math.min(window.devicePixelRatio || 1, 2)
+      w = Math.max(1, Math.floor(rect.width))
+      h = Math.max(1, Math.floor(rect.height))
+      canvas.width = Math.floor(w * dpr)
+      canvas.height = Math.floor(h * dpr)
+      canvas.style.width = `${w}px`
+      canvas.style.height = `${h}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    const spawnDrip = (ox, oy) => {
+      if (drips.length > 18) return
+      drips.push({
+        x: ox + (Math.random() - 0.5) * 36,
+        y: oy + 20 + Math.random() * 10,
+        vy: 1.2 + Math.random() * 1.8,
+        life: 1,
+        w: 3 + Math.random() * 5,
+      })
+    }
+
+    const drawOrb = (cx, cy, r, pulse) => {
+      const g = ctx.createRadialGradient(cx - r * 0.25, cy - r * 0.3, r * 0.08, cx, cy, r)
+      g.addColorStop(0, 'rgba(255, 232, 200, 0.98)')
+      g.addColorStop(0.22, 'rgba(255, 176, 96, 0.95)')
+      g.addColorStop(0.48, 'rgba(255, 106, 0, 0.88)')
+      g.addColorStop(0.72, 'rgba(196, 58, 0, 0.45)')
+      g.addColorStop(1, 'rgba(196, 58, 0, 0)')
+
+      ctx.save()
+      ctx.translate(cx, cy)
+      ctx.rotate(pulse * 0.15)
+      ctx.scale(1 + pulse * 0.04, 1 - pulse * 0.03)
+      ctx.translate(-cx, -cy)
+
+      ctx.beginPath()
+      ctx.fillStyle = g
+      ctx.ellipse(cx, cy, r * 1.05, r * 0.92, 0.35, 0, Math.PI * 2)
+      ctx.fill()
+
+      const hi = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, 0, cx - r * 0.2, cy - r * 0.25, r * 0.55)
+      hi.addColorStop(0, 'rgba(255, 248, 230, 0.7)')
+      hi.addColorStop(1, 'rgba(255, 248, 230, 0)')
+      ctx.fillStyle = hi
+      ctx.beginPath()
+      ctx.ellipse(cx - r * 0.2, cy - r * 0.28, r * 0.42, r * 0.28, -0.4, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.restore()
+    }
+
+    const drawFault = (progress) => {
+      const midY = h * 0.52
+      const open = 2 + progress * 18
+      ctx.save()
+      ctx.globalCompositeOperation = 'lighter'
+      ctx.lineCap = 'round'
+
+      ctx.beginPath()
+      ctx.moveTo(0, midY)
+      const segs = 14
+      for (let i = 1; i <= segs; i++) {
+        const px = (i / segs) * w
+        const wave = Math.sin(i * 0.9 + progress * 2) * (10 + progress * 16)
+        const dip = Math.sin((i / segs) * Math.PI) * open
+        ctx.lineTo(px, midY + wave * 0.35 - dip * 0.15)
+      }
+      ctx.strokeStyle = `rgba(255, 106, 0, ${0.25 + progress * 0.45})`
+      ctx.lineWidth = open * 1.8
+      ctx.stroke()
+
+      ctx.beginPath()
+      ctx.moveTo(0, midY)
+      for (let i = 1; i <= segs; i++) {
+        const px = (i / segs) * w
+        const wave = Math.sin(i * 0.9 + progress * 2) * (8 + progress * 12)
+        ctx.lineTo(px, midY + wave * 0.3)
+      }
+      ctx.strokeStyle = `rgba(255, 220, 160, ${0.35 + progress * 0.55})`
+      ctx.lineWidth = 1.5 + progress * 3
+      ctx.stroke()
+      ctx.restore()
+    }
+
+    const tick = (t) => {
+      if (!running) return
+      const pulse = Math.sin(t * 0.0018) * 0.5 + 0.5
+
+      x += (tx - x) * 0.085
+      y += (ty - y) * 0.085
+      heat += (targetHeat - heat) * 0.08
+
+      const cx = x * w
+      const cy = y * h
+      const baseR = Math.min(w, h) * (0.14 + heat * 0.08)
+
+      ctx.clearRect(0, 0, w, h)
+      drawFault(heat)
+
+      const bloom = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR * 2.4)
+      bloom.addColorStop(0, `rgba(255, 106, 0, ${0.35 + heat * 0.35})`)
+      bloom.addColorStop(0.45, `rgba(255, 80, 0, ${0.12 + heat * 0.15})`)
+      bloom.addColorStop(1, 'rgba(255, 80, 0, 0)')
+      ctx.fillStyle = bloom
+      ctx.fillRect(cx - baseR * 2.4, cy - baseR * 2.4, baseR * 4.8, baseR * 4.8)
+
+      drawOrb(cx, cy, baseR, pulse)
+
+      if (Math.random() < 0.08 + heat * 0.12) spawnDrip(cx, cy + baseR * 0.55)
+      for (let i = drips.length - 1; i >= 0; i--) {
+        const d = drips[i]
+        d.y += d.vy
+        d.vy += 0.04
+        d.life -= 0.012
+        if (d.life <= 0 || d.y > h + 20) {
+          drips.splice(i, 1)
+          continue
+        }
+        const dg = ctx.createLinearGradient(d.x, d.y - 18, d.x, d.y + 10)
+        dg.addColorStop(0, `rgba(255, 176, 96, ${d.life * 0.9})`)
+        dg.addColorStop(1, `rgba(255, 106, 0, ${d.life * 0.35})`)
+        ctx.fillStyle = dg
+        ctx.beginPath()
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(d.x - d.w / 2, d.y - 16, d.w, 22, d.w)
+        } else {
+          ctx.rect(d.x - d.w / 2, d.y - 16, d.w, 22)
+        }
+        ctx.fill()
+        ctx.beginPath()
+        ctx.fillStyle = `rgba(255, 140, 60, ${d.life})`
+        ctx.arc(d.x, d.y + 8, d.w * 0.7, 0, Math.PI * 2)
+        ctx.fill()
+      }
+
+      if (fine && chars.length) {
+        const rr = root.getBoundingClientRect()
+        const px = rr.left + cx
+        const py = rr.top + cy
+        chars.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return
+          const r = node.getBoundingClientRect()
+          const mx = r.left + r.width / 2
+          const my = r.top + r.height / 2
+          const dx = mx - px
+          const dy = my - py
+          const dist = Math.hypot(dx, dy)
+          const influence = Math.max(0, 1 - dist / 220)
+          if (influence < 0.02) {
+            node.style.transform = ''
+            node.style.color = ''
+            return
+          }
+          const lift = influence * -6
+          const skew = (dx / 220) * influence * -8
+          node.style.transform = `translate3d(0, ${lift}px, 0) skewX(${skew}deg)`
+          node.style.color = `color-mix(in srgb, var(--color-accent) ${Math.round(influence * 70)}%, var(--color-ink))`
+        })
+      }
+
+      if (faultCore instanceof HTMLElement) {
+        faultCore.style.setProperty('--fault-open', String(0.25 + heat * 0.9))
+        faultCore.style.setProperty('--fault-x', `${x * 100}%`)
+      }
+
+      raf = requestAnimationFrame(tick)
+    }
+
+    const onPointer = (e) => {
+      const rect = root.getBoundingClientRect()
+      tx = (e.clientX - rect.left) / Math.max(1, rect.width)
+      ty = (e.clientY - rect.top) / Math.max(1, rect.height)
+      tx = Math.min(0.95, Math.max(0.05, tx))
+      ty = Math.min(0.85, Math.max(0.12, ty))
+      const cx = x * w
+      const cy = y * h
+      const dist = Math.hypot(e.clientX - (rect.left + cx), e.clientY - (rect.top + cy))
+      targetHeat = Math.max(0.25, Math.min(1, 1 - dist / Math.max(rect.width, 400)))
+    }
+
+    const start = () => {
+      if (running) return
+      running = true
+      resize()
+      raf = requestAnimationFrame(tick)
+    }
+
+    const stop = () => {
+      running = false
+      if (raf) cancelAnimationFrame(raf)
+      raf = 0
+    }
+
+    resize()
+    start()
+
+    window.addEventListener('resize', resize, { passive: true })
+    if (fine) {
+      root.addEventListener('pointermove', onPointer, { passive: true })
+      root.addEventListener('pointerenter', onPointer, { passive: true })
+    }
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) start()
+            else stop()
+          }
+        },
+        { threshold: 0.05 }
+      )
+      io.observe(root)
+    }
+  })()
+</script>

@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+## [v0.4.3] — 2026-09-22
+- Home blast: pointer-reactive molten orb (canvas rAF) + heat-distorting headline + fault crack; custom `/viz/hero-fault.svg`, `fault-crack.svg`, `war-room-triage.svg`
+- Specialist desk strip in the fold: PUB/DNS/SCH/PRV failure modes with first-check tips (readable intel, not motion-only)
+- War room section: concrete Base44 symptoms → fault → first move + triage ladder diagram + changelog tension (not equal feature cards)
+- Sharper home copy/CTAs; asymmetric field notes with blog SVGs; `prefers-reduced-motion` keeps static composition
+- Impeccable: do not `display:none` magnetic CTAs under reduced-motion
+
+## [v0.4.2] — 2026-09-22
+- FAQ: rebuilt as `src/data/faq.json` + `src/lib/faq.ts` with ~200+ long-tail Q&As (categories, search, accordion, FAQPage JSON-LD); SEO title aimed at Base44 not working / stuck FAQ
+- Analytics: `@vercel/analytics` + `@vercel/speed-insights` in Layout; optional `PUBLIC_GA_MEASUREMENT_ID` gtag when set; OPS notes for Vercel Analytics toggle
+- Admin/ops v1: Decap CMS at `/admin` (GitHub backend, FAQ collection on `src/data/faq.json`) + `docs/OPS.md` (traffic + OAuth notes)
+- `/updates`: DELETED public studio ship-notes aside that dumped CHANGELOG.md engineering bullets (RSS h3 / content:encoded / guid dedupe) onto visitors — page is Base44 product/dev feed only; removed `getStudioShipNotes` helper
+- `/start` intake: practical tips instead of scope-refusal; open stuck type (free text + optional chips, not required 4-radio cage); stronger SEO H1/lead; drop contact/status footer line
+- Unstick scrub motion: always-on liquid pulse/glow (even mid-sticky), scrub sticky trap lowered (~115vh), scroll scrub no longer freezes lava at mid-opacity
+- Home scrub / heat band: brighter lava (#FF6A00+), higher opacity, stronger glow, readable copy scrim — fixes “invisible” fault-line section
+- Site-wide motion + imagery: cursor heat trail + magnetic CTAs (reduced-motion safe); page-heat viz on start/work/updates/blog/keyword pages; reuse `/viz` + `/blog` SVGs
+- `/updates`: human intro (no RSS/h3/build-time meta); Product + Developer chips; denser dual-feed merge (~22 items, longer summaries); “From the studio” blog links
+- Blog: hero + diagram SVGs per post, index thumbnails, every post has FAQ (`FaqList`) + FAQPage JSON-LD; changelog post rewritten for builders (no scrape mechanics)
+- ChangelogFeed empty state: calm official link only
+
 ## [v0.4.1] — 2026-09-22
 - Updates feed: prefer first `<h3>` inside RSS `content:encoded` as title (RSS `<title>` is often just a date); strip HTML summary (~160 chars); parse category + guid; dedupe by guid
 - `/updates` + ChangelogFeed show real headline, summary, category chip, date; clear empty-state copy when RSS fallback

@@ -1,0 +1,49 @@
+# Decap CMS (formerly Netlify CMS) — GitHub backend for rept0rix/base44expert
+# Auth: enable GitHub OAuth for Decap (see docs/OPS.md). Until OAuth works,
+# open /admin locally with `npx decap-server` or configure a proxy.
+
+backend:
+  name: github
+  repo: rept0rix/base44expert
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# Optional local backend for `npx decap-server` during development:
+local_backend: true
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: faq
+    label: FAQ
+    files:
+      - name: faq_data
+        label: FAQ Q&A (all categories)
+        file: src/data/faq.json
+        fields:
+          - { label: Version, name: version, widget: number, value_type: int }
+          - { label: Title, name: title, widget: string }
+          - label: Categories
+            name: categories
+            widget: list
+            summary: "{{fields.title}} ({{fields.id}})"
+            fields:
+              - { label: ID (slug), name: id, widget: string }
+              - { label: Category title, name: title, widget: string }
+              - label: Questions
+                name: items
+                widget: list
+                summary: "{{fields.question}}"
+                fields:
+                  - { label: Question, name: question, widget: string }
+                  - { label: Answer (HTML ok for links), name: answer, widget: text }
+  - name: site_docs
+    label: Ops docs
+    files:
+      - name: ops
+        label: OPS.md
+        file: docs/OPS.md
+        fields:
+          - { label: Body, name: body, widget: markdown }

@@ -1,0 +1,1192 @@
+{
+  "version": 1,
+  "title": "Base44 Expert FAQ",
+  "categories": [
+    {
+      "id": "publish-deploy",
+      "title": "Publish & deploy",
+      "items": [
+        {
+          "question": "Publish said success but the live site looks unchanged. What now?",
+          "answer": "Treat “success” and “live matches preview” as two different checks. Hard-refresh or open the live URL in a private window, then compare the exact screen you expected to change. If preview has the fix and live does not, note the publish time and open a case on <a href=\"/start\">/start</a> — stale output and wrong publish target are a common stuck pair. See also <a href=\"/blog/base44-publish-error\">publish error notes</a>."
+        },
+        {
+          "question": "Publish failed with a red error. What should I capture before asking for help?",
+          "answer": "Copy the exact error text, the time it appeared, and whether preview still works. Screenshot the publish panel if the message disappears. Do not paste secrets. Bring that packet to <a href=\"/start\">/start</a> so the first reply is not a guessing game."
+        },
+        {
+          "question": "Does Base44 Expert fix publish failures?",
+          "answer": "Yes — publish failures and “success but live unchanged” are core stuck moments we take. We diagnose the path from editor → publish → live URL; we do not sell greenfield app builds."
+        },
+        {
+          "question": "My publish hangs forever. Is that still a publish problem?",
+          "answer": "Often yes. Note how long it spun, whether you can cancel, and if other apps in the same workspace publish. Check <a href=\"https://status.base44.com\" rel=\"noopener noreferrer\" target=\"_blank\">status.base44.com</a> once, then isolate whether the hang is one app or the workspace."
+        },
+        {
+          "question": "Can a partial publish leave me with a half-updated live app?",
+          "answer": "It can feel that way when assets and data land out of sync. Record which pages look new versus old, and whether data records match the new UI. That split is useful triage evidence."
+        },
+        {
+          "question": "I published from the wrong version / restore point. Can you help?",
+          "answer": "Yes. Say which version you meant to ship and what live shows now. We help you stabilize live first, then plan a clean republish — not a blind rollback war."
+        },
+        {
+          "question": "Publish works for a teammate but not for me. Where do we look?",
+          "answer": "Start with role/permissions and which app or environment each of you is targeting. If both hit the same app and one fails, capture both error strings — that often separates account-scoped issues from app breakage."
+        },
+        {
+          "question": "Do I need to republish after every AI edit?",
+          "answer": "Preview can look fine while live stays old until you publish. If your stuck moment is “I see it in preview only,” publish deliberately, then verify live. If publish itself fails, stop editing and capture the error."
+        },
+        {
+          "question": "What does a good publish verification checklist look like?",
+          "answer": "Open the live custom domain and the Base44-hosted URL, hard-refresh both, check one changed screen and one data record, and confirm auth still works if you use login. Write down anything that still mismatches preview."
+        },
+        {
+          "question": "Publish succeeded yesterday; today live broke without a new publish. What now?",
+          "answer": "Check platform status first, then whether a connector, DNS, or dependency changed outside the app. If nothing external moved, treat it as a production regression and capture console errors on the live URL."
+        },
+        {
+          "question": "Is “Build failed” the same as “Publish failed”?",
+          "answer": "Not always. Build failures often surface earlier with compile/bundle messages; publish failures can be later in the pipeline. Keep the exact label Base44 shows — wording matters for triage."
+        },
+        {
+          "question": "Can too many rapid publishes cause stuck live output?",
+          "answer": "Rapid retries can make timing harder to read. Space attempts, note timestamps, and avoid stacking publishes until you know which attempt produced the live you are looking at."
+        },
+        {
+          "question": "Should I keep editing while publish is failing?",
+          "answer": "Usually no. More AI edits on a failing publish path add noise. Freeze the app state, capture evidence, then either wait on a platform incident or start a diagnostic."
+        },
+        {
+          "question": "Where is the official publish troubleshooting doc?",
+          "answer": "Start with Base44’s <a href=\"https://docs.base44.com/Community-and-support/Troubleshooting\" rel=\"noopener noreferrer\" target=\"_blank\">troubleshooting docs</a>. We complement that with hands-on isolation — we do not replace official docs."
+        },
+        {
+          "question": "Do you redeploy my app onto your own hosting?",
+          "answer": "No. We unstick your Base44 app on Base44’s hosting path. Base44 Expert is an independent studio, not a hosting migration service by default."
+        },
+        {
+          "question": "Can a failed publish corrupt preview?",
+          "answer": "Preview and live can diverge; a failed publish should not be “fixed” by ignoring the error. Capture the failure and avoid stacking publishes."
+        },
+        {
+          "question": "Publish button disabled — what does that mean?",
+          "answer": "Often permissions, an in-progress job, or a validation gate. Note any tooltip/helper text beside the disabled button."
+        },
+        {
+          "question": "I published the staging copy to production by mistake.",
+          "answer": "Say so immediately in <a href=\"/start\">/start</a> with what should be live. Restores and careful republish beat panic edits."
+        },
+        {
+          "question": "Does publish order matter across multiple apps in one workspace?",
+          "answer": "If apps depend on each other, yes. Publish dependency direction matters; note which app consumes which."
+        },
+        {
+          "question": "Can I schedule a publish for later?",
+          "answer": "Follow whatever Base44 currently offers for scheduling. If you are stuck on an immediate broken live, scheduling is not the triage priority."
+        }
+      ]
+    },
+    {
+      "id": "preview-vs-live",
+      "title": "Preview vs live",
+      "items": [
+        {
+          "question": "Preview looks perfect; live is broken. What is the first split?",
+          "answer": "Confirm you are comparing the same route, same user role, and same data. Then verify a fresh publish actually completed. Preview-vs-production mismatches are a named stuck moment we take — start at <a href=\"/start\">/start</a>."
+        },
+        {
+          "question": "Why would preview and live show different data?",
+          "answer": "Different environments, cached responses, or schema/permissions that only bite in production. Note one record ID that differs and whether you are logged in as the same user on both."
+        },
+        {
+          "question": "Preview console is clean; live console is red. Does that matter?",
+          "answer": "Yes. Capture the live console errors with the live URL visible. Environment-only failures are common after connector or domain changes."
+        },
+        {
+          "question": "Can feature flags or draft content explain preview/live drift?",
+          "answer": "Sometimes. If your app gates screens by role, plan, or draft state, mirror those conditions on live before calling it a platform bug."
+        },
+        {
+          "question": "I never published. Is it normal that live is old?",
+          "answer": "Yes. Preview is not live. If stakeholders are reviewing the Base44 preview URL, say so explicitly so nobody panics about the custom domain."
+        },
+        {
+          "question": "Live works; preview is broken after an edit. Should I still publish?",
+          "answer": "Do not publish hoping live will magically fix preview. Stabilize preview first, or you risk shipping the breakage."
+        },
+        {
+          "question": "How do I prove preview and live are different to a teammate?",
+          "answer": "Side-by-side screenshots with URLs and timestamps, plus one concrete field that differs. That evidence shortens any diagnostic."
+        },
+        {
+          "question": "Does hard refresh only matter on live?",
+          "answer": "It matters on both, but live CDN/browser cache surprises are more common when you are staring at a custom domain. Use a private window before deep debugging."
+        },
+        {
+          "question": "Can mobile preview differ from desktop live?",
+          "answer": "Responsive layout can look like a “live bug.” Check the same viewport width on both. True environment bugs still need console and network evidence."
+        },
+        {
+          "question": "Is FixTheBase related to preview/live debugging?",
+          "answer": "<a href=\"https://fixthebase.com\" rel=\"noopener noreferrer\" target=\"_blank\">FixTheBase</a> is a related tool from the same builder for schema/query work. Environment stuckness diagnostics for your app still run through Base44 Expert on <a href=\"/start\">/start</a>."
+        },
+        {
+          "question": "Stakeholders reviewed the wrong URL for a week.",
+          "answer": "It happens. Align on live vs preview links in writing. Then verify live actually has the approved build."
+        },
+        {
+          "question": "Embedded preview inside the editor differs from opened preview URL.",
+          "answer": "Use the opened preview URL as the source of truth when comparing to live."
+        }
+      ]
+    },
+    {
+      "id": "custom-domain-ssl",
+      "title": "Custom domain, SSL, DNS & Cloudflare",
+      "items": [
+        {
+          "question": "My custom domain is stuck on SSL pending. What should I check?",
+          "answer": "Confirm DNS records match what Base44 asked for, wait out propagation, and if you use Cloudflare, try DNS-only (gray cloud) instead of proxied orange cloud while certificates issue. Details: <a href=\"/custom-domains\">/custom-domains</a> and <a href=\"/blog/base44-custom-domain-ssl\">SSL pending notes</a>."
+        },
+        {
+          "question": "App works on the Base44 URL but not on my domain. Is that DNS?",
+          "answer": "Often yes — DNS, proxy mode, or SSL. Prove the Base44 URL is healthy first, then isolate the domain path. That split is half the diagnosis."
+        },
+        {
+          "question": "Should Cloudflare be proxied or DNS-only for Base44 domains?",
+          "answer": "While SSL is issuing or flapping, DNS-only is the safer debugging posture. Proxied mode can interfere with certificate validation. See <a href=\"/custom-domains\">custom domains</a>."
+        },
+        {
+          "question": "How long should I wait for DNS before calling it stuck?",
+          "answer": "Many changes settle within minutes to a couple of hours; some resolvers lag longer. If records are wrong, waiting never helps — verify with a DNS lookup tool, then fix the record."
+        },
+        {
+          "question": "www works but apex (root) does not — or the reverse. What now?",
+          "answer": "You likely need both records (or a redirect strategy) configured as Base44’s domain docs specify. Treat apex and www as separate checks, not one problem."
+        },
+        {
+          "question": "I see ERR_SSL or certificate name mismatch on my domain.",
+          "answer": "That usually means the cert does not cover the hostname you typed, or DNS still points elsewhere. Confirm the exact hostname, DNS target, and whether SSL is still pending in Base44."
+        },
+        {
+          "question": "Can old DNS at a previous registrar break the new Base44 domain?",
+          "answer": "Yes. Leftover A/CNAME records or email-related records at the wrong place create split-brain DNS. Inventory where the domain’s nameservers point before editing random records."
+        },
+        {
+          "question": "Do you configure Cloudflare for me?",
+          "answer": "We help diagnose and guide the records/proxy mode for stuck Base44 domains. You keep ownership of the Cloudflare account unless we explicitly arrange access after the first reply."
+        },
+        {
+          "question": "Redirect loops on my custom domain — where to start?",
+          "answer": "Check www↔apex redirects, HTTPS redirects, and Cloudflare page rules/redirect rules fighting Base44. Disable experimental redirect rules while testing."
+        },
+        {
+          "question": "Domain connected but shows a parked page or registrar splash.",
+          "answer": "DNS is not pointing where you think. Confirm nameservers and the live A/CNAME targets; registrar parking often means the Base44 target never took effect."
+        },
+        {
+          "question": "Is SSL pending forever a Base44 bug?",
+          "answer": "Sometimes it is platform-side; often it is DNS/proxy. Check status once, verify records, then escalate with evidence. Official domain docs: <a href=\"https://docs.base44.com/Setting-up-your-app/Setting-up-your-custom-domain\" rel=\"noopener noreferrer\" target=\"_blank\">custom domain setup</a>."
+        },
+        {
+          "question": "Can I use multiple custom domains on one app?",
+          "answer": "Follow Base44’s current product behavior for multiple domains. If one domain works and another is pending, triage them separately — do not assume one fix covers both."
+        },
+        {
+          "question": "CAA records blocking certificate issuance — is that real?",
+          "answer": "Yes, restrictive CAA records can block issuers. If SSL never issues despite correct CNAME/A, review CAA at the apex."
+        },
+        {
+          "question": "I pointed DNS correctly; dig looks good; browser still fails.",
+          "answer": "Try another network or DNS resolver, clear local cache, and retest. Also confirm you are not hitting HSTS from an old wrong host. Then capture the exact browser error string."
+        },
+        {
+          "question": "Email broke after I changed domain DNS for Base44.",
+          "answer": "Adding web records should not delete MX/TXT mail records. Restore mail records from backups/registrar history; keep Base44 web records intact."
+        },
+        {
+          "question": "Do you sell domain registration?",
+          "answer": "No. We unstick Base44 apps and domain wiring. Register and renew domains with your registrar."
+        },
+        {
+          "question": "Subdomain app.example.com vs apex example.com — different issues?",
+          "answer": "Subdomains are usually CNAME-simple; apex rules vary by DNS host. Say which hostname is stuck when you write in."
+        },
+        {
+          "question": "Cloudflare orange cloud + Universal SSL vs Base44 SSL — conflict?",
+          "answer": "Proxied Cloudflare terminates SSL at Cloudflare and can mask or conflict with origin cert flows. For stuck issuance, gray-cloud first, stabilize, then reconsider proxy needs."
+        },
+        {
+          "question": "How do I know Base44 accepted my domain?",
+          "answer": "Use the domain status UI in Base44 plus an external HTTPS check. “Connected” in UI with browser errors still means more work — trust the browser for users."
+        },
+        {
+          "question": "Where should I start if I only know “domain not working”?",
+          "answer": "Open the Base44 URL (control), then the custom domain, then DNS lookup, then SSL state. Walk that order before rewriting app code. Guide: <a href=\"/custom-domains\">/custom-domains</a>."
+        },
+        {
+          "question": "DNS TXT verification record will not validate.",
+          "answer": "Confirm the TXT host/name exactness (including root vs subdomain) and that you are checking the same DNS plane as your nameservers."
+        },
+        {
+          "question": "I use Cloudflare for SaaS / custom hostnames — special case?",
+          "answer": "Yes, advanced proxy setups need extra care. Say which Cloudflare product you use when asking for help."
+        },
+        {
+          "question": "IPv6-only weirdness on my DNS host.",
+          "answer": "Rare but real. If AAAA points somewhere wrong, browsers on IPv6 networks fail oddly. Check A and AAAA."
+        },
+        {
+          "question": "Certificate renewals fail every 60–90 days.",
+          "answer": "Renewal needs DNS to remain correct. If you changed DNS after first issue, renewals can start failing later."
+        }
+      ]
+    },
+    {
+      "id": "schema-data",
+      "title": "Schema & data",
+      "items": [
+        {
+          "question": "UI loads but records vanished after an AI edit. What happened?",
+          "answer": "Field drift and schema mismatches are a classic fault line — the UI expects fields the data layer no longer matches. Note the entity name, a sample record ID, and when it broke. We take schema stuckness; <a href=\"/start\">/start</a>."
+        },
+        {
+          "question": "Validation fails on fields that used to save. Where do I look?",
+          "answer": "Compare required fields, types, and option lists before vs after the edit. Capture the exact validation message. Avoid more AI “fixes” until you know which field rule changed."
+        },
+        {
+          "question": "Can FixTheBase help with schema issues?",
+          "answer": "<a href=\"https://fixthebase.com\" rel=\"noopener noreferrer\" target=\"_blank\">FixTheBase</a> helps think through schemas and queries. Deep stuck production apps still need a diagnostic on Base44 Expert when live data/UI disagree."
+        },
+        {
+          "question": "Relations between entities broke — lists empty, details 404.",
+          "answer": "Broken foreign keys/relation fields after renames are common. Identify the parent and child entities and whether IDs still resolve in the data tab."
+        },
+        {
+          "question": "I renamed a field and half the app still uses the old name.",
+          "answer": "That is classic drift. Search for the old key in UI bindings and backend logic. Do not rename again until references are inventory’d."
+        },
+        {
+          "question": "Production data looks fine in the data tab but not in the UI.",
+          "answer": "Then the bug is likely query filters, permissions, or UI binding — not missing rows. Capture the filter and the logged-in role."
+        },
+        {
+          "question": "Imports succeeded but values look wrong (dates, numbers, enums).",
+          "answer": "Type coercion and enum mismatches bite on import. Spot-check three rows and the schema types before bulk-fixing."
+        },
+        {
+          "question": "Soft-deleted or archived records still appear — or the opposite.",
+          "answer": "Clarify whether your app filters archived state. If AI removed a filter, preview and live can disagree until republished."
+        },
+        {
+          "question": "How do I avoid schema edits destroying production?",
+          "answer": "Prefer additive changes, migrate data before removing fields, and verify preview against a copy of real shapes. When already stuck, stop destructive edits and diagnose."
+        },
+        {
+          "question": "Unique constraints suddenly reject saves.",
+          "answer": "Duplicates may already exist, or a new unique rule is stricter. Export the conflicting values before deleting anything."
+        },
+        {
+          "question": "Search/filter screens return nothing after a schema change.",
+          "answer": "Indexed fields or filter bindings may still point at old names. Reproduce with one known matching record and note the filter payload if visible in network tools."
+        },
+        {
+          "question": "File/image fields broken after schema tweak.",
+          "answer": "Check whether the field type changed and whether old assets still resolve by URL. Separate “upload fails” from “display fails.”"
+        },
+        {
+          "question": "Do you migrate large datasets for us?",
+          "answer": "We diagnose stuck schema/data behavior in Base44 apps. Large migration projects are scoped case-by-case after the intake — not a silent assumption."
+        },
+        {
+          "question": "JSON/raw fields parsing errors in production only.",
+          "answer": "Bad rows can hide until a code path parses them. Identify one failing record and the parse error string."
+        },
+        {
+          "question": "Entity deleted by mistake — is recovery possible?",
+          "answer": "Check Base44 version history / backups / restore points before recreating anything. Act carefully so you do not overwrite a good restore."
+        },
+        {
+          "question": "Bulk edit nuked values across rows.",
+          "answer": "Stop bulk edits. Export what you can, identify the timestamp, and consider restore options before manual row surgery."
+        },
+        {
+          "question": "Timezone offsets shifted all my dates.",
+          "answer": "Record whether values are wrong in the data tab or only in UI formatting. That split decides the fix."
+        },
+        {
+          "question": "Computed fields show stale values.",
+          "answer": "Note whether reopening the record refreshes them. Stale computed values can be cache or recalculation triggers."
+        },
+        {
+          "question": "Multiplicity changed from one-to-many to one-to-one and data looks clipped.",
+          "answer": "That schema change can hide related rows. Confirm the relation type change date."
+        }
+      ]
+    },
+    {
+      "id": "auth-users",
+      "title": "Auth & users",
+      "items": [
+        {
+          "question": "Users can log in on preview but not on the live domain.",
+          "answer": "Check cookie/domain settings, HTTPS on the custom domain, and whether auth callbacks allow your domain. Prove Base44 URL auth works first."
+        },
+        {
+          "question": "Login loops forever after entering credentials.",
+          "answer": "Capture the network redirects and any console errors. Redirect URI mismatches and mixed HTTP/HTTPS are common culprits."
+        },
+        {
+          "question": "New signups fail with a vague error.",
+          "answer": "Copy the exact message, note email provider restrictions, and whether the user already exists. Avoid resetting everyone’s passwords as a first move."
+        },
+        {
+          "question": "Role permissions changed and admins lost access.",
+          "answer": "That is urgent. Use any remaining owner account carefully; document the last permission edit. We help untangle permission stuckness — do not email passwords."
+        },
+        {
+          "question": "OAuth / social login broke after a domain change.",
+          "answer": "Update allowed origins/callback URLs at the provider to match the live domain, then retest. Domain moves often strand OAuth configs."
+        },
+        {
+          "question": "Session expires immediately on mobile browsers.",
+          "answer": "Check third-party cookie constraints, Safari ITP-style behavior, and whether you rely on embedded webviews. Reproduce on one device with timestamps."
+        },
+        {
+          "question": "Invite links do not work.",
+          "answer": "Confirm the link is unused/unexpired and that the invite role still exists. Try one invite in a private window."
+        },
+        {
+          "question": "Users see someone else’s data — critical.",
+          "answer": "Stop experimenting on production if you can. Capture the two user IDs and the entity that leaked. This is a permissions/query filter emergency — start <a href=\"/start\">/start</a> immediately with urgency noted."
+        },
+        {
+          "question": "Password reset emails never arrive.",
+          "answer": "Check spam, email provider logs if you have them, and whether the reset flow works on Base44 URL vs custom domain. See also Email & notifications."
+        },
+        {
+          "question": "Can you audit our entire auth design?",
+          "answer": "We unstick concrete auth failures on Base44 apps. Broad security audits are a different scope — ask in the diagnostic email if you need that scoped separately."
+        },
+        {
+          "question": "SSO / enterprise login issues — do you touch those?",
+          "answer": "If the stuck moment is app-side Base44 behavior around SSO, we can help diagnose. IdP configuration at your company may need your IT owner involved."
+        },
+        {
+          "question": "Will you ask for passwords in the first email?",
+          "answer": "No. Never send passwords or API keys in the diagnostic form. Sensitive access only after we reply, via a channel you approve."
+        },
+        {
+          "question": "Magic link login fails on custom domain.",
+          "answer": "Confirm link host matches the domain users open, and that email clients are not prefetching one-time links."
+        },
+        {
+          "question": "2FA / MFA enrollment loops.",
+          "answer": "Capture where the loop returns you. Avoid disabling MFA globally as a first debugging step."
+        },
+        {
+          "question": "User deleted but still appears in mentions/lists.",
+          "answer": "Likely soft-delete or cache. Confirm user status in the admin/users table."
+        }
+      ]
+    },
+    {
+      "id": "ai-edits-broke",
+      "title": "AI edits broke the app",
+      "items": [
+        {
+          "question": "An AI edit blanked the whole app. What now?",
+          "answer": "Stop issuing more “fix it” prompts. Roll to a last known good version if you can, capture the blank-screen console error, and write down the prompt that broke it. Then use <a href=\"/start\">/start</a>."
+        },
+        {
+          "question": "AI changed pages I did not mention.",
+          "answer": "Common. Inventory unexpected diffs via version history before trying another broad prompt. Narrow prompts beat panic prompts."
+        },
+        {
+          "question": "Should I keep chatting with the AI until it self-corrects?",
+          "answer": "If you are already stuck, more unfocused edits often deepen the hole. Freeze, restore if needed, then diagnose with evidence."
+        },
+        {
+          "question": "AI introduced a dependency or connector I do not want.",
+          "answer": "Remove or disable it carefully after checking what screens call it. Note the connector name in your diagnostic."
+        },
+        {
+          "question": "Code looks fine; behavior is wrong after AI refactor.",
+          "answer": "Trust runtime evidence over vibes. Capture console + network for the failing action, not just the generated code."
+        },
+        {
+          "question": "Can you “just undo” the last 20 AI messages?",
+          "answer": "We use version history/restore points and targeted fixes — not a magical rewind of chat. Tell us the last good time the app worked."
+        },
+        {
+          "question": "AI deleted CSS/layout and the app looks destroyed.",
+          "answer": "That is recoverable more often than it feels. Avoid restyling from scratch until you check history for the pre-break layout."
+        },
+        {
+          "question": "AI promised a fix and published broken live.",
+          "answer": "Treat it as publish + regression. Verify preview vs live and restore a good version if users are hurting."
+        },
+        {
+          "question": "Is Base44 Expert affiliated with Base44’s AI builder?",
+          "answer": "No. We are an independent studio. We help when AI-assisted edits leave you stuck."
+        },
+        {
+          "question": "How do I write a safer next prompt after a breakage?",
+          "answer": "Name the exact screen, the exact bug, and what must not change. Attach evidence. Broad “make it better” prompts are how you got here."
+        },
+        {
+          "question": "AI edit broke only one role’s view.",
+          "answer": "Likely permissions or role-conditional UI. Reproduce as that role and capture screenshots for both roles."
+        },
+        {
+          "question": "Version history is confusing — which restore is safe?",
+          "answer": "Pick the newest restore that you personally saw working for the critical flow. Say what you restored when you contact us."
+        },
+        {
+          "question": "AI changed environment variables.",
+          "answer": "Diff env/config carefully and never paste secret values into chat logs you share publicly."
+        },
+        {
+          "question": "AI translated the whole UI to another language unasked.",
+          "answer": "Restore or revert that change set; translation-by-surprise is a restore candidate, not a polish task."
+        },
+        {
+          "question": "AI removed tests or checks I relied on.",
+          "answer": "If you had custom checks, verify they still run. Mention missing guardrails in the diagnostic."
+        }
+      ]
+    },
+    {
+      "id": "blank-screens-console",
+      "title": "Blank screens & console errors",
+      "items": [
+        {
+          "question": "White / blank screen on live. First moves?",
+          "answer": "Open DevTools console, copy the first red error, note the URL, and try a private window. Official troubleshooting covers blank screens — we help when you need hands-on isolation."
+        },
+        {
+          "question": "Blank only on custom domain, fine on Base44 URL.",
+          "answer": "That points to domain/SSL/asset host issues more than app logic. Stabilize HTTPS and DNS before rewriting features."
+        },
+        {
+          "question": "React / runtime error overlay in preview.",
+          "answer": "Copy the component stack and message. That is gold for diagnosis — better than “it crashed.”"
+        },
+        {
+          "question": "Console shows CORS errors after connecting an API.",
+          "answer": "The API must allow your live origin. Fix provider CORS or proxy strategy; random AI CORS “fixes” often make it worse."
+        },
+        {
+          "question": "404 on JS/CSS assets — blank UI.",
+          "answer": "Publish/asset path problems or domain mispointing. Confirm asset URLs in the network tab."
+        },
+        {
+          "question": "Infinite loading spinner, no console error.",
+          "answer": "Watch the network tab for pending or 401/403/500 calls. Spinners without errors are usually waiting on a failing request."
+        },
+        {
+          "question": "Error only for some users.",
+          "answer": "Role, data shape, or browser extension issues. Reproduce with a clean profile and one affected account ID."
+        },
+        {
+          "question": "Hydration / mismatch warnings — should I panic?",
+          "answer": "They can be benign or can blank screens depending on severity. Capture the warning text; do not ignore if users see blank UI."
+        },
+        {
+          "question": "Can browser extensions cause “Base44 not working” blanks?",
+          "answer": "Yes — ad blockers and privacy extensions break apps. Retest in private mode with extensions disabled before deep platform blame."
+        },
+        {
+          "question": "Black screen on Safari only.",
+          "answer": "Safari-specific CSS and storage constraints happen. Note OS/Safari versions and whether desktop and iOS both fail."
+        },
+        {
+          "question": "Console flooded with warnings but app works.",
+          "answer": "Prioritize user-facing breakage over warning cleanup unless you are stabilizing a fragile app. Noise can hide the one real error — filter to errors first."
+        },
+        {
+          "question": "Where do blank screens fit in triage order?",
+          "answer": "After status, blank/publish is early in the order on <a href=\"/base44-not-working\">/base44-not-working</a>. Do not start with SEO experiments."
+        },
+        {
+          "question": "Source map missing; stack trace useless.",
+          "answer": "Still send the raw error message and network failures. Perfect stacks are optional; symptoms are not."
+        },
+        {
+          "question": "Service worker serves an ancient blank shell.",
+          "answer": "Unregister the worker and hard-clear site data, then retest live."
+        },
+        {
+          "question": "Content Security Policy violations in console.",
+          "answer": "CSP can blank third-party scripts (payments, analytics). Copy the blocked URI from the console message."
+        }
+      ]
+    },
+    {
+      "id": "connectors-integrations",
+      "title": "Connectors & integrations",
+      "items": [
+        {
+          "question": "A connector worked yesterday and fails today.",
+          "answer": "Check provider status, API keys expiry, and whether an AI edit changed the connector config. Capture the exact connector error."
+        },
+        {
+          "question": "OAuth connector needs re-authorization.",
+          "answer": "Re-auth as the owning account, then retest the failing action. If it still fails, note scopes granted vs required."
+        },
+        {
+          "question": "Google / Slack / Notion-style integrations timing out.",
+          "answer": "Timeouts can be provider-side or payload size. Record request timing and payload shape without pasting secrets."
+        },
+        {
+          "question": "Webhook endpoints not receiving events.",
+          "answer": "Confirm the public URL, HTTPS validity, and provider retry logs. Test with a provider “send test event” if available."
+        },
+        {
+          "question": "AI added a second connector and everything conflicted.",
+          "answer": "Disable the new one, verify the old path, then re-add carefully. Dual configs are a common self-inflicted stuck state."
+        },
+        {
+          "question": "Secrets rotated; app still uses old values.",
+          "answer": "Republish/restart paths vary — confirm the new secret is referenced and that live picked it up. Never paste the secret into email."
+        },
+        {
+          "question": "Connector works in preview, fails in production.",
+          "answer": "Production origins, keys, or env-specific config often differ. Compare which credential set each environment uses."
+        },
+        {
+          "question": "Rate limits from a provider — is that “Base44 not working”?",
+          "answer": "It can look like it. Read the provider error body for 429s. Back off and queue if needed; do not hammer publish."
+        },
+        {
+          "question": "Do you build custom integrations from scratch?",
+          "answer": "We unstick Base44 apps and connector configuration issues. Net-new integration builds are not the productized package — ask if you need custom scope."
+        },
+        {
+          "question": "Third-party API changed and broke our app.",
+          "answer": "Capture the new error responses and the date of the provider change. That is usually app-side adaptation, not Base44 status."
+        },
+        {
+          "question": "File storage connector uploads fail over a size limit.",
+          "answer": "Note file size/type and the exact error. Check both Base44-side limits and provider limits."
+        },
+        {
+          "question": "How should I describe a connector bug in /start?",
+          "answer": "Name the connector, the action (read/write), preview vs live, and the error string. Skip the novel — evidence wins."
+        },
+        {
+          "question": "GraphQL connector errors with opaque 500s.",
+          "answer": "Capture request operation name and the 500 body if any. Provider logs may hold the real cause."
+        },
+        {
+          "question": "Pagination stopped after connector upgrade.",
+          "answer": "Check page size params and cursor fields. Prove with page 1 vs page 2 payloads."
+        },
+        {
+          "question": "Duplicate records created by double submits to an API.",
+          "answer": "Look for missing idempotency keys and double-click handlers. Capture duplicate IDs."
+        }
+      ]
+    },
+    {
+      "id": "payments",
+      "title": "Payments",
+      "items": [
+        {
+          "question": "Checkout succeeds but entitlements do not unlock.",
+          "answer": "That is usually webhook or mapping logic after payment. Capture payment ID (not card data) and the user ID that should have unlocked."
+        },
+        {
+          "question": "Stripe (or similar) webhooks failing.",
+          "answer": "Check endpoint URL, signing secret mismatch, and HTTPS on your domain. Provider dashboards show delivery attempts — use them."
+        },
+        {
+          "question": "Test mode works; live mode fails.",
+          "answer": "You are likely mixing test/live keys or webhook endpoints. Verify live keys on live only."
+        },
+        {
+          "question": "Prices display wrong currency or amount.",
+          "answer": "Confirm price IDs and currency settings in the provider and in your app’s mapping tables."
+        },
+        {
+          "question": "Subscriptions cancel but access remains.",
+          "answer": "Entitlement checks may cache or ignore cancel events. Note cancel timestamp and what the app still allows."
+        },
+        {
+          "question": "Payment form blank or failing to mount.",
+          "answer": "Console errors + CSP/domain allowlists for the payment library are first stops. Domain SSL issues also break checkout."
+        },
+        {
+          "question": "Do you handle PCI compliance for us?",
+          "answer": "No. Keep card data in your payment provider’s hosted fields. We help with Base44-side stuck checkout flows, not PCI programs."
+        },
+        {
+          "question": "Refunds issued but the app state is wrong.",
+          "answer": "Treat refunds like any missed webhook. Never paste full PAN/CVV anywhere — including to us."
+        },
+        {
+          "question": "Apple/Google in-app purchase confusion on a Base44 web app.",
+          "answer": "Most Base44 apps are web checkout, not native IAP. Clarify your platform before chasing store receipts."
+        },
+        {
+          "question": "Tax/VAT calculated wrong at checkout.",
+          "answer": "Confirm tax settings in the provider and whether addresses are complete. Do not log full addresses into public tickets."
+        },
+        {
+          "question": "Customer charged twice.",
+          "answer": "Pull provider payment IDs and timestamps. Pause retries that might charge again while you investigate."
+        }
+      ]
+    },
+    {
+      "id": "performance",
+      "title": "Performance",
+      "items": [
+        {
+          "question": "App feels extremely slow after an AI feature add.",
+          "answer": "Measure: which page, which action, time to interactive. Network waterfall often shows an N+1 query or fat payload."
+        },
+        {
+          "question": "First load is slow; navigation is fine.",
+          "answer": "Bundle size or blocking assets. Capture a Lighthouse-ish summary if you have it, but a network waterfall screenshot helps more."
+        },
+        {
+          "question": "One report page times out.",
+          "answer": "Likely a heavy query. Note filters used and approximate row counts. Avoid adding animations as a “performance fix.”"
+        },
+        {
+          "question": "Images killing performance.",
+          "answer": "Compress/resize sources and check whether you ship full-resolution assets in lists. Prove with network sizes."
+        },
+        {
+          "question": "Is Base44 down or is my app slow?",
+          "answer": "Check <a href=\"https://status.base44.com\" rel=\"noopener noreferrer\" target=\"_blank\">status.base44.com</a> once. If status is green, measure your app’s own slow endpoint."
+        },
+        {
+          "question": "Mobile performance much worse than desktop.",
+          "answer": "Throttle CPU/network in DevTools to reproduce, and watch memory. Separate “slow API” from “heavy UI.”"
+        },
+        {
+          "question": "Do you do full performance engineering retainers?",
+          "answer": "We help when performance is part of a stuck production moment. Ongoing performance programs can be scoped after intake."
+        },
+        {
+          "question": "Caching made data look stale.",
+          "answer": "Stale-while-broken feels like a functional bug. Note TTLs and whether hard refresh fixes it — that is a clue."
+        },
+        {
+          "question": "Cron/scheduled jobs make the app spike every hour.",
+          "answer": "Align spike timestamps with job schedules. Stagger or slim the job rather than rewriting unrelated UI."
+        },
+        {
+          "question": "Memory leak after navigating between pages repeatedly.",
+          "answer": "Reproduce with a heap snapshot if you can; otherwise describe navigation steps and time until sluggish."
+        },
+        {
+          "question": "Search-as-you-type hammers the backend.",
+          "answer": "Debounce and server limits matter. Confirm request volume in the network tab."
+        }
+      ]
+    },
+    {
+      "id": "permissions",
+      "title": "Permissions",
+      "items": [
+        {
+          "question": "Users can see admin screens they should not.",
+          "answer": "Treat as urgent. Identify the role matrix and the screen route. Patch exposure before new features."
+        },
+        {
+          "question": "Buttons show but actions 403.",
+          "answer": "UI permission checks and API permission checks disagree. Capture the 403 path and role."
+        },
+        {
+          "question": "Collection permissions block legitimate reads.",
+          "answer": "Review read rules for that entity and the user’s role. One known-good and one known-bad account help."
+        },
+        {
+          "question": "AI loosened permissions “to make it work.”",
+          "answer": "Common and dangerous. Re-tighten carefully with a restore point first if you are unsure."
+        },
+        {
+          "question": "Workspace members cannot publish.",
+          "answer": "That may be role configuration, not app code. Confirm member roles in workspace settings."
+        },
+        {
+          "question": "Public link access stopped working.",
+          "answer": "Check whether visibility/share settings changed and whether the link requires login now."
+        },
+        {
+          "question": "Do you invent a permission model for my startup?",
+          "answer": "We fix stuck permission behavior in existing Base44 apps. Greenfield access-control architecture is separate scope."
+        },
+        {
+          "question": "How do I report a permissions incident via /start?",
+          "answer": "Mark urgency high, describe exposure blast radius, and avoid sending private user data you do not need to share."
+        },
+        {
+          "question": "Row-level rules differ between list and detail views.",
+          "answer": "That inconsistency is a real bug pattern. Prove with the same record ID on list vs detail as the same user."
+        },
+        {
+          "question": "Anonymous access unexpectedly enabled on a data entity.",
+          "answer": "Lock it down first, then audit how it was enabled (AI edit vs manual)."
+        },
+        {
+          "question": "Admin Impersonation left a session in a weird state.",
+          "answer": "End impersonation sessions and retest as yourself before more changes."
+        }
+      ]
+    },
+    {
+      "id": "backups-restore",
+      "title": "Backups & restore",
+      "items": [
+        {
+          "question": "How do I restore a last known good version safely?",
+          "answer": "Identify the restore point you personally saw working, tell stakeholders live may briefly change, then restore and verify critical flows before new AI edits."
+        },
+        {
+          "question": "Restore completed but live still looks broken.",
+          "answer": "Confirm you restored the intended app/version and that publish/live caught up. Preview vs live still applies after restores."
+        },
+        {
+          "question": "I am afraid restoring will lose new good data.",
+          "answer": "Call that out explicitly. Sometimes you need a surgical fix instead of a full restore — that is a reason to start a diagnostic."
+        },
+        {
+          "question": "Do you keep backups of my Base44 app?",
+          "answer": "No ambient backups on our side. We work inside your Base44 version history and whatever export/backup paths you already have."
+        },
+        {
+          "question": "Can I export data before a risky restore?",
+          "answer": "If Base44 gives you an export path, use it before destructive ops. Prefer exports you can open and spot-check."
+        },
+        {
+          "question": "Version history entries look meaningless — how to choose?",
+          "answer": "Use time + feature markers (“before payment rewrite”). If unsure, ask us before thrashing restores."
+        },
+        {
+          "question": "Restored UI but not data — is that possible?",
+          "answer": "UI/code and data stores can diverge depending on what the restore covers. Say what still looks modern vs old."
+        },
+        {
+          "question": "Should I restore during a platform incident?",
+          "answer": "Usually wait on active platform incidents unless restore is unrelated and users are blocked by your own bad edit."
+        },
+        {
+          "question": "I restored twice and made it worse.",
+          "answer": "Stop restoring. Write down the timeline and current symptoms; thrashing history loses the plot."
+        },
+        {
+          "question": "Exported CSV numbers look scientific-notated.",
+          "answer": "That is often Excel, not Base44. Check the raw CSV in a text editor."
+        }
+      ]
+    },
+    {
+      "id": "workspace-billing",
+      "title": "Workspace & billing confusion",
+      "items": [
+        {
+          "question": "Can you explain Base44’s pricing to me?",
+          "answer": "We do not invent or republish Base44 pricing. Use Base44’s official billing UI/docs for plan limits. We diagnose app stuckness — publish, domain, schema, production — not plan sales."
+        },
+        {
+          "question": "I hit a plan limit and the app misbehaves. Is that in scope?",
+          "answer": "We can help you recognize limit-shaped failures vs real bugs. Exact quotas and upgrades stay between you and Base44."
+        },
+        {
+          "question": "Which workspace am I publishing into?",
+          "answer": "Wrong-workspace confusion is real. Confirm workspace + app name in the UI before deep debugging."
+        },
+        {
+          "question": "Teammate lost access after billing/ownership change.",
+          "answer": "Ownership and seat issues are account-admin problems; we can help separate those from app breakage."
+        },
+        {
+          "question": "Do you sell Base44 credits or seats?",
+          "answer": "No. We are an independent specialist studio."
+        },
+        {
+          "question": "Invoice questions for Base44 Expert services?",
+          "answer": "Service billing for diagnostic work is arranged after intake by email. It is unrelated to your Base44 subscription."
+        },
+        {
+          "question": "Workspace creation policy / domain claim confusion.",
+          "answer": "Follow Base44’s current account docs for domain claim and workspace policy. If it blocks your app work, describe the blocker on <a href=\"/start\">/start</a>."
+        },
+        {
+          "question": "Are you part of Base44 or Wix?",
+          "answer": "No. Base44 Expert is independent. For platform incidents use <a href=\"https://status.base44.com\" rel=\"noopener noreferrer\" target=\"_blank\">status.base44.com</a> and official docs."
+        },
+        {
+          "question": "Two Base44 accounts own pieces of the project.",
+          "answer": "Ownership splits cause permission ghost stories. State who owns the workspace/app in your diagnostic."
+        },
+        {
+          "question": "I cannot find the app because it is in another team workspace.",
+          "answer": "Search across workspaces you belong to and confirm ownership. Wrong workspace looks like “Base44 deleted my app.”"
+        }
+      ]
+    },
+    {
+      "id": "seo-index",
+      "title": "SEO & indexing",
+      "items": [
+        {
+          "question": "Google does not index my Base44 app. Is the app “down”?",
+          "answer": "Usually not. Indexing lags and robots/meta rules differ from uptime. Confirm the site loads for users first."
+        },
+        {
+          "question": "Custom domain not indexed but Base44 URL is.",
+          "answer": "Search consoles need the custom domain property and correct canonical/domain setup. Fix domain health before SEO tweaks."
+        },
+        {
+          "question": "AI edit added noindex somehow.",
+          "answer": "Check meta robots and headers on the live URL. Remove unintended noindex carefully and request re-index after."
+        },
+        {
+          "question": "SPA routes not showing in search results.",
+          "answer": "Client-rendered routes may be weakly indexed. Separate SEO goals from functional stuckness — we prioritize user-facing breakage."
+        },
+        {
+          "question": "Sitemap 404s.",
+          "answer": "Verify whether your app actually ships a sitemap and at which path. Not every Base44 app has one by default."
+        },
+        {
+          "question": "Social link previews show old title/image.",
+          "answer": "OG cache. Confirm tags on live, then use debugger tools for the network. Not a publish failure by itself."
+        },
+        {
+          "question": "Do you run SEO retainers?",
+          "answer": "Not as the core product. We unstick Base44 apps; light SEO blockers tied to domain/meta breakage can come along for the ride."
+        },
+        {
+          "question": "Canonical points at preview URL.",
+          "answer": "That hurts. Ensure production canonicals use your live domain after domain cutover."
+        },
+        {
+          "question": "hreflang / multi-language URLs look wrong after domain change.",
+          "answer": "Fix domain reachability first, then align language URLs. SEO annotations on a broken domain do nothing."
+        },
+        {
+          "question": "Bing indexes us; Google does not.",
+          "answer": "Different crawlers and timing. Confirm robots for both; still prioritize user uptime over SEO rivalry."
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "title": "Mobile",
+      "items": [
+        {
+          "question": "Broken only on iPhone Safari.",
+          "answer": "Note iOS version, reproduce on desktop Safari if possible, and capture console via remote debugging if you can. Safari-only bugs are common enough to label clearly."
+        },
+        {
+          "question": "Android Chrome works; iOS does not (or reverse).",
+          "answer": "Treat as browser engine divergence. Avoid “rewrite everything” until you have one failing device log."
+        },
+        {
+          "question": "Keyboard covers inputs on mobile web.",
+          "answer": "Layout/viewport issue. Screenshot before/after focus. Not a Base44 outage."
+        },
+        {
+          "question": "PWA / add-to-home-screen caching old build.",
+          "answer": "Unregister service workers / clear site data during triage. Stale PWAs mimic failed publishes."
+        },
+        {
+          "question": "Touch targets broke after a UI AI edit.",
+          "answer": "Restore layout or patch CSS; verify on a real device not just responsive mode."
+        },
+        {
+          "question": "Camera/file upload fails on mobile only.",
+          "answer": "Permissions and HTTPS requirements differ. Confirm HTTPS on custom domain and browser permission prompts."
+        },
+        {
+          "question": "App webview inside our native shell broke.",
+          "answer": "Native shells add cookie and navigation constraints. Tell us it is a webview, not mobile Safari alone."
+        },
+        {
+          "question": "Safe-area / notch covers our header CTAs.",
+          "answer": "CSS safe-area insets. Verify on a notched device; responsive mode may not show it."
+        }
+      ]
+    },
+    {
+      "id": "email-notifications",
+      "title": "Email & notifications",
+      "items": [
+        {
+          "question": "Transactional emails not sending.",
+          "answer": "Check provider credentials, from-domain DNS (SPF/DKIM), and whether the send path errors in logs/console."
+        },
+        {
+          "question": "Emails go to spam.",
+          "answer": "Domain auth (SPF/DKIM/DMARC) and content reputation matter. We can help spot app-side misconfig; inbox placement is not a guarantee."
+        },
+        {
+          "question": "Notification storms after an AI edit.",
+          "answer": "Disable the trigger if possible, then inspect loops in automations. Note timestamps of the burst."
+        },
+        {
+          "question": "In-app notifications show; email does not.",
+          "answer": "That splits channels — debug the email provider path specifically."
+        },
+        {
+          "question": "Wrong template sent to users.",
+          "answer": "Version/publish mismatch or wrong template ID mapping. Capture template name and a redacted example."
+        },
+        {
+          "question": "SMS / WhatsApp notifications failing.",
+          "answer": "Provider registration and template approval often block sends. Keep regulatory constraints in mind."
+        },
+        {
+          "question": "Can I CC you on user email complaints?",
+          "answer": "Better to summarize patterns and include sample (redacted) headers. Do not forward piles of personal data unasked."
+        },
+        {
+          "question": "Digest emails duplicated.",
+          "answer": "Usually double schedulers or double publishes of cron-like jobs. Identify duplicate triggers before rewriting copy."
+        },
+        {
+          "question": "Unsubscribe link broken.",
+          "answer": "Confirm the link host and auth requirements. Broken unsubscribe is both UX and compliance risk — prioritize it."
+        },
+        {
+          "question": "Reply-To address rejected by provider.",
+          "answer": "Use an allowed domain identity. Provider rejection messages usually name the policy."
+        }
+      ]
+    },
+    {
+      "id": "github-reconnect",
+      "title": "GitHub reconnect",
+      "items": [
+        {
+          "question": "App disconnected from GitHub — how to reconnect?",
+          "answer": "Follow Base44’s reconnect flow carefully so you do not fork history blindly. If the UI offers reconnect to the same repo, prefer that path and note any merge warnings."
+        },
+        {
+          "question": "Reconnect warns about divergent history.",
+          "answer": "Stop and capture the warning. Divergent history is how people overwrite good work. We can help you choose a safe direction."
+        },
+        {
+          "question": "GitHub actions / CI broke after Base44 changes.",
+          "answer": "Treat CI as a separate consumer of the repo. Share the failing job log excerpts (no secrets)."
+        },
+        {
+          "question": "I pushed to GitHub and Base44 preview did not change.",
+          "answer": "Confirm the connected branch and whether Base44 expects an inbound sync for your setup. Not all workflows are two-way the way people assume."
+        },
+        {
+          "question": "Permissions to the GitHub repo were revoked.",
+          "answer": "Re-grant the GitHub app/permissions as the repo admin, then retry connect."
+        },
+        {
+          "question": "Monorepo path confusion.",
+          "answer": "If the app expects a subdirectory, say so. Wrong root is a classic reconnect footgun."
+        },
+        {
+          "question": "Do you require GitHub access on day one?",
+          "answer": "No. Start with <a href=\"/start\">/start</a>. Repo access only if needed after we reply, on a channel you approve."
+        },
+        {
+          "question": "Merge conflicts during reconnect — should I force push?",
+          "answer": "Almost never as a first move. Force pushes burn recovery options. Ask before destructive git history rewrites."
+        },
+        {
+          "question": "GitHub branch protection blocks Base44 writes.",
+          "answer": "Repo rules may reject bot pushes. Coordinate with whoever owns branch protection rather than disabling all security blindly."
+        },
+        {
+          "question": "Submodule or LFS objects missing after sync.",
+          "answer": "Mention submodules/LFS explicitly — they surprise reconnect flows."
+        }
+      ]
+    },
+    {
+      "id": "superagents-whatsapp",
+      "title": "Superagents & WhatsApp",
+      "items": [
+        {
+          "question": "Superagent stopped responding on WhatsApp.",
+          "answer": "Check Base44 product status, the agent’s connection state, and recent goal/config edits. Capture the last successful interaction time."
+        },
+        {
+          "question": "WhatsApp templates / messaging limits blocking sends.",
+          "answer": "Provider policy can block traffic even when the app is healthy. Read the provider error, not only the Base44 UI."
+        },
+        {
+          "question": "Superagent goal loops or burns actions forever.",
+          "answer": "Pause/disable the goal if you can, then inspect success criteria and tools it may call. Note runaway behavior timestamps."
+        },
+        {
+          "question": "Agent works in web chat, fails in WhatsApp.",
+          "answer": "Channel-specific config. Compare the two channels’ connection status and phone number setup."
+        },
+        {
+          "question": "Phone number setup for an agent is stuck.",
+          "answer": "Follow Base44’s current Superagent phone setup docs and capture where the wizard hangs. Avoid duplicate number purchases while testing."
+        },
+        {
+          "question": "Do you build Superagents from scratch as a package?",
+          "answer": "No greenfield package. If a Superagent integration leaves your app stuck, we can help diagnose."
+        },
+        {
+          "question": "Agent leaked tools/actions to the wrong users.",
+          "answer": "Permissions emergency — disable public access paths and contact us with urgency. Do not paste secret tool credentials."
+        },
+        {
+          "question": "Where do Superagent product changes show up?",
+          "answer": "Watch <a href=\"/updates\">/updates</a> and the official Base44 changelog. Pair feature notes with status when something feels off."
+        },
+        {
+          "question": "Agent sends messages outside allowed business hours rules.",
+          "answer": "Check scheduling rules and timezone settings before blaming the channel API."
+        },
+        {
+          "question": "Agent ignores tool results and hallucinates outcomes.",
+          "answer": "Tighten tools/goals and add verification steps. Capture an example transcript with secrets removed."
+        }
+      ]
+    },
+    {
+      "id": "not-working-triage",
+      "title": "“Base44 not working” general triage",
+      "items": [
+        {
+          "question": "Base44 is not working — what order should I check?",
+          "answer": "Status → publish/blank screen → custom domain → schema/data. Full calm order: <a href=\"/base44-not-working\">/base44-not-working</a>."
+        },
+        {
+          "question": "Everything feels broken; I cannot narrow it.",
+          "answer": "Pick one user-critical flow (login, checkout, or main dashboard) and bisect: Base44 URL vs custom domain, preview vs live, logged-in vs logged-out."
+        },
+        {
+          "question": "Is it my app or the platform?",
+          "answer": "If status is green and only your app fails, it is probably your app. If many apps/workspaces fail the same way, check status and wait on incidents."
+        },
+        {
+          "question": "Who should I email first — Base44 or Base44 Expert?",
+          "answer": "Platform-wide outages: Base44 status/support paths. App-specific stuckness after you narrowed it: <a href=\"/start\">/start</a>."
+        },
+        {
+          "question": "I only have a vague screenshot from a coworker.",
+          "answer": "Ask for URL, time, and whether they used preview or live. Vague screenshots waste a day."
+        },
+        {
+          "question": "We are launching tomorrow and just broke production.",
+          "answer": "Say that urgency on <a href=\"/start\">/start</a>. Freeze edits, consider restore to last good, and capture errors now."
+        },
+        {
+          "question": "Multiple bugs appeared at once after one AI session.",
+          "answer": "Bundle them as one regression story with the session’s time range. Prioritize the user-blocker first."
+        },
+        {
+          "question": "Does “not working” include slow apps?",
+          "answer": "Yes if users cannot complete tasks. Still measure — slow and blank need different evidence."
+        },
+        {
+          "question": "Can browser cache make a fixed app still look broken?",
+          "answer": "Yes. Private window checks are mandatory before declaring a fix failed."
+        },
+        {
+          "question": "What evidence makes triage fast?",
+          "answer": "Exact URLs, timestamps, error strings, preview vs live, and the last change you made. That packet is the job."
+        },
+        {
+          "question": "Our whole team is changing things at once.",
+          "answer": "Serialize changes. Parallel AI edits from five people create un-debuggable stew."
+        },
+        {
+          "question": "We see intermittent failures only at peak hours.",
+          "answer": "Record timestamps and approximate traffic. Intermittent + peak often means limits or timeouts, not random ghosts."
+        }
+      ]
+    },
+    {
+      "id": "status",
+      "title": "When to check status.base44.com",
+      "items": [
+        {
+          "question": "When should I check status.base44.com?",
+          "answer": "Check once at the start of any “Base44 not working” moment — especially if Builder, Hosting, or Login feels down for multiple apps. If an incident is open, wait or follow Base44’s notes before rewriting your app. Bookmark <a href=\"https://status.base44.com\" rel=\"noopener noreferrer\" target=\"_blank\">status.base44.com</a>; do not refresh it forever instead of diagnosing app-specific faults."
+        }
+      ]
+    },
+    {
+      "id": "working-with-us",
+      "title": "Working with Base44 Expert /start",
+      "items": [
+        {
+          "question": "How does the diagnostic work?",
+          "answer": "Use <a href=\"/start\">/start</a>. Your browser builds a case id and opens mailto:na0ryank0@gmail.com with a clear subject. No Formspree. Write concrete symptoms."
+        },
+        {
+          "question": "Do you build new apps from scratch?",
+          "answer": "No. We unstick existing Base44 apps. We do not sell greenfield builds as a productized package."
+        },
+        {
+          "question": "What stuck moments do you take?",
+          "answer": "Publish success with unchanged live output, publish failures, custom domain DNS/SSL pending, schema mismatches, preview-vs-production failures, and related production blockers."
+        },
+        {
+          "question": "What should I not send in the first email?",
+          "answer": "Passwords, API keys, full customer personal data dumps, and card numbers. Redact. We will request least-privilege access later if needed."
+        },
+        {
+          "question": "How fast do you reply?",
+          "answer": "We aim to respond promptly to clear diagnostics, especially when you mark urgency. There is no fake SLA on this page — clarity in your writeup speeds everything."
+        },
+        {
+          "question": "Do you invent testimonials or rescue counts?",
+          "answer": "No. Proof is process specificity and clear writing — not fake logos or metrics."
+        },
+        {
+          "question": "What is FixTheBase vs Base44 Expert?",
+          "answer": "<a href=\"https://fixthebase.com\" rel=\"noopener noreferrer\" target=\"_blank\">FixTheBase</a> is a related tool from the same builder. Studio diagnostic work lives on base44expert.com."
+        },
+        {
+          "question": "How do you stay current with Base44 changes?",
+          "answer": "We surface recent Base44 product and developer notes on <a href=\"/updates\">/updates</a> and link official changelogs. Pair product notes with status when something feels off."
+        },
+        {
+          "question": "Where are official troubleshooting docs?",
+          "answer": "<a href=\"https://docs.base44.com/Community-and-support/Troubleshooting\" rel=\"noopener noreferrer\" target=\"_blank\">Docs troubleshooting</a> covers publish, blank screen, domain pending, and SSL. We complement that — we do not replace it."
+        },
+        {
+          "question": "Can you help only with custom domains?",
+          "answer": "Yes — domains are in scope. Start at <a href=\"/custom-domains\">/custom-domains</a> and <a href=\"/start\">/start</a> if you remain stuck."
+        },
+        {
+          "question": "Do you work with agencies on client Base44 apps?",
+          "answer": "Yes, when the app is stuck and someone can authorize access. Say you are an agency in the diagnostic so ownership is clear."
+        },
+        {
+          "question": "Hebrew / English — can I write in Hebrew?",
+          "answer": "You can write in Hebrew or English in the diagnostic email. The public site is English-first for SEO reach."
+        },
+        {
+          "question": "Can we sign an NDA first?",
+          "answer": "Ask in the first email. We can discuss practical confidentiality before you share sensitive access."
+        },
+        {
+          "question": "Do you offer ongoing retainers?",
+          "answer": "Sometimes, after a successful diagnostic relationship. Ask on <a href=\"/start\">/start</a> — no fake package grid on this FAQ."
+        },
+        {
+          "question": "Can you join our Slack/Teams?",
+          "answer": "Sometimes after intake, if it helps the case. Start with the mailto diagnostic so the case id exists."
+        },
+        {
+          "question": "What does a good subject line look like?",
+          "answer": "The /start flow builds one like Base44 case — {type}. Keep the type concrete: publish, domain, schema, blank, etc."
+        }
+      ]
+    }
+  ]
+}

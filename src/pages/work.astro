@@ -17,9 +17,13 @@ const breadcrumb = {
   jsonLd={breadcrumb}
 >
   <main id="main">
-    <section class="section-padding border-b border-line">
+    <section class="section-padding border-b border-line page-heat">
+      <div class="page-heat__glow" aria-hidden="true"></div>
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl text-ink mb-6 max-w-3xl text-balance">How we get your app unstuck</h1>
+        <div class="flex flex-col lg:flex-row lg:items-end gap-8 mb-6">
+          <h1 class="text-4xl sm:text-5xl text-ink max-w-3xl text-balance">How we get your app unstuck</h1>
+          <img class="page-heat__viz shrink-0" src="/viz/fault-schema.svg" alt="" width="280" height="175" />
+        </div>
         <p class="text-lg text-stone max-w-2xl leading-relaxed">
           No discovery calls as a product. You describe what’s broken, we investigate, and if we can fix it we do —
           with a written explanation of the fault line.
@@ -88,7 +92,7 @@ const breadcrumb = {
           </div>
         </div>
         <p class="mt-10">
-          <a href="/start" class="btn-primary">Start a diagnostic</a>
+          <a href="/start" class="btn-primary magnetic">Start a diagnostic</a>
         </p>
       </div>
     </section>

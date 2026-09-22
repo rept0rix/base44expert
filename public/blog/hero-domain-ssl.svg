@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Custom domain SSL pending diagram">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0F0E0E"/>
+      <stop offset="100%" stop-color="#1A1816"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg3)"/>
+  <text x="64" y="72" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="0.12em">DNS → CERT</text>
+  <text x="64" y="124" fill="#F9F7F4" font-family="Syne, sans-serif" font-size="40" font-weight="800">SSL pending is usually DNS.</text>
+  <g>
+    <rect x="64" y="200" width="200" height="100" rx="14" fill="#0F0E0E" stroke="#312F2F" stroke-width="2"/>
+    <text x="164" y="248" text-anchor="middle" fill="#F9F7F4" font-family="Syne, sans-serif" font-size="20" font-weight="700">DNS</text>
+    <text x="164" y="276" text-anchor="middle" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="12">A / CNAME</text>
+    <path d="M274 250 H330" stroke="#FF6A00" stroke-width="3"/>
+    <rect x="340" y="200" width="200" height="100" rx="14" fill="#0F0E0E" stroke="#FF6A00" stroke-width="2"/>
+    <text x="440" y="248" text-anchor="middle" fill="#FF8F5C" font-family="Syne, sans-serif" font-size="20" font-weight="700">Proxy?</text>
+    <text x="440" y="276" text-anchor="middle" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="12">CF orange cloud</text>
+    <path d="M550 250 H606" stroke="#FF6A00" stroke-width="3" stroke-dasharray="6 4"/>
+    <rect x="616" y="200" width="280" height="100" rx="14" fill="rgba(255,106,0,0.08)" stroke="#FF6A00" stroke-width="2"/>
+    <text x="756" y="248" text-anchor="middle" fill="#FF8F5C" font-family="Syne, sans-serif" font-size="20" font-weight="700">Certificate</text>
+    <text x="756" y="276" text-anchor="middle" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="12">issues after DNS settles</text>
+  </g>
+  <rect x="64" y="360" width="832" height="100" rx="16" fill="#0F0E0E" stroke="#312F2F" stroke-width="2"/>
+  <text x="480" y="410" text-anchor="middle" fill="#F9F7F4" font-family="Syne, sans-serif" font-size="24" font-weight="700">App works on *.base44.host — domain does not</text>
+  <text x="480" y="440" text-anchor="middle" fill="#8E8E8E" font-family="IBM Plex Sans, sans-serif" font-size="15">Fix records before you republish the product</text>
+</svg>

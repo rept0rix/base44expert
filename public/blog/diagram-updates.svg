@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" role="img" aria-label="Changelog plus status habit">
+  <rect width="640" height="200" rx="16" fill="#1A1816"/>
+  <rect x="24" y="40" width="180" height="120" rx="12" fill="#0F0E0E" stroke="#FF6A00" stroke-width="2"/>
+  <text x="114" y="100" text-anchor="middle" fill="#FF8F5C" font-family="Syne, sans-serif" font-size="18" font-weight="700">Changelog</text>
+  <path d="M214 100 H270" stroke="#FF6A00" stroke-width="2.5"/>
+  <rect x="270" y="40" width="180" height="120" rx="12" fill="#0F0E0E" stroke="#312F2F" stroke-width="2"/>
+  <text x="360" y="100" text-anchor="middle" fill="#F9F7F4" font-family="Syne, sans-serif" font-size="18" font-weight="700">Status</text>
+  <path d="M460 100 H516" stroke="#FF6A00" stroke-width="2.5"/>
+  <rect x="516" y="40" width="100" height="120" rx="12" fill="rgba(255,106,0,0.1)" stroke="#FF6A00" stroke-width="2"/>
+  <text x="566" y="100" text-anchor="middle" fill="#FF8F5C" font-family="Syne, sans-serif" font-size="16" font-weight="700">Triage</text>
+</svg>

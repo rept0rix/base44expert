@@ -3,6 +3,8 @@ import '../styles/global.css'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import JsonLd from '../components/JsonLd.astro'
+import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from '@vercel/speed-insights/astro'
 
 interface Props {
   title: string
@@ -26,6 +28,7 @@ const {
 
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString()
 const ogURL = new URL(ogImage, Astro.site).toString()
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 ---
 
 <!doctype html>
@@ -67,5 +70,63 @@ const ogURL = new URL(ogImage, Astro.site).toString()
       <slot />
     </div>
     {showFooter && <Footer />}
+
+    <div class="cursor-heat" id="cursor-heat" aria-hidden="true"></div>
+    <script is:inline>
+      (() => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const fine = window.matchMedia('(pointer: fine)').matches;
+        if (reduce || !fine) return;
+
+        const heat = document.getElementById('cursor-heat');
+        if (heat) {
+          let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
+          const tick = () => {
+            x += (tx - x) * 0.18;
+            y += (ty - y) * 0.18;
+            heat.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            raf = requestAnimationFrame(tick);
+          };
+          window.addEventListener('pointermove', (e) => {
+            tx = e.clientX;
+            ty = e.clientY;
+            heat.classList.add('is-live');
+            if (!raf) raf = requestAnimationFrame(tick);
+          }, { passive: true });
+          document.documentElement.addEventListener('pointerleave', () => {
+            heat.classList.remove('is-live');
+          }, { passive: true });
+        }
+
+        document.querySelectorAll('.magnetic').forEach((el) => {
+          if (!(el instanceof HTMLElement)) return;
+          const strength = 18;
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            const dx = e.clientX - (r.left + r.width / 2);
+            const dy = e.clientY - (r.top + r.height / 2);
+            el.style.setProperty('--mx', `${dx / strength}px`);
+            el.style.setProperty('--my', `${dy / strength}px`);
+          });
+          el.addEventListener('pointerleave', () => {
+            el.style.setProperty('--mx', '0px');
+            el.style.setProperty('--my', '0px');
+          });
+        });
+      })();
+    </script>
+    <Analytics />
+    <SpeedInsights />
+    {gaId ? (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    ) : null}
   </body>
 </html>

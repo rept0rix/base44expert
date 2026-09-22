@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="heat" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF6A00"/>
+      <stop offset="100%" stop-color="#FFB088"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="420" rx="16" fill="#1A1816" stroke="#312F2F"/>
+  <text x="28" y="42" fill="#8E8E8E" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="2">TRIAGE LADDER</text>
+  <!-- Steps -->
+  <g font-family="Syne, sans-serif" font-size="18" font-weight="700" fill="#F9F7F4">
+    <rect x="28" y="64" width="200" height="56" rx="12" fill="#0F0E0E" stroke="#FF6A00" stroke-opacity="0.55"/>
+    <text x="48" y="98">1. Status</text>
+    <path d="M236 92 H268" stroke="url(#heat)" stroke-width="3"/>
+    <rect x="268" y="64" width="200" height="56" rx="12" fill="#0F0E0E" stroke="#312F2F"/>
+    <text x="288" y="98">2. Publish</text>
+    <path d="M476 92 H508" stroke="url(#heat)" stroke-width="3"/>
+    <rect x="508" y="64" width="184" height="56" rx="12" fill="#0F0E0E" stroke="#312F2F"/>
+    <text x="528" y="98">3. DNS/SSL</text>
+  </g>
+  <g font-family="Syne, sans-serif" font-size="18" font-weight="700" fill="#F9F7F4">
+    <rect x="120" y="160" width="200" height="56" rx="12" fill="#0F0E0E" stroke="#312F2F"/>
+    <text x="140" y="194">4. Schema</text>
+    <path d="M328 188 H360" stroke="url(#heat)" stroke-width="3"/>
+    <rect x="360" y="160" width="240" height="56" rx="12" fill="#0F0E0E" stroke="#312F2F"/>
+    <text x="380" y="194">5. Connectors / env</text>
+  </g>
+  <!-- Callouts -->
+  <g font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#8E8E8E">
+    <text x="28" y="270">Platform outage? Stop. Do not rewrite the app.</text>
+    <text x="28" y="296">Publish green + live stale → artifact / cache / wrong target.</text>
+    <text x="28" y="322">SSL pending → DNS + proxy before certificate panic.</text>
+    <text x="28" y="348">AI edit → compare entity schema to production records.</text>
+    <text x="28" y="374">Preview ≠ prod → secrets, auth, and live-only connectors.</text>
+  </g>
+  <circle cx="660" cy="340" r="36" fill="#FF6A00" fill-opacity="0.2"/>
+  <circle cx="660" cy="340" r="18" fill="#FF6A00" fill-opacity="0.55"/>
+</svg>
