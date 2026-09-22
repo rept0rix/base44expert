@@ -230,24 +230,9 @@ export async function getChangelogItems(limit = 6): Promise<{
 }
 
 /** Last few studio ship notes from CHANGELOG.md (not Base44 product). */
-export function getStudioShipNotes(limit = 3): string[] {
-  try {
-    const file = path.join(process.cwd(), 'CHANGELOG.md')
-    if (!fs.existsSync(file)) return []
-    const md = fs.readFileSync(file, 'utf8')
-    const bullets: string[] = []
-    for (const line of md.split('\n')) {
-      const m = line.match(/^-\s+(.+)/)
-      if (!m) continue
-      const text = m[1].trim()
-      if (/^park|^draft only|^sync note|^deploy:/i.test(text)) continue
-      bullets.push(text)
-      if (bullets.length >= limit) break
-    }
-    return bullets
-  } catch {
-    return []
-  }
+export function getStudioShipNotes(_limit = 3): string[] {
+  // Never expose CHANGELOG engineering bullets on the public site.
+  return []
 }
 
 /** Studio blog posts for “From the studio” (not CHANGELOG ship notes). */

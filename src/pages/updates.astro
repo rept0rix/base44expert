@@ -1,10 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getChangelogItems, getStudioBlogNotes } from '../lib/changelog'
+import { getChangelogItems } from '../lib/changelog'
 
 const { items, fromRss, productPage, statusPage } = await getChangelogItems(22)
-const studioPosts = getStudioBlogNotes()
-
 const breadcrumb = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -21,7 +19,7 @@ function kindLabel(kind: string) {
 
 <Layout
   title="Base44 updates — Base44 Expert"
-  description="What’s new in Base44 for builders — product and developer notes from the official changelog, plus studio triage posts."
+  description="What’s new in Base44 for builders — product and developer notes from the official changelog."
   jsonLd={breadcrumb}
 >
   <main id="main">
@@ -80,27 +78,7 @@ function kindLabel(kind: string) {
             </li>
           ))}
         </ul>
-
-        {studioPosts.length > 0 && (
-          <aside class="mt-12 border border-line rounded-lg bg-bg-2 pad-inset px-4 py-5" aria-labelledby="studio-notes-heading">
-            <p class="font-mono text-[10px] uppercase tracking-wider text-muted mb-2">From the studio</p>
-            <h2 id="studio-notes-heading" class="text-xl text-ink mb-3">Triage notes for builders</h2>
-            <p class="text-sm text-stone mb-4">
-              Our own posts — not Base44 product announcements.
-            </p>
-            <ul class="space-y-3">
-              {studioPosts.map((post) => (
-                <li>
-                  <a href={post.href} class="text-ink font-medium hover:text-accent underline-offset-2 hover:underline">
-                    {post.title}
-                  </a>
-                  <p class="text-sm text-stone mt-0.5">{post.blurb}</p>
-                </li>
-              ))}
-            </ul>
-          </aside>
-        )}
-      </div>
+</div>
     </section>
   </main>
 </Layout>
