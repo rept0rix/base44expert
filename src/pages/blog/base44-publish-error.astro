@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+const title = "When Base44 publish says success but live is unchanged"
+const description = "Separate build failure, stale live output, and blank screens after publish on Base44."
+const datePublished = "2026-09-02"
+const url = 'https://base44expert.com/blog/base44-publish-error'
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    datePublished,
+    author: { '@type': 'Organization', name: 'Base44 Expert' },
+    publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://base44expert.com' },
+    mainEntityOfPage: url,
+    url,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://base44expert.com/blog' },
+      { '@type': 'ListItem', position: 3, name: title, item: url },
+    ],
+  },
+]
+---
+
+<Layout title={`${title} — Base44 Expert`} description={description} jsonLd={jsonLd}>
+  <main id="main">
+    <article class="section-padding">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl sm:text-5xl text-ink mb-8 text-balance">{title}</h1>
+        <div class="prose-studio text-stone leading-relaxed space-y-4">
+          <p>A common stuck moment: the UI says publish succeeded, but the live URL still shows yesterday’s version — or a blank screen.</p>
+          <p>Treat these as different faults. A failed build needs logs. A “success” with stale live output may be caching, a wrong publish target, or a change that never left preview. A blank screen after an AI edit needs the last change and any console error you can copy.</p>
+          <p>Check <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">platform status</a> first, then capture the exact message. We walk triage on <a href="/base44-not-working">/base44-not-working</a>.</p>
+          <p>We do not invent incident queues. If you want a human pass, use <a href="/start">/start</a> with type <strong>publish</strong>.</p>
+
+        </div>
+        <p class="mt-12 pad-inset-md border-t border-line">
+          <a href="/start" class="btn-primary">Start a diagnostic</a>
+        </p>
+      </div>
+    </article>
+  </main>
+</Layout>

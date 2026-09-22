@@ -1,0 +1,39 @@
+# Base44 Expert
+
+> Independent specialist studio that unsticks stuck Base44 apps.
+> English studio brand — not a personal-name agency. Not affiliated with Base44 / Wix.
+
+## Who we are
+- Studio site: https://base44expert.com
+- Contact: mailto:na0ryank0@gmail.com
+- Related tool: https://fixthebase.com
+- Footer credit may include “Built by Naor Yanko”; public face is the studio.
+
+## What we unstick
+- Publish said success but live URL unchanged / publish failures
+- Custom domain DNS, pending SSL, Cloudflare proxy issues
+- Entity schema mismatches and missing records
+- Preview works, production breaks (env, connectors, assets)
+- Blank screen / stuck thinking after a change — after checking https://status.base44.com
+
+## What we don’t do
+- Greenfield app builds from scratch as a productized service
+- Fake testimonials, invented metrics, or client logos
+- Official Base44 support (link users to docs and status when appropriate)
+
+## Key URLs
+- Start diagnostic: https://base44expert.com/start
+- Process: https://base44expert.com/work
+- Updates (changelog mirror): https://base44expert.com/updates
+- Blog: https://base44expert.com/blog
+- FAQ: https://base44expert.com/faq
+- Base44 not working: https://base44expert.com/base44-not-working
+- Custom domains: https://base44expert.com/custom-domains
+- Contact: https://base44expert.com/contact
+
+## Official Base44 sources we cite
+- Product changelog: https://docs.base44.com/changelog/product
+- Product RSS: https://docs.base44.com/changelog/product/rss.xml
+- Status: https://status.base44.com
+- Troubleshooting: https://docs.base44.com/Community-and-support/Troubleshooting
+- Custom domain docs: https://docs.base44.com/Setting-up-your-app/Setting-up-your-custom-domain

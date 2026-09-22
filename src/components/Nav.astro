@@ -2,84 +2,104 @@
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/work', label: 'Process' },
-  { href: '/base44-expert', label: 'Expertise' },
-  { href: '/contact', label: 'Contact' }
+  { href: '/updates', label: 'Updates' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/faq', label: 'FAQ' },
 ]
 
 const currentPath = Astro.url.pathname
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/'
+  return currentPath === href || currentPath.startsWith(href + '/')
+}
 ---
 
-<nav class="border-b border-slate-200 bg-white sticky top-0 z-50">
+<header class="border-b border-line bg-bg/90 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-20">
-      <div class="flex-shrink-0">
-        <a href="/" class="flex items-center gap-0 hover:opacity-80 transition-opacity">
-          <img src="/logo.svg" alt="Base44 Expert" class="h-8" />
-        </a>
-      </div>
-      <div class="hidden md:flex md:items-center md:gap-8">
-        {navItems.map(item => (
+    <div class="flex justify-between items-center h-16">
+      <a href="/" class="flex items-center gap-2 shrink-0 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
+        <img src="/logo.svg" alt="Base44 Expert" width="180" height="32" class="h-8 w-auto" />
+      </a>
+
+      <nav class="hidden md:flex md:items-center md:gap-7" aria-label="Primary">
+        {navItems.map((item) => (
           <a
             href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
-              'text-sm font-medium transition-colors relative',
-              currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
-                ? 'text-teal-700'
-                : 'text-slate-700 hover:text-teal-700'
+              'text-sm font-medium transition-colors duration-150',
+              isActive(item.href) ? 'text-ink' : 'text-muted hover:text-ink',
             ]}
           >
             {item.label}
-            {(currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))) && (
-              <span class="absolute -bottom-[1.4rem] left-0 right-0 h-0.5 bg-teal-700"></span>
-            )}
           </a>
         ))}
-        <a 
-          href="/contact" 
-          class="px-5 py-2.5 bg-teal-700 text-white text-sm font-medium rounded-lg hover:bg-teal-800 transition-colors"
-        >
-          Get Help
-        </a>
-      </div>
+        <a href="/start" class="btn-primary !py-2 !px-4 text-sm">Start</a>
+      </nav>
+
       <div class="md:hidden">
-        <button type="button" class="text-slate-700 hover:text-slate-900" id="mobile-menu-button" aria-label="Toggle menu">
-          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button
+          type="button"
+          id="mobile-menu-button"
+          class="inline-flex items-center justify-center p-2 rounded-xl border border-line text-ink hover:bg-bg-2 transition-colors"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Open menu"
+        >
+          <svg class="h-5 w-5" id="menu-icon-open" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="h-5 w-5 hidden" id="menu-icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
     </div>
   </div>
-  <div class="md:hidden hidden border-t border-slate-200" id="mobile-menu">
-    <div class="px-4 pt-2 pb-4 space-y-1 bg-white">
-      {navItems.map(item => (
+
+  <div class="md:hidden hidden border-t border-line bg-bg pad-inset" id="mobile-menu" hidden>
+    <nav class="px-1 py-1 space-y-1" aria-label="Mobile">
+      {navItems.map((item) => (
         <a
           href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
           class:list={[
-            'block px-4 py-3 rounded-lg text-base font-medium transition-colors',
-            currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
-              ? 'bg-teal-50 text-teal-700'
-              : 'text-slate-700 hover:bg-slate-50'
+            'block px-3 py-3 rounded-xl text-base font-medium',
+            isActive(item.href) ? 'bg-bg-2 text-ink border border-line' : 'text-muted hover:text-ink hover:bg-bg-2',
           ]}
         >
           {item.label}
         </a>
       ))}
-      <a 
-        href="/contact" 
-        class="block px-4 py-3 mt-2 bg-teal-700 text-white text-base font-medium rounded-lg text-center hover:bg-teal-800 transition-colors"
-      >
-        Get Help
-      </a>
-    </div>
+      <a href="/start" class="btn-primary w-full mt-2">Start</a>
+    </nav>
   </div>
-</nav>
+</header>
 
 <script>
   const button = document.getElementById('mobile-menu-button')
   const menu = document.getElementById('mobile-menu')
-  
+  const iconOpen = document.getElementById('menu-icon-open')
+  const iconClose = document.getElementById('menu-icon-close')
+
+  function setOpen(open: boolean) {
+    if (!button || !menu) return
+    menu.classList.toggle('hidden', !open)
+    if (open) menu.removeAttribute('hidden')
+    else menu.setAttribute('hidden', '')
+    button.setAttribute('aria-expanded', open ? 'true' : 'false')
+    button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+    iconOpen?.classList.toggle('hidden', open)
+    iconClose?.classList.toggle('hidden', !open)
+  }
+
   button?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden')
+    const open = button.getAttribute('aria-expanded') !== 'true'
+    setOpen(open)
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false)
   })
 </script>

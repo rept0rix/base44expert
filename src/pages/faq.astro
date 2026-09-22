@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro'
+import FaqList from '../components/FaqList.astro'
+import type { FaqItem } from '../lib/faq'
+
+const items: FaqItem[] = [
+  {
+    question: 'Are you part of Base44 or Wix?',
+    answer:
+      'No. Base44 Expert is an independent specialist studio. For platform incidents use <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a> and official docs.',
+  },
+  {
+    question: 'Do you build new apps from scratch?',
+    answer:
+      'No. We unstick existing Base44 apps. We do not sell greenfield builds as a productized package.',
+  },
+  {
+    question: 'What stuck moments do you take?',
+    answer:
+      'Publish success with unchanged live output, publish failures, custom domain DNS/SSL pending, schema mismatches, and preview-vs-production failures.',
+  },
+  {
+    question: 'How does the diagnostic work?',
+    answer:
+      'Use <a href="/start">/start</a>. Your browser builds a case id and opens mailto:na0ryank0@gmail.com with subject <code>Base44 case — {type}</code>. No Formspree.',
+  },
+  {
+    question: 'Should I check status before emailing?',
+    answer:
+      'Yes. If Builder, Hosting, or Login is degraded on <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a>, wait or follow Base44’s incident notes first.',
+  },
+  {
+    question: 'Where are official troubleshooting docs?',
+    answer:
+      '<a href="https://docs.base44.com/Community-and-support/Troubleshooting" rel="noopener noreferrer" target="_blank">Docs troubleshooting</a> covers publish, blank screen, domain pending, and SSL. We complement that with hands-on isolation — we do not replace it.',
+  },
+  {
+    question: 'Can you help with custom domains?',
+    answer:
+      'Yes — DNS records, Cloudflare proxy, and SSL pending are common. See <a href="/custom-domains">/custom-domains</a> and Base44’s <a href="https://docs.base44.com/Setting-up-your-app/Setting-up-your-custom-domain" rel="noopener noreferrer" target="_blank">domain docs</a>.',
+  },
+  {
+    question: 'Do you invent testimonials or metrics?',
+    answer: 'No. Proof is process specificity and clear writing — not fake logos or rescue counts.',
+  },
+  {
+    question: 'What is FixTheBase?',
+    answer:
+      '<a href="https://fixthebase.com" rel="noopener noreferrer" target="_blank">FixTheBase</a> is a related tool from the same builder. Studio diagnostic work lives on base44expert.com.',
+  },
+  {
+    question: 'How do you stay current with Base44 changes?',
+    answer:
+      'We mirror the official product changelog via RSS when the build can fetch it (<a href="/updates">/updates</a>) and always link <a href="https://docs.base44.com/changelog/product" rel="noopener noreferrer" target="_blank">docs.base44.com/changelog/product</a>. We never invent changelog titles.',
+  },
+  {
+    question: 'Will you ask for passwords in the first email?',
+    answer:
+      'No. Do not send passwords or API keys in the diagnostic form. Sensitive access only after we reply, via a channel you approve.',
+  },
+]
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer.replace(/<[^>]+>/g, ''),
+    },
+  })),
+}
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
+    { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://base44expert.com/faq' },
+  ],
+}
+---
+
+<Layout
+  title="FAQ — Base44 Expert"
+  description="FAQ for Base44 Expert: affiliation, scope, diagnostic mailto, status checks, domains, and changelog policy."
+  jsonLd={[faqJsonLd, breadcrumb]}
+>
+  <main id="main">
+    <section class="section-padding">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl sm:text-5xl text-ink mb-8">Frequently asked questions</h1>
+        <FaqList items={items} />
+        <p class="mt-10">
+          <a href="/start" class="btn-primary">Start a diagnostic</a>
+        </p>
+      </div>
+    </section>
+  </main>
+</Layout>

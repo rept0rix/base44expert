@@ -1,155 +1,72 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import Nav from '../components/Nav.astro'
-import Footer from '../components/Footer.astro'
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Base44 Expert', item: 'https://base44expert.com/base44-expert' },
+  ],
+}
 ---
 
-<Layout 
-  title="Base44 Expertise - Base44 Expert"
-  description="We help teams fix publish errors, set up custom domains, and solve production issues with Base44 apps. Deep expertise in Base44 architecture and quirks."
+<Layout
+  title="Base44 Expert studio — why we only unstick Base44"
+  description="Independent Base44 specialist studio: diagnostic-first unstick for publish, domains, schema, and production. Not a marketplace. Not greenfield builds."
+  jsonLd={breadcrumb}
 >
-  <Nav />
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-b from-slate-50 to-white py-16 sm:py-24">
+  <main id="main">
+    <section class="section-padding border-b border-line">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-6 text-balance">
-          Why we only do Base44
-        </h1>
-        <p class="text-xl sm:text-2xl text-slate-600 leading-relaxed max-w-3xl">
-          Base44 is powerful but not always predictable. We've debugged enough Base44 apps to recognize the patterns before we even look at your logs.
+        <h1 class="text-4xl sm:text-5xl text-ink mb-6 max-w-3xl text-balance">Why this studio only does Base44 unstick work</h1>
+        <p class="text-lg text-stone max-w-2xl leading-relaxed">
+          Base44 is powerful and sometimes opaque. We focus on the stuck moments after the vibe-coding rush —
+          not on hiring marketplaces or greenfield packages.
         </p>
       </div>
     </section>
 
-    <!-- What Makes Base44 Tricky -->
-    <section class="section-padding bg-white">
+    <section class="section-padding" aria-labelledby="tricky-heading">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-12">
-          What makes Base44 tricky
-        </h2>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div>
-            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">
-              Entity schemas
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              Base44 generates schemas from your descriptions, which is fast when it works. When your data doesn't match expectations, you get vague errors or silently missing records. We know how to read those schemas, find mismatches, and fix them without rebuilding.
+        <h2 id="tricky-heading" class="text-3xl text-ink mb-10">What makes Base44 tricky</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="card-panel">
+            <h3 class="font-display text-xl mb-2">Entity schemas</h3>
+            <p class="text-sm text-stone leading-relaxed">
+              Generated schemas move fast until fields drift. Missing records and vague validation usually mean a mismatch, not “random AI.”
             </p>
           </div>
-
-          <div>
-            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">
-              Connector configuration
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              OAuth flows, API credentials, webhook endpoints—Base44 connectors handle a lot behind the scenes. When they break, the errors don't always point to the actual problem. We've worked through enough failed connector setups to know where to look.
+          <div class="card-panel">
+            <h3 class="font-display text-xl mb-2">Publish vs live</h3>
+            <p class="text-sm text-stone leading-relaxed">
+              Success UI with stale live output, failed builds, or blank screens after a change need log isolation — not another prompt.
             </p>
           </div>
-
-          <div>
-            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">
-              Deployment and publish
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              Works in preview, fails when you publish. Or it publishes but changes don't appear. Usually caching, environment variables, or build step ordering. We check your build logs and configurations to isolate what's failing.
+          <div class="card-panel">
+            <h3 class="font-display text-xl mb-2">Domains &amp; SSL</h3>
+            <p class="text-sm text-stone leading-relaxed">
+              Works on the Base44 host, fails on yours: DNS, proxy, certificate pending. Complement official docs with hands-on checks.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Why We Focus -->
-    <section class="section-padding bg-slate-50">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-8">
-          Why we focus on Base44
-        </h2>
-        <div class="space-y-6 text-lg text-slate-600 leading-relaxed">
-          <p>
-            We built <a href="https://fixthebase.com" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline hover:text-teal-800">FixTheBase</a>, a tool that helps people generate working Base44 schemas and queries. While building it, we ran into every edge case and error message Base44 can throw. That's the expertise we bring when we help you debug your app.
-          </p>
-          <p>
-            Most developers use Base44 for one project and then move on. We've worked on dozens of Base44 apps, which means we've seen the same problems repeat. We know what's likely to be wrong before we even look at your logs.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section-padding bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-12">
-          Common questions
-        </h2>
-        <div class="space-y-8">
-          <div class="border-l-4 border-teal-700 pl-6">
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">
-              Do you teach Base44?
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              No. If you're learning Base44, start with the documentation or use <a href="https://fixthebase.com" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline hover:text-teal-800">FixTheBase</a> to generate schemas. We help when you're stuck on a specific technical problem, not when you need training.
-            </p>
-          </div>
-
-          <div class="border-l-4 border-teal-700 pl-6">
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">
-              Can you build my Base44 app for me?
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              No. We solve blockers in apps you've already built. If you need someone to build the app, hire a developer. If your app is built but won't publish or go live, that's when we can help.
-            </p>
-          </div>
-
-          <div class="border-l-4 border-teal-700 pl-6">
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">
-              How long does it take to fix an issue?
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              Most fixes take less than an hour once we know what the problem is. Diagnosis usually takes another hour or two depending on how complex your setup is. Some issues are faster—like DNS record mistakes—and some are slower if your schema needs restructuring.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section-padding bg-slate-50">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">
-          Need Base44 expertise?
-        </h2>
-        <p class="text-xl text-slate-600 mb-8">
-          Tell us what's blocking you and we'll take a look.
+    <section class="section-padding border-t border-line bg-bg-2" aria-labelledby="diff-heading">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 id="diff-heading" class="text-3xl text-ink mb-6">How we differ</h2>
+        <ul class="space-y-4 text-stone max-w-2xl">
+          <li><strong class="text-ink">Single studio</strong> — not a vetted marketplace of many freelancers.</li>
+          <li><strong class="text-ink">Diagnostic-first</strong> — status, logs, DNS, schema before scoped fix.</li>
+          <li><strong class="text-ink">Honest proof</strong> — process and specificity; no invented client logos or rescue counts.</li>
+          <li><strong class="text-ink">Official sources cited</strong> — changelog, status, troubleshooting docs.</li>
+        </ul>
+        <p class="mt-10 flex flex-wrap gap-3">
+          <a href="/start" class="btn-primary">Start a diagnostic</a>
+          <a href="/work" class="btn-secondary">Process</a>
         </p>
-        <a 
-          href="/contact" 
-          class="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold rounded-lg text-white bg-teal-700 hover:bg-teal-800 transition-colors shadow-lg shadow-teal-700/20"
-        >
-          Get help
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
       </div>
     </section>
   </main>
-
-  <Footer />
 </Layout>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="Schema drift diagram">
+  <rect width="320" height="200" rx="16" fill="#1A1816"/>
+  <g font-family="IBM Plex Mono, monospace" font-size="10">
+    <rect x="24" y="40" width="110" height="120" rx="12" fill="#0F0E0E" stroke="#312F2F" stroke-width="2"/>
+    <text x="40" y="68" fill="#8E8E8E">entity.v1</text>
+    <rect x="40" y="80" width="78" height="18" rx="4" fill="#312F2F"/>
+    <rect x="40" y="106" width="62" height="18" rx="4" fill="#312F2F"/>
+    <rect x="40" y="132" width="70" height="18" rx="4" fill="#312F2F"/>
+    <path d="M146 100 H174" stroke="#FF6A00" stroke-width="2.5" fill="none"/>
+    <text x="160" y="92" text-anchor="middle" fill="#FF6A00" font-size="18">≠</text>
+    <rect x="186" y="40" width="110" height="120" rx="12" fill="rgba(255,106,0,0.08)" stroke="#FF6A00" stroke-width="2"/>
+    <text x="202" y="68" fill="#FF8F5C">entity.v?</text>
+    <rect x="202" y="80" width="78" height="18" rx="4" fill="rgba(255,106,0,0.25)"/>
+    <rect x="202" y="106" width="48" height="18" rx="4" fill="#312F2F"/>
+    <rect x="202" y="132" width="86" height="18" rx="4" fill="rgba(255,106,0,0.35)"/>
+  </g>
+</svg>

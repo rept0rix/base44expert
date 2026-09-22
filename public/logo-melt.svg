@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" role="img" aria-label="Molten mark">
+  <defs>
+    <linearGradient id="molten" x1="18%" y1="0%" x2="82%" y2="100%">
+      <stop offset="0%" stop-color="#FFD0B0"/>
+      <stop offset="28%" stop-color="#FF8F5C"/>
+      <stop offset="62%" stop-color="#FF6A00"/>
+      <stop offset="100%" stop-color="#A83800"/>
+    </linearGradient>
+    <linearGradient id="hotCore" x1="40%" y1="20%" x2="60%" y2="90%">
+      <stop offset="0%" stop-color="#FFF0E0" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FF6A00" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="lava" x="-35%" y="-35%" width="170%" height="170%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.032 0.075" numOctaves="3" seed="11" result="noise">
+        <animate attributeName="baseFrequency" values="0.032 0.075;0.048 0.11;0.026 0.065;0.032 0.075" dur="3.6s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Abstract molten blob — not Base44 Inc trademark -->
+  <g filter="url(#lava)">
+    <path
+      fill="url(#molten)"
+      filter="url(#softGlow)"
+      d="M60 8
+         C84 8 104 22 106 46
+         C108 64 96 78 86 88
+         C78 96 74 108 70 122
+         C66 136 63 146 60 154
+         C57 146 54 136 50 122
+         C46 108 42 96 34 88
+         C24 78 12 64 14 46
+         C16 22 36 8 60 8Z"
+    >
+      <animate
+        attributeName="d"
+        dur="2.8s"
+        repeatCount="indefinite"
+        values="
+M60 8 C84 8 104 22 106 46 C108 64 96 78 86 88 C78 96 74 108 70 122 C66 136 63 146 60 154 C57 146 54 136 50 122 C46 108 42 96 34 88 C24 78 12 64 14 46 C16 22 36 8 60 8Z;
+M58 6 C88 10 108 26 104 50 C102 68 92 80 82 92 C74 102 72 114 68 128 C64 142 61 150 60 156 C59 150 56 142 52 128 C48 114 46 102 38 92 C28 80 16 68 16 50 C12 26 32 6 58 6Z;
+M62 10 C80 4 100 18 108 44 C112 62 98 76 88 86 C80 94 76 108 72 122 C68 136 65 146 60 154 C55 146 52 136 48 122 C44 108 40 94 32 86 C22 76 10 60 14 42 C18 18 40 14 62 10Z;
+M60 8 C84 8 104 22 106 46 C108 64 96 78 86 88 C78 96 74 108 70 122 C66 136 63 146 60 154 C57 146 54 136 50 122 C46 108 42 96 34 88 C24 78 12 64 14 46 C16 22 36 8 60 8Z"
+      />
+    </path>
+  </g>
+  <ellipse cx="44" cy="36" rx="18" ry="11" fill="url(#hotCore)"/>
+  <path fill="#FF8F5C" opacity="0.55" d="M50 58 C64 66 76 82 72 106 C60 94 54 74 50 58Z"/>
+  <!-- purposeful drip tongues -->
+  <path fill="#FF6A00" opacity="0.85" d="M56 118 C58 130 59 142 60 152 C61 142 62 130 64 118 C62 120 58 120 56 118Z">
+    <animate attributeName="d" dur="2.2s" repeatCount="indefinite" values="
+M56 118 C58 130 59 142 60 152 C61 142 62 130 64 118 C62 120 58 120 56 118Z;
+M55 116 C57 134 58 146 60 156 C62 146 63 134 65 116 C62 118 58 118 55 116Z;
+M56 118 C58 130 59 142 60 152 C61 142 62 130 64 118 C62 120 58 120 56 118Z"/>
+  </path>
+</svg>

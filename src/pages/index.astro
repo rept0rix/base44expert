@@ -1,179 +1,316 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import Nav from '../components/Nav.astro'
-import Footer from '../components/Footer.astro'
+import ChangelogFeed from '../components/ChangelogFeed.astro'
+import FaqList from '../components/FaqList.astro'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Base44 Expert',
+  url: 'https://base44expert.com',
+  description:
+    'Independent specialist studio that unsticks stuck Base44 apps: publish errors, custom domains, schema mismatches, and production blockers.',
+  email: 'na0ryank0@gmail.com',
+  areaServed: 'Worldwide',
+  knowsAbout: [
+    'Base44',
+    'Base44 publish errors',
+    'Base44 custom domains',
+    'Base44 entity schemas',
+    'Base44 production debugging',
+  ],
+  sameAs: ['https://fixthebase.com'],
+}
+
+const faqTeaser = [
+  {
+    question: 'Are you affiliated with Base44 or Wix?',
+    answer:
+      'No. Base44 Expert is an independent studio. For platform outages, check <a href="https://status.base44.com" rel="noopener noreferrer" target="_blank">status.base44.com</a> and the official docs.',
+  },
+  {
+    question: 'Do you build new Base44 apps from scratch?',
+    answer:
+      'No. We unstick existing apps - publish, domains, data, production. We do not sell greenfield builds as a productized service.',
+  },
+  {
+    question: 'How do I start?',
+    answer:
+      'Use the <a href="/start">diagnostic form</a>. It opens your email client with a structured case to na0ryank0@gmail.com - no third-party form backend.',
+  },
+]
+
+const unstick = [
+  {
+    title: 'Deploy said success. Live did not move.',
+    body: 'Build failed, blank screen after publish, or a stale live URL. We start with status, then logs.',
+    href: '/base44-not-working',
+    flip: false,
+    viz: '/viz/fault-publish.svg',
+    vizAlt: 'Diagram: build reports success while live stays unchanged',
+  },
+  {
+    title: 'Works on Base44. Breaks on yours.',
+    body: 'DNS, Cloudflare proxy, certificate still pending. Custom domain stuck in limbo.',
+    href: '/custom-domains',
+    flip: true,
+    viz: '/viz/fault-domain.svg',
+    vizAlt: 'Diagram: DNS to proxy to SSL still pending',
+  },
+  {
+    title: 'Schema drifted after an AI edit.',
+    body: 'Records missing, validation errors you cannot trace, entity fields that no longer match production.',
+    href: null,
+    flip: false,
+    wide: true,
+    viz: '/viz/fault-schema.svg',
+    vizAlt: 'Diagram: entity schema version mismatch',
+  },
+  {
+    title: 'Fine in preview. Dead in production.',
+    body: 'Connectors, env, assets, or auth that only fail once the app is live.',
+    href: null,
+    flip: true,
+    viz: '/viz/fault-preview.svg',
+    vizAlt: 'Diagram: preview healthy, production breaks',
+  },
+]
+
+const faultPhrases = [
+  'publish success, live unchanged',
+  'SSL pending',
+  'schema mismatch',
+  'blank after deploy',
+  'preview fine, prod broken',
+  'entity field drift',
+  'DNS not propagating',
+  'connector timeout',
+]
 ---
 
-<Layout 
-  title="Base44 Expert - Specialist Studio for Stuck Base44 Apps"
-  description="We solve publish errors, custom domain setup, and production blockers. A specialist studio that gets your Base44 app unstuck and shipped."
+<Layout
+  title="Base44 Expert - Unstick stuck Base44 apps"
+  description="Specialist studio for Base44 publish errors, custom domain SSL, schema mismatches, and preview-vs-production blockers. Start a diagnostic."
+  jsonLd={jsonLd}
 >
-  <Nav />
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-b from-slate-50 to-white section-padding">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-sm font-medium mb-6">
-            <span class="w-2 h-2 rounded-full bg-teal-500"></span>
-            Base44 Specialist Studio
-          </div>
-          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6 text-balance">
-            Your Base44 app is stuck. We get it unstuck.
-          </h1>
-          <p class="text-xl sm:text-2xl text-slate-600 mb-8 leading-relaxed">
-            Publish errors. Custom domains. Production blockers. We dig into logs, schemas, and configs to find what's stopping your Base44 app from shipping.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a 
-              href="/contact" 
-              class="inline-flex justify-center items-center px-8 py-4 text-base font-semibold rounded-lg text-white bg-teal-700 hover:bg-teal-800 transition-colors shadow-lg shadow-teal-700/20"
-            >
-              Tell us what's broken
-            </a>
-            <a 
-              href="/work" 
-              class="inline-flex justify-center items-center px-8 py-4 text-base font-semibold rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors border border-slate-200"
-            >
-              See how we work
-            </a>
-          </div>
-        </div>
+  <main id="main">
+    <!-- Hero: molten mark drips, settles into living mark + wordmark -->
+    <section class="hero-melt" aria-labelledby="hero-heading">
+      <div class="melt-stage" aria-hidden="true">
+        <div class="melt-glow-pulse"></div>
+        <img class="lava-veins" src="/viz/lava-veins.svg" alt="" width="800" height="600" />
+        <img class="melt-blob" src="/logo-melt.svg" alt="" width="300" height="400" />
+        <div class="melt-liquid"></div>
+        <div class="melt-drip"></div>
+        <div class="melt-drip-b"></div>
+        <div class="melt-drip-c"></div>
+        <div class="melt-puddle"></div>
+        <div class="melt-ember"></div>
+        <p class="melt-wordmark">Base44 <span>Expert</span></p>
       </div>
-    </section>
-
-    <!-- Problems Section -->
-    <section class="section-padding bg-white">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">What we solve</h2>
-        <p class="text-lg text-slate-600 mb-12 max-w-2xl">
-          Base44 builds work until they don't. We fix the errors and blockers that stop apps from reaching production.
+      <div class="hero-content max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-6xl text-ink max-w-3xl text-balance mb-5 leading-[1.05]">
+          Stuck Base44 apps thaw under heat.
+        </h1>
+        <p class="text-lg sm:text-xl text-muted max-w-xl leading-relaxed mb-8">
+          Publish lies. Domains stall. Schema drifts. We find the fault line and fix it.
         </p>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div class="border border-slate-200 rounded-xl p-8 hover:border-teal-700 transition-colors bg-white">
-            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">Publish errors</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Hit publish, got an error. Or it says published but nothing changed. We check build logs, entity schemas, and connector configs to isolate the cause.
-            </p>
-          </div>
-
-          <div class="border border-slate-200 rounded-xl p-8 hover:border-teal-700 transition-colors bg-white">
-            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">Custom domain setup</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Works on the Base44 URL, breaks on your domain. We trace DNS records, SSL certs, and redirect chains to get your domain pointed correctly.
-            </p>
-          </div>
-
-          <div class="border border-slate-200 rounded-xl p-8 hover:border-teal-700 transition-colors bg-white">
-            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">Entity schema problems</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Data not showing up, or validation errors you can't trace. We work through schema definitions and queries to find the mismatch.
-            </p>
-          </div>
-
-          <div class="border border-slate-200 rounded-xl p-8 hover:border-teal-700 transition-colors bg-white">
-            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-3">Production blockers</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Worked in preview, breaks in production. API timeouts, assets not loading, forms not submitting. We dig into logs and configurations to isolate it.
-            </p>
-          </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="/start" class="btn-primary">Start a diagnostic</a>
+          <a href="/work" class="btn-secondary">See the process</a>
         </div>
       </div>
     </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="section-padding bg-slate-50">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto text-center mb-16">
-          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">We only do Base44</h2>
-          <p class="text-lg text-slate-600">
-            Not a generalist agency. Not a marketplace. A specialist studio focused entirely on Base44 architecture, quirks, and fixes.
+    <!-- Fault-line phrases: static chips with heat shimmer (no marquee) -->
+    <div class="error-phrases">
+      <ul class="error-phrases__list" role="list">
+        {faultPhrases.map((phrase) => (
+          <li>{phrase}</li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Scroll-scrub sticky heat band with morphing liquid orb -->
+    <section class="scrub-sticky" aria-labelledby="scrub-heading">
+      <div class="scrub-sticky__pin">
+        <div class="scrub-orb" aria-hidden="true"></div>
+        <div class="scrub-liquid" aria-hidden="true"></div>
+        <div class="scrub-copy">
+          <h2 id="scrub-heading" class="font-display text-3xl sm:text-5xl text-ink text-balance mb-4 leading-[1.08]">
+            Heat finds the fault line.
+          </h2>
+          <p class="text-muted leading-relaxed">
+            Status, logs, DNS, schema. Isolate first. Fix second. Explain always.
           </p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-teal-700 flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-slate-900 mb-2">Diagnostic first</h3>
-            <p class="text-slate-600">
-              We don't guess. We read logs, trace schemas, and test endpoints until we know exactly what's broken.
-            </p>
-          </div>
-
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-teal-700 flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-slate-900 mb-2">Fix and explain</h3>
-            <p class="text-slate-600">
-              You get the fix plus context: what broke, why it broke, and how to avoid it next time.
-            </p>
-          </div>
-
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-teal-700 flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-slate-900 mb-2">Fast turnaround</h3>
-            <p class="text-slate-600">
-              Most issues resolved within 48 hours. Complex cases may take longer, but you'll know upfront.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="section-padding bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">
-          Ready to unstick your Base44 app?
+    <!-- What we unstick: asymmetric zig-zag + fault diagrams -->
+    <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="unstick-heading">
+      <div
+        class="parallax-glow pointer-events-none absolute -right-24 top-10 w-72 h-72 rounded-full opacity-40"
+        aria-hidden="true"
+        style="background: radial-gradient(circle, rgba(255,106,0,0.22), transparent 70%); filter: blur(12px);"
+      ></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <h2 id="unstick-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-12 max-w-2xl">
+          What we unstick
         </h2>
-        <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-          Tell us what's broken and we'll take a look. No cost for the initial diagnostic.
+        <div class="flex flex-col gap-6 md:gap-8">
+          {unstick.map((row) => (
+            row.href ? (
+              <a href={row.href} class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
+                <div class="unstick-meta">
+                  <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
+                  <p class="text-muted leading-relaxed max-w-prose mt-3">{row.body}</p>
+                </div>
+                <img class="unstick-viz" src={row.viz} alt={row.vizAlt} width="320" height="200" loading="lazy" />
+              </a>
+            ) : (
+              <div class={`unstick-row${row.flip ? ' is-flip' : ''}${row.wide ? ' is-wide' : ''}`}>
+                <div class="unstick-meta">
+                  <h3 class="font-display text-2xl sm:text-3xl text-ink leading-tight">{row.title}</h3>
+                  <p class="text-muted leading-relaxed max-w-prose mt-3">{row.body}</p>
+                </div>
+                <img class="unstick-viz" src={row.viz} alt={row.vizAlt} width="320" height="200" loading="lazy" />
+              </div>
+            )
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <ChangelogFeed limit={5} />
+
+    <!-- Process strip -->
+    <section class="section-padding border-t border-line" aria-labelledby="method-heading">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 id="method-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-10">
+          Diagnostic first. Then the fix.
+        </h2>
+        <div class="process-strip view-reveal-delay">
+          {[
+            { t: 'Intake', d: 'You describe the stuck moment, app URL, and last change.' },
+            { t: 'Isolate', d: 'Status, logs, DNS, schema, connectors - find the real fault line.' },
+            { t: 'Fix', d: 'Scoped change in place. No rebuild-everything by default.' },
+            { t: 'Explain', d: 'What broke, why, and how to avoid the same trap next time.' },
+          ].map((s) => (
+            <div class="process-cell">
+              <h3 class="font-display text-xl text-ink mb-2">{s.t}</h3>
+              <p class="text-sm text-muted leading-relaxed">{s.d}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mt-8">
+          <a href="/work" class="link-draw text-sm">Full process</a>
         </p>
-        <a 
-          href="/contact" 
-          class="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold rounded-lg text-white bg-teal-700 hover:bg-teal-800 transition-colors shadow-lg shadow-teal-700/20"
-        >
-          Get in touch
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
+      </div>
+    </section>
+
+    <!-- Blog teaser -->
+    <section class="section-padding border-t border-line bg-bg-2" aria-labelledby="blog-heading">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between gap-4 mb-8">
+          <h2 id="blog-heading" class="view-reveal text-3xl sm:text-4xl text-ink">Latest notes</h2>
+          <a href="/blog" class="link-draw text-sm text-muted shrink-0">All posts</a>
+        </div>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            { href: '/blog/base44-not-working', title: 'Base44 not working: a calm triage order', d: 'Status first, then publish, domain, and schema.' },
+            { href: '/blog/base44-publish-error', title: 'When publish says success but live is unchanged', d: 'Stale cache, failed build, wrong target.' },
+            { href: '/blog/base44-custom-domain-ssl', title: 'Custom domain SSL still pending', d: 'DNS, proxy, and certificate timing.' },
+            { href: '/blog/base44-changelog-what-changed', title: 'How to read the Base44 changelog', d: 'Product RSS, status, and what it means for stuck apps.' },
+          ].map((p) => (
+            <li>
+              <a href={p.href} class="card-panel block h-full hover:border-accent/40 transition-colors group">
+                <h3 class="font-display text-xl text-ink mb-2 group-hover:text-accent transition-colors">{p.title}</h3>
+                <p class="text-sm text-muted">{p.d}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ teaser -->
+    <section class="section-padding border-t border-line" aria-labelledby="faq-teaser-heading">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 id="faq-teaser-heading" class="view-reveal text-3xl sm:text-4xl text-ink mb-8">Quick answers</h2>
+        <FaqList items={faqTeaser} idPrefix="home-faq" />
+        <p class="mt-6 text-sm">
+          <a href="/faq" class="link-draw">Full FAQ</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FixTheBase aside -->
+    <section class="section-padding border-t border-line" aria-labelledby="fixthebase-heading">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <aside class="glow-aside flex flex-col md:flex-row md:items-center md:justify-between gap-6 view-reveal">
+          <div>
+            <h2 id="fixthebase-heading" class="text-3xl text-ink mb-2">FixTheBase</h2>
+            <p class="text-muted max-w-xl text-sm leading-relaxed">
+              A related Base44-oriented tool from the same builder. Studio rescue work stays on Base44 Expert;
+              FixTheBase is a separate product surface.
+            </p>
+          </div>
+          <a href="https://fixthebase.com" class="btn-secondary shrink-0" rel="noopener noreferrer" target="_blank">
+            Visit FixTheBase
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section-padding border-t border-line relative overflow-hidden" aria-labelledby="cta-heading">
+      <div
+        class="parallax-glow pointer-events-none absolute inset-0 opacity-60"
+        aria-hidden="true"
+        style="background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255,106,0,0.2), transparent 60%);"
+      ></div>
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 id="cta-heading" class="view-reveal font-display text-3xl sm:text-4xl mb-4 text-ink">Ready to unstick it?</h2>
+        <p class="text-muted mb-8 leading-relaxed max-w-prose mx-auto">
+          Open a structured diagnostic email. No Formspree. No invented ticket queue - just a clear case for us to reply to.
+        </p>
+        <a href="/start" class="btn-primary">Start a diagnostic</a>
       </div>
     </section>
   </main>
-
-  <Footer />
 </Layout>
+
+<script>
+  // IntersectionObserver fallback when CSS scroll-driven animations are unsupported.
+  // No window scroll listeners; no React state.
+  const supportsViewTimeline =
+    typeof CSS !== 'undefined' &&
+    typeof CSS.supports === 'function' &&
+    CSS.supports('animation-timeline: view()')
+
+  const reduce =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (!supportsViewTimeline && !reduce) {
+    const targets = document.querySelectorAll('.view-reveal, .view-reveal-delay')
+    if (targets.length && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.setAttribute('data-inview', '')
+              io.unobserve(entry.target)
+            }
+          }
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -8% 0px' }
+      )
+      targets.forEach((el) => io.observe(el))
+    } else {
+      targets.forEach((el) => el.setAttribute('data-inview', ''))
+    }
+  }
+</script>
