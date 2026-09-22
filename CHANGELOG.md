@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ## [v0.4.2] — 2026-09-22
+- `/updates`: DELETED public studio ship-notes aside that dumped CHANGELOG.md engineering bullets (RSS h3 / content:encoded / guid dedupe) onto visitors — page is Base44 product/dev feed only; removed `getStudioShipNotes` helper
 - `/start` intake: practical tips instead of scope-refusal; open stuck type (free text + optional chips, not required 4-radio cage); stronger SEO H1/lead; drop contact/status footer line
 - Unstick scrub motion: always-on liquid pulse/glow (even mid-sticky), scrub sticky trap lowered (~115vh), scroll scrub no longer freezes lava at mid-opacity
 - Home scrub / heat band: brighter lava (#FF6A00+), higher opacity, stronger glow, readable copy scrim — fixes “invisible” fault-line section

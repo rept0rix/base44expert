@@ -1,6 +1,3 @@
-import fs from 'node:fs'
-import path from 'node:path'
-
 export type ChangelogKind = 'product' | 'developer'
 
 export type ChangelogItem = {
@@ -229,13 +226,7 @@ export async function getChangelogItems(limit = 6): Promise<{
   }
 }
 
-/** Last few studio ship notes from CHANGELOG.md (not Base44 product). */
-export function getStudioShipNotes(_limit = 3): string[] {
-  // Never expose CHANGELOG engineering bullets on the public site.
-  return []
-}
-
-/** Studio blog posts for “From the studio” (not CHANGELOG ship notes). */
+/** Studio blog posts for “From the studio” on /updates — never CHANGELOG.md. */
 export function getStudioBlogNotes(): { href: string; title: string; blurb: string }[] {
   return [
     {
