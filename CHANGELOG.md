@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## [v0.4.2] — 2026-10-23 (patch, live)
+- Add Google Analytics 4 tag (G-49X6WRGNED) to base Layout head
+
 ## [v0.4.1] — 2026-09-22
 - Updates feed: prefer first `<h3>` inside RSS `content:encoded` as title (RSS `<title>` is often just a date); strip HTML summary (~160 chars); parse category + guid; dedupe by guid
 - `/updates` + ChangelogFeed show real headline, summary, category chip, date; clear empty-state copy when RSS fallback
