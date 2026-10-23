@@ -59,6 +59,14 @@ const ogURL = new URL(ogImage, Astro.site).toString()
     <title>{title}</title>
     {jsonLd && <JsonLd data={jsonLd} />}
     <slot name="head" />
+    <!-- Google Analytics 4 -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-49X6WRGNED"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-49X6WRGNED');
+    </script>
   </head>
   <body class="min-h-screen flex flex-col bg-bg text-ink antialiased">
     <a href="#main" class="skip-link">Skip to main content</a>
