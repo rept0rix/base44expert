@@ -4,8 +4,8 @@
 > English studio brand — not a personal-name agency. Not affiliated with Base44 / Wix.
 
 ## Who we are
-- Studio site: https://base44expert.com
-- Contact: mailto:na0ryank0@gmail.com
+- Studio site: https://www.base44expert.com
+- Contact: TODO — studio email placeholder
 - Related tool: https://fixthebase.com
 - Footer credit may include “Built by Naor Yanko”; public face is the studio.
 
@@ -22,14 +22,14 @@
 - Official Base44 support (link users to docs and status when appropriate)
 
 ## Key URLs
-- Start diagnostic: https://base44expert.com/start
-- Process: https://base44expert.com/work
-- Updates (changelog mirror): https://base44expert.com/updates
-- Blog: https://base44expert.com/blog
-- FAQ: https://base44expert.com/faq
-- Base44 not working: https://base44expert.com/base44-not-working
-- Custom domains: https://base44expert.com/custom-domains
-- Contact: https://base44expert.com/contact
+- Start diagnostic: https://www.base44expert.com/start/
+- Process: https://www.base44expert.com/work/
+- Updates (changelog mirror): https://www.base44expert.com/updates/
+- Blog: https://www.base44expert.com/blog/
+- FAQ: https://www.base44expert.com/faq/
+- Base44 not working: https://www.base44expert.com/base44-not-working/
+- Custom domains: https://www.base44expert.com/custom-domains/
+- Contact: https://www.base44expert.com/contact/
 
 ## Official Base44 sources we cite
 - Product changelog: https://docs.base44.com/changelog/product
