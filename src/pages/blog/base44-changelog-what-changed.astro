@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro'
 const title = "How to read the Base44 changelog when your app feels stuck"
 const description = "Use the official Base44 product changelog and RSS; never invent titles. Pair with status."
 const datePublished = "2026-09-04"
-const url = 'https://base44expert.com/blog/base44-changelog-what-changed'
+const url = 'https://www.base44expert.com/blog/base44-changelog-what-changed'
 
 const jsonLd = [
   {
@@ -14,7 +14,7 @@ const jsonLd = [
     description,
     datePublished,
     author: { '@type': 'Organization', name: 'Base44 Expert' },
-    publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://base44expert.com' },
+    publisher: { '@type': 'Organization', name: 'Base44 Expert', url: 'https://www.base44expert.com' },
     mainEntityOfPage: url,
     url,
   },
@@ -22,8 +22,8 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://base44expert.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://base44expert.com/blog' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.base44expert.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.base44expert.com/blog' },
       { '@type': 'ListItem', position: 3, name: title, item: url },
     ],
   },

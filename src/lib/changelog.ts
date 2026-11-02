@@ -154,7 +154,7 @@ async function tryFetchRss(url: string): Promise<string | null> {
     const res = await fetch(url, {
       headers: {
         Accept: 'application/rss+xml, application/xml, text/xml, */*',
-        'User-Agent': 'Base44ExpertBot/1.0 (+https://base44expert.com)',
+        'User-Agent': 'Base44ExpertBot/1.0 (+https://www.base44expert.com)',
       },
       signal: AbortSignal.timeout(12000),
     })

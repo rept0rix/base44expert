@@ -1,0 +1,30 @@
+name: Notify IndexNow after production deployment
+
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  notify-indexnow:
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      (github.event.deployment.environment == 'Production' || github.event.deployment.environment == 'production')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the deployed revision and history
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+
+      - name: Submit changed URLs to IndexNow
+        env:
+          DEPLOY_SHA: ${{ github.event.deployment.sha }}
+        run: npm run postdeploy:indexnow -- "${DEPLOY_SHA}^" "${DEPLOY_SHA}"

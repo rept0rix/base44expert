@@ -1,4 +1,13 @@
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: *
 Allow: /
 
-Sitemap: https://base44expert.com/sitemap-index.xml
+Sitemap: https://www.base44expert.com/sitemap-index.xml
